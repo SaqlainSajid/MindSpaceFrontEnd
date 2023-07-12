@@ -6,7 +6,7 @@ export default function App() {
   return (
     <SafeAreaProvider style={styles.container}>
       <SafeAreaView>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text>Welcome to MindSpace</Text>
         <StatusBar style="auto" />
       </SafeAreaView>
     </SafeAreaProvider>
