@@ -1,11 +1,18 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text} from 'react-native';
+import { Button, StyleSheet, Text} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 import * as Font from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { creatBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 SplashScreen.preventAutoHideAsync();
+
+const Stack = createStackNavigator();
+const Tab = creatBottomTabNavigator();
 
 export default function App() {
 
@@ -46,7 +53,14 @@ export default function App() {
     onLayout={onLayout}>
       <SafeAreaView>
 
-        <Text style={styles.text}>Welcome to MindSpace</Text>
+        <Text style={styles.text}>What would you like to do today?</Text>
+        <Text>Continue Chatting</Text>
+        <Button title="Start Where you left..."/>
+        <Button title="v"/>
+        <Button title="Start your day with calmness"/>
+        <Button title="See what's buzzing in the topic"/>
+        <Button title="Book a session with professionals"/>
+        <Button title="Something on your mind?"/>
         <StatusBar style="auto" />
 
       </SafeAreaView>
