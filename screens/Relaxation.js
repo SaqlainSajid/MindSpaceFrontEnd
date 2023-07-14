@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 const Discussion = props => {
     return (
         <View>
-            <Text>Morning Mantra Card</Text>
+            <Button title="Morning Mantra" onPress={()=>{props.navigation.navigate('MorningMantra')}}/>
             <Text>Anxiety Card</Text>
             <Text>Sleep Meditation Card</Text>
             <Text>Unwind your mind</Text>
