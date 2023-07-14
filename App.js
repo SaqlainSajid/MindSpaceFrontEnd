@@ -7,12 +7,77 @@ import { useCallback, useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { creatBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import MySpace from './screens/MySpace';
+import Relaxation from './screens/Relaxation';
+import BookSession from './screens/BookSession';
+import Vent from './screens/Vent';
+import Discussion from './screens/Discussion';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
-const Tab = creatBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="RelaxationTab" component={Relaxation} 
+      options={{
+        headerTitle:"",
+        tabBarLabel: "Relaxation",
+        tabBarIcon: () => {
+          return(
+            <MaterialCommunityIcons name="meditation" size={24} color="black"/>
+          )
+        }
+      }}/>
+      <Tab.Screen name="DiscussionTab" component={Discussion} 
+      options={{
+        headerTitle:"",
+        tabBarLabel: "Discussion",
+        tabBarIcon: () => {
+          return(
+            <Octicons name="comment-discussion" size={24} color="black"/>
+          )
+        }
+      }}/>
+      <Tab.Screen name="MySpaceTab" component={MySpace} options={{
+        headerTitle:"",
+        tabBarLabel: "MySpace",
+        tabBarIcon: () => {
+          return(
+            <MaterialCommunityIcons name="home" size={24} color="black"/>
+          )
+        }
+      }}/>
+      <Tab.Screen name="BookSessionTab" component={BookSession} options={{
+        headerTitle:"",
+        tabBarLabel: "BookSession",
+        tabBarIcon: () => {
+          return(
+            <Ionicons name="calendar-sharp" size={24} color="black"/>
+          )
+        }
+      }}/>
+      <Tab.Screen name="VentTab" component={Vent} 
+      options={{
+        headerTitle:"",
+        tabBarLabel: "Vent",
+        tabBarIcon: () => {
+          return(
+            <Ionicons name="chatbubble-ellipses-sharp" size={24} color="black"/>
+          )
+        }
+      }}/>
+    </Tab.Navigator>
+  )
+}
 
 export default function App() {
 
@@ -51,19 +116,15 @@ export default function App() {
     <SafeAreaProvider 
     style={styles.container}
     onLayout={onLayout}>
-      <SafeAreaView>
-
-        <Text style={styles.text}>What would you like to do today?</Text>
-        <Text>Continue Chatting</Text>
-        <Button title="Start Where you left..."/>
-        <Button title="v"/>
-        <Button title="Start your day with calmness"/>
-        <Button title="See what's buzzing in the topic"/>
-        <Button title="Book a session with professionals"/>
-        <Button title="Something on your mind?"/>
-        <StatusBar style="auto" />
-
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="MySpace" component={TabNavigator}/>
+          <Stack.Screen name="Relaxation" component={Relaxation} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Discussion" component={Discussion} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Vent" component={Vent} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="BookSession" component={BookSession} options={{headerBackTitle: "Back"}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
@@ -72,8 +133,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: "center",
-    alignItems: "center"
   },
   text: {
     fontFamily: "semiBold",

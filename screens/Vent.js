@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button, } from 'react-native';
 
 const Vent = props => {
     return (
         <View>
-            <Text>Hey how's it going?</Text>
-            <Text>Want to talk over call?</Text>
-            <Text>I'm a subscribed member - </Text>
+            <Button title="Hey how's it going?"/>
+            <Button title="Want to talk over call?"/>
+            <Button title="I'm a subscribed member - "/>
         </View>
     );
 }
