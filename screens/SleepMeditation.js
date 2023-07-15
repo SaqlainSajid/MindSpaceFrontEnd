@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const SleepMeditation = props => {
     return (
         <View>
-            <Text>Welcome to Anxiety Meditation</Text>
+            <Text>Welcome to Sleep Meditation</Text>
         </View>
     );
 }

@@ -6,7 +6,7 @@ const Discussion = props => {
         <View>
             <Button title="Morning Mantra" onPress={()=>{props.navigation.navigate('MorningMantra')}}/>
             <Button title="Anxiety" onPress={()=>{props.navigation.navigate('Anxiety')}}/>
-            <Text>Sleep Meditation Card</Text>
+            <Button title="SleepMeditation" onPress={()=>{props.navigation.navigate('SleepMeditation')}}/>
             <Text>Unwind your mind</Text>
             <Text>Goals</Text>
             <Text>Anger Meditation</Text>
