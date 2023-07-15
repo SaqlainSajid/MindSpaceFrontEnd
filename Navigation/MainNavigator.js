@@ -10,6 +10,7 @@ import Discussion from '../screens/Discussion';
 import Chat from '../screens/Chat';
 import Call from '../screens/Call';
 import MorningMantra from '../screens/MorningMantra';
+import Anxiety from '../screens/Anxiety';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
@@ -91,6 +92,7 @@ const MainNavigator = props => {
           <Stack.Screen name="Chat" component={Chat} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Call" component={Call} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="MorningMantra" component={MorningMantra} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Anxiety" component={Anxiety} options={{headerBackTitle: "Back"}}/>
         </Stack.Navigator>
     )
 }
