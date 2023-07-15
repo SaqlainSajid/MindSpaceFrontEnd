@@ -12,10 +12,14 @@ import Call from '../screens/Call';
 import MorningMantra from '../screens/MorningMantra';
 import Anxiety from '../screens/Anxiety';
 import SleepMeditation from '../screens/SleepMeditation.js';
+import Unwind from '../screens/Unwind';
+import Goals from '../screens/Goals'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import Anger from '../screens/Anger';
+
 
 
 
@@ -70,7 +74,7 @@ const TabNavigator = () => {
       <Tab.Screen name="VentTab" component={Vent} 
       options={{
         headerTitle:"",
-        tabBarLabel: "Vent",
+        tabBarLabel: "Chat",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
           return(
@@ -95,6 +99,9 @@ const MainNavigator = props => {
           <Stack.Screen name="MorningMantra" component={MorningMantra} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Anxiety" component={Anxiety} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="SleepMeditation" component={SleepMeditation} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Unwind" component={Unwind} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Goals" component={Goals} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Anger" component={Anger} options={{headerBackTitle: "Back"}}/>
         </Stack.Navigator>
     )
 }
