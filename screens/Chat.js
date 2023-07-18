@@ -5,7 +5,8 @@ import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 const Chat = props => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome to Chat Screen</Text>
+            <View style={styles.chatContainer}>
+            </View>
             <View style={styles.inputContainer}>
                 <Button title='voice message'/>
                 <TextInput/>
@@ -21,14 +22,16 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection: "column",
       backgroundColor: '#4464bc',
-      alignItems: "center"
     },
-    text: {
+    chatContainer: {
+      flex: 14,
       fontFamily: "semiBold",
       color: "#ffffff",
     },
     inputContainer: {
+      flex: 1,
       flexDirection: "row",
+      backgroundColor: 'white'
     }
   });
 
