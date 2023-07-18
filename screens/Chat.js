@@ -10,29 +10,31 @@ const Chat = props => {
         <SafeAreaView 
         style={styles.container} 
         edges={["right","bottom","left"]}>
-          <View style={styles.banner}>
-            <Text>You are using the free version. Talk to a</Text>
-            <Text>volunteer for 15 minutes for free!</Text>
-          </View>
-          <View style={styles.chatContainer}>
-          </View>
-          <View style={styles.inputContainer}>
-            <TouchableOpacity
-            style={styles.mediaButton} 
-            title="gallery" 
-            onPress={() => console.log("add image")}>
-              <MaterialIcons name="image" size={24} color="black"/>
-            </TouchableOpacity>
-            <TouchableOpacity
-            style={styles.mediaButton} 
-            title="voice" 
-            onPress={() => console.log("voice message")}>
-              <MaterialIcons name="keyboard-voice" size={24} color="black"/>
-            </TouchableOpacity>
-            <TextInput style={styles.textInput}/>
-          </View>
-          <View style={styles.timerContainer}>
-            <Text style={styles.text}>0:14:59</Text>
+          <View style={styles.chatBackground}>
+            <View style={styles.banner}>
+              <Text style={styles.bannerText}>You are using the free version. Talk to a</Text>
+              <Text style={styles.bannerText}>volunteer for 15 minutes for free!</Text>
+            </View>
+            <View style={styles.chatContainer}>
+            </View>
+            <View style={styles.inputContainer}>
+              <TouchableOpacity
+              style={styles.mediaButton} 
+              title="gallery" 
+              onPress={() => console.log("add image")}>
+                <MaterialIcons name="image" size={24} color="black"/>
+              </TouchableOpacity>
+              <TouchableOpacity
+              style={styles.mediaButton} 
+              title="voice" 
+              onPress={() => console.log("voice message")}>
+                <MaterialIcons name="keyboard-voice" size={24} color="black"/>
+              </TouchableOpacity>
+              <TextInput style={styles.textInput}/>
+            </View>
+            <View style={styles.timerContainer}>
+              <Text style={styles.timerText}>0:14:59</Text>
+            </View>
           </View>
         </SafeAreaView>
         
@@ -47,40 +49,55 @@ const styles = StyleSheet.create({
       alignItems: "center"
     },
     banner: {
-      flex: 1.5,
-      backgroundColor: "white",
+      flex: 1,
+      backgroundColor: "lightblue",
       width: 350,
       alignItems: "center",
       justifyContent: "center", 
       borderRadius: 10,
-    },
-    chatContainer: {
-      flex: 12,
-      fontFamily: "semiBold",
+      alignSelf: "flex-start",
       
     },
+    bannerText: {
+      fontFamily: "semiBold",
+      fontSize: 12
+    },
+    chatBackground: {
+      flex: 12,
+      backgroundColor: "white",
+      alignSelf: "stretch",
+      width: 350,
+      marginHorizontal: 12,
+      marginTop: 12,
+      borderRadius: 10
+    },
+    chatContainer: {
+      flex: 10,
+    },
     inputContainer: {
-      flex: 1,
+      flex: 0.8,
       flexDirection: "row",
       backgroundColor: 'white',
       padding: 10,
       width: 350
     },
     timerContainer: {
-      flex: 1.5,
+      flex: 1,
       backgroundColor: "lightblue",
       justifyContent: "center",
       alignItems: "center",
-      width: 350
+      width: 350,
+      borderRadius: 10,
+      alignSelf: "flex-end"
     },
-    text: {
+    timerText: {
       color: "red",
       fontFamily: "semiBold",
       fontSize: 18
     },
     textInput: {
       flex: 1,
-      backgroundColor: "lightgrey",
+      backgroundColor: "#dddedf",
       borderWidth: 1,
       borderRadius: 13,
       marginHorizontal: 3,
