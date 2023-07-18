@@ -13,13 +13,13 @@ import MorningMantra from '../screens/MorningMantra';
 import Anxiety from '../screens/Anxiety';
 import SleepMeditation from '../screens/SleepMeditation.js';
 import Unwind from '../screens/Unwind';
-import Goals from '../screens/Goals'
+import Goals from '../screens/Goals';
+import Anger from '../screens/Anger';
+import Payment from '../screens/Payment';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import Anger from '../screens/Anger';
-
 
 
 
@@ -28,10 +28,10 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator >
       <Tab.Screen name="RelaxationTab" component={Relaxation} 
       options={{
-        headerTitle:"",
+        headerTitle:"Relaxation",
         tabBarLabel: "Relaxation",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
@@ -42,7 +42,7 @@ const TabNavigator = () => {
       }}/>
       <Tab.Screen name="DiscussionTab" component={Discussion} 
       options={{
-        headerTitle:"",
+        headerTitle:"Discussion",
         tabBarLabel: "Discussion",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
@@ -52,7 +52,7 @@ const TabNavigator = () => {
         }
       }}/>
       <Tab.Screen name="MySpaceTab" component={MySpace} options={{
-        headerTitle:"",
+        headerTitle:"My Space",
         tabBarLabel: "MySpace",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
@@ -62,7 +62,7 @@ const TabNavigator = () => {
         }
       }}/>
       <Tab.Screen name="BookSessionTab" component={BookSession} options={{
-        headerTitle:"",
+        headerTitle:"Book Session",
         tabBarLabel: "BookSession",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
@@ -73,7 +73,7 @@ const TabNavigator = () => {
       }}/>
       <Tab.Screen name="VentTab" component={Vent} 
       options={{
-        headerTitle:"",
+        headerTitle:"Vent",
         tabBarLabel: "Chat",
         headerShown: false,
         tabBarIcon: ({color,size}) => {
@@ -89,7 +89,7 @@ const TabNavigator = () => {
 const MainNavigator = props => {
     return(
         <Stack.Navigator>
-          <Stack.Screen name="MySpace" component={TabNavigator}/>
+          <Stack.Screen name="MySpace" component={TabNavigator} options={{headerTitle: ""}}/>
           <Stack.Screen name="Relaxation" component={Relaxation} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Discussion" component={Discussion} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Vent" component={Vent} options={{headerBackTitle: "Back"}}/>
@@ -102,6 +102,7 @@ const MainNavigator = props => {
           <Stack.Screen name="Unwind" component={Unwind} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Goals" component={Goals} options={{headerBackTitle: "Back"}}/>
           <Stack.Screen name="Anger" component={Anger} options={{headerBackTitle: "Back"}}/>
+          <Stack.Screen name="Payment" component={Payment} options={{headerBackTitle: "Back"}}/>
         </Stack.Navigator>
     )
 }

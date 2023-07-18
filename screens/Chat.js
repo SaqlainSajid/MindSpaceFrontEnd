@@ -6,8 +6,8 @@ const Chat = props => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Welcome to Chat Screen</Text>
-            <View>
-                <Button title='image'/>
+            <View style={styles.inputContainer}>
+                <Button title='voice message'/>
                 <TextInput/>
                 <Button title='camera'/>
             </View>
@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection: "column",
       backgroundColor: '#4464bc',
-      justifyContent: "center",
       alignItems: "center"
     },
     text: {
       fontFamily: "semiBold",
       color: "#ffffff",
+    },
+    inputContainer: {
+      flexDirection: "row",
     }
   });
 
