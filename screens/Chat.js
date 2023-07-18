@@ -12,6 +12,9 @@ const Chat = props => {
                 <TextInput/>
                 <Button title='camera'/>
             </View>
+            <View style={styles.timerContainer}>
+              <Text style={styles.text}>0:14:59</Text>
+            </View>
         </View>
         
     );
@@ -24,14 +27,26 @@ const styles = StyleSheet.create({
       backgroundColor: '#4464bc',
     },
     chatContainer: {
-      flex: 14,
+      flex: 12,
       fontFamily: "semiBold",
-      color: "#ffffff",
+      
     },
     inputContainer: {
       flex: 1,
       flexDirection: "row",
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      padding: 10
+    },
+    timerContainer: {
+      flex: 2,
+      backgroundColor: "lightblue",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    text: {
+      color: "red",
+      fontWeight: "bold",
+      fontSize: 18
     }
   });
 
