@@ -10,8 +10,6 @@ const Chat = props => {
   const [messageText, setMessageText] = useState(""); //messageTExt starts off with "" then we change it
   //to the value written in the text box
 
-  console.log(messageText);
-
   return (
       <SafeAreaView 
       style={styles.container} 
