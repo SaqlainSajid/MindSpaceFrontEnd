@@ -1,51 +1,88 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 
 
 const Chat = props => {
-    return (
-        <SafeAreaView 
-        style={styles.container} 
-        edges={["right","bottom","left"]}>
-          <View style={styles.chatBackground}>
-            <View style={styles.banner}>
-              <Text style={styles.bannerText}>You are using the free version. Talk to a</Text>
-              <Text style={styles.bannerText}>volunteer for 15 minutes for free!</Text>
-            </View>
-            <View style={styles.chatContainer}>
-            </View>
-            <View style={styles.inputContainer}>
-              <TouchableOpacity
-              style={styles.mediaButton} 
-              title="gallery" 
-              onPress={() => console.log("add image")}>
-                <MaterialIcons name="image" size={24} color="black"/>
-              </TouchableOpacity>
-              <TouchableOpacity
-              style={styles.mediaButton} 
-              title="voice" 
-              onPress={() => console.log("voice message")}>
-                <MaterialIcons name="keyboard-voice" size={24} color="black"/>
-              </TouchableOpacity>
-              <TextInput style={styles.textInput}/>
-            </View>
-            <View style={styles.timerContainer}>
-              <Text style={styles.timerText}>0:14:59</Text>
-            </View>
+  const [messageText, setMessageText] = useState(""); //messageTExt starts off with "" then we change it
+  //to the value written in the text box
+
+  console.log(messageText);
+
+  return (
+      <SafeAreaView 
+      style={styles.container} 
+      edges={["right","bottom","left"]}>
+
+        <View style={styles.chatBackground}>
+
+          <View style={styles.banner}>
+
+            <Text style={styles.bannerText}>You are using the free version. Talk to a</Text>
+
+            <Text style={styles.bannerText}>volunteer for 15 minutes for free!</Text>
+
           </View>
-        </SafeAreaView>
-        
-    );
+
+          <View style={styles.chatContainer}>
+
+          </View>
+
+          <View style={styles.inputContainer}>
+
+            <TouchableOpacity
+            style={styles.mediaButton} 
+            title="gallery" 
+            onPress={() => console.log("add image")}>
+
+              <MaterialIcons name="image" size={24} color="black"/>
+
+            </TouchableOpacity>
+
+            { messageText === "" && <TouchableOpacity  //conditional rendering, if messageText empty render TouchableOpacity
+            style={styles.mediaButton} 
+            title="voice">
+
+              <MaterialIcons name="keyboard-voice" size={24} color="black"/>
+
+            </TouchableOpacity> }
+
+            { messageText !== "" && <TouchableOpacity  //conditional rendering, if messageText != empty render TouchableOpacity
+            style={styles.mediaButton} 
+            title="send">
+
+              <Feather name="send" size={24} color="#4361ee"/>
+
+            </TouchableOpacity> }
+
+            <TextInput 
+            style={styles.textInput}
+            value={messageText}    //we're storing the entered string, so that if sending fails, we can recover the string
+            onChangeText={(text) => {setMessageText(text)}}/>
+
+          </View>
+
+          <View style={styles.timerContainer}>
+
+            <Text style={styles.timerText}>0:14:59</Text>
+
+          </View>
+
+        </View>
+
+      </SafeAreaView>
+      
+  );
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: "column",
-      backgroundColor: '#7ab1e3',
+      backgroundColor: "#7ab1e3",
       alignItems: "center"
     },
     banner: {
@@ -101,7 +138,8 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 13,
       marginHorizontal: 3,
-      marginVertical: 5
+      marginVertical: 5,
+      paddingHorizontal: 10
     },
     mediaButton: {
       justifyContent: "center",

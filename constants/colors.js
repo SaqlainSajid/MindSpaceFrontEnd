@@ -1,3 +1,3 @@
 export default {
-    blue: "#7ab1e3",
+    blue: '#7ab1e3',
 }
