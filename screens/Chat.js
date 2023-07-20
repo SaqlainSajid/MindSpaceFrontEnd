@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ const Chat = props => {
       <SafeAreaView 
       style={styles.container} 
       edges={["right","bottom","left"]}>
+        <KeyboardAvoidingView style={{flex: 1}} behavior={ Platform.OS === "ios"?"padding": undefined } keyboardVerticalOffset={100}>
 
         <View style={styles.chatBackground}>
 
@@ -70,7 +71,7 @@ const Chat = props => {
           </View>
 
         </View>
-
+        </KeyboardAvoidingView>
       </SafeAreaView>
       
   );
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
       justifyContent: "center", 
       borderRadius: 10,
       alignSelf: "flex-start",
-      
+      minHeight: 13
     },
     bannerText: {
       fontFamily: "semiBold",
@@ -110,11 +111,13 @@ const styles = StyleSheet.create({
       flex: 10,
     },
     inputContainer: {
-      flex: 0.8,
+      flex: 1,
       flexDirection: "row",
       backgroundColor: 'white',
       padding: 10,
-      width: 350
+      width: 350,
+      minHeight: 30,
+      alignItems:"center"
     },
     timerContainer: {
       flex: 1,
@@ -123,12 +126,12 @@ const styles = StyleSheet.create({
       alignItems: "center",
       width: 350,
       borderRadius: 10,
-      alignSelf: "flex-end"
+      alignSelf: "flex-end",
     },
     timerText: {
       color: "red",
       fontFamily: "semiBold",
-      fontSize: 18
+      fontSize: 18,
     },
     textInput: {
       flex: 1,
@@ -136,13 +139,17 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 13,
       marginHorizontal: 3,
-      marginVertical: 5,
-      paddingHorizontal: 10
+      marginTop: 13,
+      marginBottom: 13,
+      paddingHorizontal: 10,
+      minHeight: 30,
     },
     mediaButton: {
       justifyContent: "center",
       alignItems: "center",
-      width: 30
+      width: 30,
+      marginVertical: 13,
+      minHeight: 30
     }
   });
 
