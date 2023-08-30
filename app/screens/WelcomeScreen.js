@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Button from '../components/Button'
 
 
 export default function WelcomeScreen() {
@@ -13,9 +14,7 @@ export default function WelcomeScreen() {
         </View>
         <View style={styles.footerContainer}>
             <Text style={styles.footerText}>The space for your MIND is here!</Text>
-            <TouchableOpacity style={styles.startButton}>
-                <Text style={styles.buttonText}>GET STARTED</Text>
-            </TouchableOpacity>
+            <Button text="Sign Up" class="primary" style={{width: 200}}/>
         </View>
     </SafeAreaView>
   )
@@ -52,16 +51,4 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 40,
     },
-    startButton: {
-        alignItems: "center",
-        backgroundColor: "black",
-        borderRadius: 25,
-        padding: 20,
-        width: 200
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: "bold",
-        color: "white"
-    }
 })
