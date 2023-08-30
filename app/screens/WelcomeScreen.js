@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 export default function WelcomeScreen() {
     
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
         <View style={styles.headerContainer}>        
-            <Text style={styles.headerText}>Welcome To</Text>
+            <Text style={styles.headerText}>Welcome to</Text>
             <Image style={styles.logo} source={require("../assets/mindspaceicon.png")}/>
         </View>
         <View style={styles.footerContainer}>
@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
                 <Text style={styles.buttonText}>GET STARTED</Text>
             </TouchableOpacity>
         </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#fcfcfc",
         width: Dimensions.get("screen").width,
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        borderColor: "black",
+        borderWidth: 2
     },
     logo: {
         height: 250,
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     footerContainer: {
-        flex: 0.3,
+        flex: 0.2,
         alignItems: "center"
     },
     footerText: {

@@ -1,11 +1,17 @@
-import { StyleSheet, Text, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import WelcomeScreen from './app/screens/WelcomeScreen';
+import SignUpScreen from './app/screens/SignUpScreen';
+
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <WelcomeScreen/>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        {/* <WelcomeScreen/> */}
+        <SignUpScreen/>
+      </View>
+    </SafeAreaProvider>
   );
 }
 
