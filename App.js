@@ -1,19 +1,13 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, View, Platform, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import LoginScreen from "./app/screens/LoginSignup/LoginScreen";
+import MySpace from "./app/screens/MySpace/MySpace";
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <LoginScreen />
+        <MySpace />
       </View>
     </SafeAreaProvider>
   );
