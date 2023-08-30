@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
 export default function SignUpScreen() {
   const theme = useColorScheme();
@@ -31,17 +31,24 @@ export default function SignUpScreen() {
         locations={[0, 0.1, 0.3, 0.7, 0.9, 1]}
       >
         <View style={styles.mainTextContainer}>
-          <Text style={[styles.text, styles.mainText]}>Welcome</Text>
-          <Text style={[styles.text, styles.mainText]}>Back</Text>
+          <Text style={[styles.text, styles.mainText]}>Create new</Text>
+          <Text style={[styles.text, styles.mainText]}>Account</Text>
           <View style={styles.secondaryTextContainer}>
             <Text style={[styles.text, styles.secondaryText]}>
-              Log in to continue
+              Already Registered? Log in{" "}
             </Text>
+            <TouchableOpacity style={styles.link}>
+              <Text style={[styles.text, styles.linkText]}>here</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={styles.text}>EMAIL/USERNAME</Text>
+            <Text style={styles.text}>NAME</Text>
+            <TextInput style={styles.input}></TextInput>
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.text}>EMAIL</Text>
             <TextInput style={styles.input}></TextInput>
           </View>
           <View style={styles.inputContainer}>
@@ -51,17 +58,10 @@ export default function SignUpScreen() {
           <View style={styles.buttonContainer}>
             <Button
               style={styles.button}
-              text="Login"
+              text="Sign Up"
               class="primary"
               Style={{ width: 300 }}
             />
-          </View>
-          <View style={styles.FooterTextContainer}>
-            <TouchableOpacity>
-              <Text style={[styles.text, styles.FooterText]}>
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
           </View>
         </View>
       </LinearGradient>
@@ -124,17 +124,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "flex-end",
   },
   button: {
     alignSelf: "center",
-  },
-  FooterTextContainer: {
-    flex: 0.5,
-    justifyContent: "flex-start",
-  },
-  FooterText: {
-    textDecorationLine: "underline",
   },
   text: {
     color: "white",
