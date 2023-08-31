@@ -1,87 +1,58 @@
-import React from "react";
 import {
-  Text,
   StyleSheet,
-  View,
-  StatusBar,
-  useColorScheme,
+  Text,
   TextInput,
   TouchableOpacity,
-  Dimensions,
+  View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 
-export default function SignUpScreen() {
-  const theme = useColorScheme();
-
+const Login2 = () => {
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={styles.container}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={[
-          "#dedae6",
-          "#cfbede",
-          "#8381bd",
-          "#8381bd",
-          "#cfbede",
-          "#dedae6",
-        ]}
-        locations={[0, 0.1, 0.3, 0.7, 0.9, 1]}
-      >
-        <View style={styles.mainTextContainer}>
-          <Text style={[styles.text, styles.mainText]}>Welcome</Text>
-          <Text style={[styles.text, styles.mainText]}>Back</Text>
-          <View style={styles.secondaryTextContainer}>
-            <Text style={[styles.text, styles.secondaryText]}>
-              Log in to continue
+    <ScreenTemplate>
+      <View style={styles.mainTextContainer}>
+        <Text style={[styles.text, styles.mainText]}>Welcome</Text>
+        <Text style={[styles.text, styles.mainText]}>Back</Text>
+        <View style={styles.secondaryTextContainer}>
+          <Text style={[styles.text, styles.secondaryText]}>
+            Log in to continue
+          </Text>
+        </View>
+      </View>
+      <View style={styles.form}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>EMAIL/USERNAME</Text>
+          <TextInput style={styles.input}></TextInput>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>PASSWORD</Text>
+          <TextInput style={styles.input} secureTextEntry={true}></TextInput>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.button}
+            text="Login"
+            class="primary"
+            Style={{ width: 300 }}
+          />
+        </View>
+        <View style={styles.FooterTextContainer}>
+          <TouchableOpacity>
+            <Text style={[styles.text, styles.FooterText]}>
+              Forgot Password?
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
-        <View style={styles.form}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.text}>EMAIL/USERNAME</Text>
-            <TextInput style={styles.input}></TextInput>
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.text}>PASSWORD</Text>
-            <TextInput style={styles.input} secureTextEntry={true}></TextInput>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.button}
-              text="Login"
-              class="primary"
-              Style={{ width: 300 }}
-            />
-          </View>
-          <View style={styles.FooterTextContainer}>
-            <TouchableOpacity>
-              <Text style={[styles.text, styles.FooterText]}>
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </LinearGradient>
-      <StatusBar
-        barStyle={theme === "dark" ? "dark-content" : "light-content"}
-      />
-    </SafeAreaView>
+      </View>
+    </ScreenTemplate>
   );
-}
+};
+
+export default Login2;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A1145",
-    width: Dimensions.get("screen").width,
-    justifyContent: "space-evenly",
-  },
-  gradient: {
-    flex: 1,
-  },
   mainTextContainer: {
     flex: 0.3,
     justifyContent: "flex-end",
