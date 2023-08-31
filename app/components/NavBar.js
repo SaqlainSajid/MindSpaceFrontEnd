@@ -47,7 +47,11 @@ const NavBar = () => {
             />
           </TouchableOpacity>
         ),
-        headerTitleStyle: { fontWeight: "bold" },
+        headerTitleStyle: {
+          fontWeight: "bold",
+          fontSize: 24,
+          marginBottom: 10,
+        },
         headerStyle: { height: 100 },
       }}
     >
