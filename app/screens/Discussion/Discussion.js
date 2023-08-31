@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import TopBar from "../../components/TopBar";
 
-const Discussion = () => {
+const Discussion = ({ navigation }) => {
   return (
     <ScreenTemplate>
       <View>
@@ -10,6 +11,10 @@ const Discussion = () => {
       </View>
     </ScreenTemplate>
   );
+};
+
+Discussion.navigationOptions = {
+  header: () => <TopBar />,
 };
 
 export default Discussion;

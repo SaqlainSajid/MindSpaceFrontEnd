@@ -12,7 +12,7 @@ const ScreenTemplate = (props) => {
   const theme = useColorScheme();
 
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={styles.container}>
+    <SafeAreaView edges={["right", "left"]} style={styles.container}>
       <LinearGradient
         style={styles.gradient}
         colors={[

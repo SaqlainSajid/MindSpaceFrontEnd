@@ -1,74 +1,128 @@
 import {
   StyleSheet,
+  Button,
   Text,
   View,
   TouchableOpacity,
   useColorScheme,
+  Image,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import MySpace from "../screens/MySpace/MySpace";
+import Relaxation from "../screens/Relaxation/Relaxation";
+import Discussion from "../screens/Discussion/Discussion";
+import Chat from "../screens/Chat/Chat";
+import BookSession from "../screens/BookSession/BookSession";
+import TopBar from "./TopBar";
+
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { Octicons } from "react-native-vector-icons";
 import { Entypo } from "react-native-vector-icons";
 import { Ionicons } from "react-native-vector-icons";
 
-const NavBar = () => {
-  const theme = useColorScheme();
-  const iconColor = theme === "dark" ? "grey" : "black";
-  const textColor = theme === "dark" ? "grey" : "black";
+const Tab = createBottomTabNavigator();
 
+const NavBar = () => {
   return (
-    <View
-      style={theme === "dark" ? styles.navContainerDark : styles.navContainer}
+    <Tab.Navigator
+      initialRouteName="My Space"
+      screenOptions={{
+        headerRight: () => (
+          <TouchableOpacity>
+            <Ionicons
+              name="settings-outline"
+              size={30}
+              style={styles.settings}
+            />
+          </TouchableOpacity>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity>
+            <Image
+              source={require("../assets/userprofile.png")}
+              style={styles.profileimage}
+            />
+          </TouchableOpacity>
+        ),
+      }}
     >
-      <TouchableOpacity style={styles.icon} onPress={() => {}}>
-        <MaterialCommunityIcons name="meditation" size={30} color={iconColor} />
-        <Text style={[styles.text, { color: textColor }]}>Relaxation</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.icon}>
-        <Octicons name="comment-discussion" size={30} color={iconColor} />
-        <Text style={[styles.text, { color: textColor }]}>Discussion</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.icon}>
-        <Entypo name="home" size={30} color={iconColor} />
-        <Text style={[styles.text, { color: textColor }]}>My Space</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.icon}>
-        <Ionicons name="calendar" size={30} color={iconColor} />
-        <Text style={[styles.text, { color: textColor }]}>Book Session</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.icon}>
-        <Ionicons name="chatbox-ellipses" size={30} color={iconColor} />
-        <Text style={[styles.text, { color: textColor }]}>Vent</Text>
-      </TouchableOpacity>
-    </View>
+      <Tab.Screen
+        name="Relaxation"
+        component={Relaxation}
+        listeners={({ navigation }) => ({
+          tabPress: () => navigation.navigate("Relaxation"),
+        })}
+        options={{
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="meditation" size={30} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Discussion"
+        component={Discussion}
+        listeners={({ navigation }) => ({
+          tabPress: () => navigation.navigate("Discussion"),
+        })}
+        options={{
+          tabBarIcon: () => {
+            return <Octicons name="comment-discussion" size={30} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="My Space"
+        component={MySpace}
+        listeners={({ navigation }) => ({
+          tabPress: () => navigation.navigate("My Space"),
+        })}
+        options={{
+          tabBarIcon: () => {
+            return <Entypo name="home" size={30} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Book Session"
+        component={BookSession}
+        listeners={({ navigation }) => ({
+          tabPress: () => navigation.navigate("Book Session"),
+        })}
+        options={{
+          tabBarIcon: () => {
+            return <Ionicons name="calendar" size={30} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Vent"
+        component={Chat}
+        listeners={({ navigation }) => ({
+          tabPress: () => navigation.navigate("Vent"),
+        })}
+        options={{
+          tabBarIcon: () => {
+            return <Ionicons name="chatbubble-ellipses" size={30} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
 export default NavBar;
 
 const styles = StyleSheet.create({
-  navContainer: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "white",
-  },
-  navContainerDark: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "black",
-  },
-  icon: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingTop: 5,
+  profileimage: {
+    width: 40,
+    height: 40,
     marginBottom: 10,
+    marginLeft: 10,
   },
-  text: {
-    fontSize: 10,
-  },
-  textDark: {
-    fontSize: 10,
-    color: "white",
+  settings: {
+    marginBottom: 10,
+    marginRight: 10,
   },
 });

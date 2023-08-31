@@ -9,9 +9,6 @@ const MySpace = () => {
       <View style={styles.main}>
         <Text>MySpace</Text>
       </View>
-      <View style={styles.nav}>
-        <NavBar />
-      </View>
     </ScreenTemplate>
   );
 };
@@ -21,8 +18,5 @@ export default MySpace;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-  },
-  nav: {
-    flex: 0.12,
   },
 });
