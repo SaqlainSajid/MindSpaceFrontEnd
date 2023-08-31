@@ -1,87 +1,58 @@
-import React from "react";
 import {
-  Text,
   StyleSheet,
-  View,
-  StatusBar,
-  useColorScheme,
-  TextInput,
+  Text,
   TouchableOpacity,
-  Dimensions,
+  TextInput,
+  View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 
-export default function SignUpScreen() {
-  const theme = useColorScheme();
-
+const SignUpScreen = () => {
   return (
-    <SafeAreaView edges={["top", "right", "left"]} style={styles.container}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={[
-          "#dedae6",
-          "#cfbede",
-          "#8381bd",
-          "#8381bd",
-          "#cfbede",
-          "#dedae6",
-        ]}
-        locations={[0, 0.1, 0.3, 0.7, 0.9, 1]}
-      >
-        <View style={styles.mainTextContainer}>
-          <Text style={[styles.text, styles.mainText]}>Create new</Text>
-          <Text style={[styles.text, styles.mainText]}>Account</Text>
-          <View style={styles.secondaryTextContainer}>
-            <Text style={[styles.text, styles.secondaryText]}>
-              Already Registered? Log in{" "}
-            </Text>
-            <TouchableOpacity style={styles.link}>
-              <Text style={[styles.text, styles.linkText]}>here</Text>
-            </TouchableOpacity>
-          </View>
+    <ScreenTemplate>
+      <View style={styles.mainTextContainer}>
+        <Text style={[styles.text, styles.mainText]}>Create new</Text>
+        <Text style={[styles.text, styles.mainText]}>Account</Text>
+        <View style={styles.secondaryTextContainer}>
+          <Text style={[styles.text, styles.secondaryText]}>
+            Already Registered? Log in{" "}
+          </Text>
+          <TouchableOpacity style={styles.link}>
+            <Text style={[styles.text, styles.linkText]}>here</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.form}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.text}>NAME</Text>
-            <TextInput style={styles.input}></TextInput>
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.text}>EMAIL</Text>
-            <TextInput style={styles.input}></TextInput>
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.text}>PASSWORD</Text>
-            <TextInput style={styles.input} secureTextEntry={true}></TextInput>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              style={styles.button}
-              text="Sign Up"
-              class="primary"
-              Style={{ width: 300 }}
-            />
-          </View>
+      </View>
+      <View style={styles.form}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>NAME</Text>
+          <TextInput style={styles.input}></TextInput>
         </View>
-      </LinearGradient>
-      <StatusBar
-        barStyle={theme === "dark" ? "dark-content" : "light-content"}
-      />
-    </SafeAreaView>
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>EMAIL</Text>
+          <TextInput style={styles.input}></TextInput>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.text}>PASSWORD</Text>
+          <TextInput style={styles.input} secureTextEntry={true}></TextInput>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            style={styles.button}
+            text="Sign Up"
+            class="primary"
+            Style={{ width: 300 }}
+          />
+        </View>
+      </View>
+    </ScreenTemplate>
   );
-}
+};
+
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A1145",
-    width: Dimensions.get("screen").width,
-    justifyContent: "space-evenly",
-  },
-  gradient: {
-    flex: 1,
-  },
   mainTextContainer: {
     flex: 0.3,
     justifyContent: "flex-end",
