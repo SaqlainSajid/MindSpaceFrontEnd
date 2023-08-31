@@ -9,7 +9,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <SignUpScreen />
+        <MySpace />
       </View>
     </SafeAreaProvider>
   );
