@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import CardGrid from "../../components/CardGrid";
+import CardRow from "../../components/CardRow";
+import Card from "../../components/Card";
 
 const MySpace = (props) => {
   return (
@@ -23,22 +25,26 @@ const MySpace = (props) => {
         </View>
         <View style={styles.cardContainer}>
           <CardGrid>
-            <Button
-              title="Press me to go to Discussion"
-              onPress={() => props.navigation.navigate("Discussion")}
-            ></Button>
-            <Button
-              title="Press me to go to Relaxation"
-              onPress={() => props.navigation.navigate("Relaxation")}
-            ></Button>
-            <Button
-              title="Press me to go to Book Session"
-              onPress={() => props.navigation.navigate("Book Session")}
-            ></Button>
-            <Button
-              title="Press me to go to Vent"
-              onPress={() => props.navigation.navigate("Vent")}
-            ></Button>
+            <CardRow>
+              <Card
+                title={"Press me to go to Discussion"}
+                onPress={() => props.navigation.navigate("Discussion")}
+              />
+              <Button
+                title="Press me to go to Relaxation"
+                onPress={() => props.navigation.navigate("Relaxation")}
+              ></Button>
+            </CardRow>
+            <CardRow>
+              <Button
+                title="Press me to go to Book Session"
+                onPress={() => props.navigation.navigate("Book Session")}
+              ></Button>
+              <Button
+                title="Press me to go to Vent"
+                onPress={() => props.navigation.navigate("Vent")}
+              ></Button>
+            </CardRow>
           </CardGrid>
         </View>
       </View>
