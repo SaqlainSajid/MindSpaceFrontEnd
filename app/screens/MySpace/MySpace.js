@@ -15,14 +15,6 @@ const MySpace = (props) => {
             <Text style={styles.resumeButtonText}>Start where you left...</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.sort}>
-          <TouchableOpacity>
-            <Text style={styles.sortText}>Sort By</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.sortText}>Frequently Viewed</Text>
-          </TouchableOpacity>
-        </View>
         <View style={styles.cardContainer}>
           <CardGrid>
             <CardRow>
@@ -62,6 +54,7 @@ export default MySpace;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+    justifyContent: "space-around",
   },
   resumeView: {
     flex: 0.3,
@@ -77,12 +70,6 @@ const styles = StyleSheet.create({
   },
   resumeButtonText: {
     color: "red",
-  },
-  sort: {
-    flex: 0.1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
   },
   sortText: {
     color: "white",

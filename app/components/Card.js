@@ -12,7 +12,7 @@ const Card = (props) => {
   const src = imagePaths[props.imageName];
   return (
     <TouchableOpacity style={styles.card} onPress={props.onPress}>
-      <Image style={styles.image} source={src} />
+      <Image resizeMode="contain" style={styles.image} source={src} />
       <Text style={styles.text}>{props.title}</Text>
     </TouchableOpacity>
   );
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 10,
     borderRadius: 20,
-    padding: 10,
+    padding: 15,
     justifyContent: "space-around",
   },
   image: {
