@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
-//import Button from "../../components/Button";
+import CardGrid from "../../components/CardGrid";
 
 const MySpace = (props) => {
   return (
@@ -22,6 +22,7 @@ const MySpace = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
+          <CardGrid />
           <Button
             title="Press me to go to discussion"
             onPress={() => props.navigation.navigate("Discussion")}
