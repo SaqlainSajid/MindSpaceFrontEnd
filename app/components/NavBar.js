@@ -101,7 +101,7 @@ const NavBar = (props) => {
         })}
         options={{
           tabBarIcon: () => {
-            return <Ionicons name="calendar" size={30} />;
+            return <Ionicons name="calendar-outline" size={30} />;
           },
         }}
       />
