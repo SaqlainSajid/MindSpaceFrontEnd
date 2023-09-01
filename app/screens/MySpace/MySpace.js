@@ -30,23 +30,24 @@ const MySpace = (props) => {
                 title={"Press me to go to Discussion"}
                 onPress={() => props.navigation.navigate("Discussion")}
               />
-              <Button
+              <Card
                 title="Press me to go to Relaxation"
                 onPress={() => props.navigation.navigate("Relaxation")}
-              ></Button>
+              ></Card>
             </CardRow>
             <CardRow>
-              <Button
+              <Card
                 title="Press me to go to Book Session"
                 onPress={() => props.navigation.navigate("Book Session")}
-              ></Button>
-              <Button
+              ></Card>
+              <Card
                 title="Press me to go to Vent"
                 onPress={() => props.navigation.navigate("Vent")}
-              ></Button>
+              ></Card>
             </CardRow>
           </CardGrid>
         </View>
+        <View style={{ flex: 0.1 }} />
       </View>
     </ScreenTemplate>
   );
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   resumeView: {
-    flex: 0.2,
+    flex: 0.3,
     backgroundColor: "white",
     borderRadius: 20,
     margin: 20,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   sortText: {
     color: "white",

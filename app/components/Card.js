@@ -14,6 +14,8 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: "blue",
+    backgroundColor: "white",
+    margin: 10,
+    borderRadius: 20,
   },
 });

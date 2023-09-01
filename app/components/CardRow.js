@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "red",
-    margin: 20,
+    marginHorizontal: 10,
   },
 });
