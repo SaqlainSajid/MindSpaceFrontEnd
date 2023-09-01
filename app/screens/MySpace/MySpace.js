@@ -22,11 +22,24 @@ const MySpace = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
-          <CardGrid />
-          <Button
-            title="Press me to go to discussion"
-            onPress={() => props.navigation.navigate("Discussion")}
-          ></Button>
+          <CardGrid>
+            <Button
+              title="Press me to go to Discussion"
+              onPress={() => props.navigation.navigate("Discussion")}
+            ></Button>
+            <Button
+              title="Press me to go to Relaxation"
+              onPress={() => props.navigation.navigate("Relaxation")}
+            ></Button>
+            <Button
+              title="Press me to go to Book Session"
+              onPress={() => props.navigation.navigate("Book Session")}
+            ></Button>
+            <Button
+              title="Press me to go to Vent"
+              onPress={() => props.navigation.navigate("Vent")}
+            ></Button>
+          </CardGrid>
         </View>
       </View>
     </ScreenTemplate>
@@ -65,6 +78,5 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: "yellow",
   },
 });
