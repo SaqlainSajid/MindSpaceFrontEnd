@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+//import Button from "../../components/Button";
 
-const MySpace = () => {
+const MySpace = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.main}>
         <Text>MySpace</Text>
+        <Button
+          title="Press me to go to discussion"
+          onPress={() => props.navigation.navigate("Discussion")}
+        ></Button>
       </View>
     </ScreenTemplate>
   );

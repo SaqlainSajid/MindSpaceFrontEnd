@@ -15,8 +15,6 @@ import Relaxation from "../screens/Relaxation/Relaxation";
 import Discussion from "../screens/Discussion/Discussion";
 import Chat from "../screens/Chat/Chat";
 import BookSession from "../screens/BookSession/BookSession";
-import TopBar from "./TopBar";
-import Profile from "../screens/Profile/Profile";
 
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { Octicons } from "react-native-vector-icons";
@@ -25,13 +23,15 @@ import { Ionicons } from "react-native-vector-icons";
 
 const Tab = createBottomTabNavigator();
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <Tab.Navigator
       initialRouteName="My Space"
       screenOptions={{
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Settings")}
+          >
             <Ionicons
               name="settings-outline"
               size={30}
@@ -40,7 +40,9 @@ const NavBar = () => {
           </TouchableOpacity>
         ),
         headerLeft: () => (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Profile")}
+          >
             <Image
               source={require("../assets/mountain.jpg")}
               style={styles.profileimage}

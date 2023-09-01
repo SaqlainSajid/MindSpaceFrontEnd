@@ -2,16 +2,16 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 
-const Discussion = (props) => {
+const SettingsScreen = () => {
   return (
     <ScreenTemplate>
       <View>
-        <Text>Discussion</Text>
+        <Text>SettingsScreen</Text>
       </View>
     </ScreenTemplate>
   );
 };
 
-export default Discussion;
+export default SettingsScreen;
 
 const styles = StyleSheet.create({});

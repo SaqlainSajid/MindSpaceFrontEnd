@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
         <Text style={styles.headerText}>Welcome to</Text>
         <Image
           style={styles.logo}
-          source={require("../assets/mindspaceicon.png")}
+          source={require("../../assets/mindspaceicon.png")}
         />
       </View>
       <View style={styles.footerContainer}>
