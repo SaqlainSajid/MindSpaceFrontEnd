@@ -27,21 +27,25 @@ const MySpace = (props) => {
           <CardGrid>
             <CardRow>
               <Card
-                title={"Press me to go to Discussion"}
+                imageName="yoga"
+                title={"Start your day with calmness"}
                 onPress={() => props.navigation.navigate("Discussion")}
               />
               <Card
-                title="Press me to go to Relaxation"
+                imageName="discussion"
+                title="See what's buzzing in the forum"
                 onPress={() => props.navigation.navigate("Relaxation")}
               ></Card>
             </CardRow>
             <CardRow>
               <Card
-                title="Press me to go to Book Session"
+                imageName="booksession"
+                title="Book a session with a professional"
                 onPress={() => props.navigation.navigate("Book Session")}
               ></Card>
               <Card
-                title="Press me to go to Vent"
+                imageName="vent"
+                title="Something on your mind?"
                 onPress={() => props.navigation.navigate("Vent")}
               ></Card>
             </CardRow>
