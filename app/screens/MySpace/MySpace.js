@@ -5,6 +5,13 @@ import CardGrid from "../../components/CardGrid";
 import CardRow from "../../components/CardRow";
 import Card from "../../components/Card";
 
+export const imagePaths = {
+  yoga: require("../../assets/YogaOriginal.png"),
+  vent: require("../../assets/Vent.png"),
+  booksession: require("../../assets/BookSession.png"),
+  discussion: require("../../assets/Discussion.png"),
+};
+
 const MySpace = (props) => {
   return (
     <ScreenTemplate>
@@ -21,12 +28,12 @@ const MySpace = (props) => {
               <Card
                 imageName="yoga"
                 title={"Start your day with calmness"}
-                onPress={() => props.navigation.navigate("Discussion")}
+                onPress={() => props.navigation.navigate("Relaxation")}
               />
               <Card
                 imageName="discussion"
                 title="See what's buzzing in the forum"
-                onPress={() => props.navigation.navigate("Relaxation")}
+                onPress={() => props.navigation.navigate("Discussion")}
               ></Card>
             </CardRow>
             <CardRow>
