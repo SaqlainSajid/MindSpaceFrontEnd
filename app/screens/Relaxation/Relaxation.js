@@ -1,6 +1,61 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import Card from "../../components/Card";
+import CardGrid from "../../components/CardGrid";
+
+const CardArray = [
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "",
+    title: "",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+];
 
 const Relaxation = () => {
   return (
@@ -11,7 +66,9 @@ const Relaxation = () => {
           Tell us and we'll suggest a sound!
         </Text>
       </View>
-      <View style={styles.cardGrid}></View>
+      <View style={styles.cardGrid}>
+        <CardGrid></CardGrid>
+      </View>
       <View style={styles.showMore}>
         <TouchableOpacity>
           <Text style={styles.showMoreText}>Show More</Text>

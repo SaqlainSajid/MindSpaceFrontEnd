@@ -41,12 +41,12 @@ const MySpace = (props) => {
                 imageName="booksession"
                 title="Book a session with a professional"
                 onPress={() => props.navigation.navigate("Book Session")}
-              ></Card>
+              />
               <Card
                 imageName="vent"
                 title="Something on your mind?"
                 onPress={() => props.navigation.navigate("Vent")}
-              ></Card>
+              />
             </CardRow>
           </CardGrid>
         </View>
