@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
 
@@ -65,6 +65,7 @@ const CardArray = (props) => [
 const textArray = ["a", "b", "c", "d", "e"];
 
 const Relaxation = (props) => {
+  const [scroll, setScroll] = useState(false);
   return (
     <ScreenTemplate>
       <View style={styles.headerView}>
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
   },
   cardGrid: {
     flex: 1,
+    margin: 20,
   },
   showMore: {
     flex: 0.15,
