@@ -13,6 +13,7 @@ import Relaxation from "../screens/Relaxation/Relaxation";
 import Profile from "../screens/Profile/Profile";
 import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
+import Audio from "../screens/Relaxation/Audio";
 
 const stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ const StackNavigator = () => {
       <stack.Screen name="Chat" component={Chat} />
       <stack.Screen name="Book Session" component={BookSession} />
       <stack.Screen name="Relaxation" component={Relaxation} />
+      <stack.Screen
+        name="Audio"
+        component={Audio}
+        options={{ headerShown: true }}
+      />
       <stack.Screen
         name="Profile"
         component={Profile}

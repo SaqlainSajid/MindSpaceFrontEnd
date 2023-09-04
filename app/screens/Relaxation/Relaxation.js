@@ -14,52 +14,52 @@ const CardArray = (props) => [
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Discussion"),
+    onPress: () => props.navigation.navigate("Audio"),
   },
 ];
 

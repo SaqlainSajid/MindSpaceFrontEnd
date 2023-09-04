@@ -8,8 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import CardGrid from "../../components/CardGrid";
-import CardRow from "../../components/CardRow";
 import Card from "../../components/Card";
 import ItemSeparator from "../../components/ItemSeparator";
 
