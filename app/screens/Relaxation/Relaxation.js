@@ -1,63 +1,70 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
-import CardGrid from "../../components/CardGrid";
 
-const CardArray = [
+const CardArray = (props) => [
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
   {
-    imageName: "",
-    title: "",
-    onPress: () => props.navigation.navigate("Relaxation"),
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Discussion"),
   },
 ];
 
-const Relaxation = () => {
+const textArray = ["a", "b", "c", "d", "e"];
+
+const Relaxation = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.headerView}>
@@ -67,7 +74,17 @@ const Relaxation = () => {
         </Text>
       </View>
       <View style={styles.cardGrid}>
-        <CardGrid></CardGrid>
+        <FlatList
+          data={CardArray(props)}
+          numColumns={2}
+          renderItem={({ item }) => (
+            <Card
+              imageName={item.imageName}
+              title={item.title}
+              onPress={item.onPress}
+            />
+          )}
+        />
       </View>
       <View style={styles.showMore}>
         <TouchableOpacity>
