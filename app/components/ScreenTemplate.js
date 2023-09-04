@@ -3,6 +3,7 @@ import {
   StatusBar,
   useColorScheme,
   Dimensions,
+  Platform,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A1145",
     width: Dimensions.get("screen").width,
     justifyContent: "space-between",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   gradient: {
     flex: 1,

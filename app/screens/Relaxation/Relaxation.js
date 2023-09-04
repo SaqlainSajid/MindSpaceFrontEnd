@@ -5,9 +5,10 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
+import ItemSeparator from "../../components/ItemSeparator";
 
 const CardArray = (props) => [
   {
@@ -66,6 +67,7 @@ const textArray = ["a", "b", "c", "d", "e"];
 
 const Relaxation = (props) => {
   const [scroll, setScroll] = useState(false);
+  const flatListRef = useRef(null);
   return (
     <ScreenTemplate>
       <View style={styles.headerView}>
@@ -76,20 +78,51 @@ const Relaxation = (props) => {
       </View>
       <View style={styles.cardGrid}>
         <FlatList
+          ref={flatListRef}
           data={CardArray(props)}
+          keyExtractor={(item) => item.title}
           numColumns={2}
-          renderItem={({ item }) => (
-            <Card
-              imageName={item.imageName}
-              title={item.title}
-              onPress={item.onPress}
-            />
+          renderItem={({ item, index }) => (
+            <View
+              style={
+                index % 2 === 0
+                  ? {
+                      flex: 1,
+                      paddingRight: 10,
+                    }
+                  : {
+                      flex: 1,
+                    }
+              }
+            >
+              <Card
+                imageName={item.imageName}
+                title={item.title}
+                onPress={item.onPress}
+              />
+            </View>
           )}
+          ItemSeparatorComponent={ItemSeparator}
+          style={scroll ? { borderRadius: 0 } : { borderRadius: 20 }}
+          scrollEnabled={scroll}
         />
       </View>
-      <View style={styles.showMore}>
-        <TouchableOpacity>
-          <Text style={styles.showMoreText}>Show More</Text>
+      <View style={scroll ? styles.showLess : styles.showMore}>
+        <TouchableOpacity
+          onPress={() => {
+            if (scroll) {
+              flatListRef.current.scrollToOffset({ offset: 0, animated: true });
+              setScroll(false);
+            } else {
+              setScroll(true);
+            }
+          }}
+        >
+          {scroll ? (
+            <Text style={styles.showText}>Show Less</Text>
+          ) : (
+            <Text style={styles.showText}>Show More</Text>
+          )}
         </TouchableOpacity>
       </View>
     </ScreenTemplate>
@@ -126,7 +159,15 @@ const styles = StyleSheet.create({
     flex: 0.15,
     alignItems: "center",
   },
-  showMoreText: {
+  showLess: {
+    flex: 0,
+    alignItems: "center",
+  },
+  showText: {
     color: "white",
+    paddingBottom: 10,
+  },
+  flatlist: {
+    borderRadius: 20,
   },
 });

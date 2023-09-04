@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import CardGrid from "../../components/CardGrid";
 import CardRow from "../../components/CardRow";
 import Card from "../../components/Card";
+import ItemSeparator from "../../components/ItemSeparator";
 
 export const imagePaths = {
   yoga: require("../../assets/YogaOriginal.png"),
@@ -11,6 +19,29 @@ export const imagePaths = {
   booksession: require("../../assets/BookSession.png"),
   discussion: require("../../assets/Discussion.png"),
 };
+
+const CardArray = (props) => [
+  {
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    imageName: "discussion",
+    title: "See what's buzzing in the forum",
+    onPress: () => props.navigation.navigate("Discussion"),
+  },
+  {
+    imageName: "booksession",
+    title: "Book a session with a professional",
+    onPress: () => props.navigation.navigate("Book Session"),
+  },
+  {
+    imageName: "vent",
+    title: "Something on your mind?",
+    onPress: () => props.navigation.navigate("Vent"),
+  },
+];
 
 const MySpace = (props) => {
   return (
@@ -23,32 +54,32 @@ const MySpace = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
-          <CardGrid>
-            <CardRow>
-              <Card
-                imageName="yoga"
-                title={"Start your day with calmness"}
-                onPress={() => props.navigation.navigate("Relaxation")}
-              />
-              <Card
-                imageName="discussion"
-                title="See what's buzzing in the forum"
-                onPress={() => props.navigation.navigate("Discussion")}
-              ></Card>
-            </CardRow>
-            <CardRow>
-              <Card
-                imageName="booksession"
-                title="Book a session with a professional"
-                onPress={() => props.navigation.navigate("Book Session")}
-              />
-              <Card
-                imageName="vent"
-                title="Something on your mind?"
-                onPress={() => props.navigation.navigate("Vent")}
-              />
-            </CardRow>
-          </CardGrid>
+          <FlatList
+            data={CardArray(props)}
+            keyExtractor={(item) => item.title}
+            numColumns={2}
+            renderItem={({ item, index }) => (
+              <View
+                style={
+                  index % 2 === 0
+                    ? {
+                        flex: 1,
+                        paddingRight: 10,
+                      }
+                    : {
+                        flex: 1,
+                      }
+                }
+              >
+                <Card
+                  imageName={item.imageName}
+                  title={item.title}
+                  onPress={item.onPress}
+                />
+              </View>
+            )}
+            ItemSeparatorComponent={ItemSeparator}
+          />
         </View>
         <View style={{ flex: 0.1 }} />
       </View>
@@ -83,5 +114,6 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
+    margin: 20,
   },
 });

@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     backgroundColor: "white",
-    margin: 10,
     borderRadius: 20,
     padding: 15,
     justifyContent: "space-around",
+    flexBasis: "33%",
+    aspectRatio: 1,
   },
   image: {
     height: "50%",
