@@ -9,6 +9,7 @@ import {
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
 import ItemSeparator from "../../components/ItemSeparator";
+import { Ionicons } from "react-native-vector-icons";
 
 const CardArray = (props) => [
   {
@@ -77,8 +78,12 @@ const Discussion = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
-        <TextInput style={styles.input}>Search for a topic...</TextInput>
-        <TouchableOpacity>
+        <Ionicons name="search" size={24} />
+        <TextInput style={styles.input} placeholder="Search for a topic..." />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => props.navigation.navigate("AddPost")}
+        >
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
@@ -131,11 +136,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
+    flex: 0.8,
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 10,
+    height: "40%",
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
-  buttonText: {},
+  button: {
+    flex: 0.1,
+    borderWidth: 1,
+    borderRadius: 10,
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    fontSize: 24,
+  },
   cardGrid: {
     flex: 1,
     margin: 20,

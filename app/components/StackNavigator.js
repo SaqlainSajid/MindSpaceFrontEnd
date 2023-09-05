@@ -15,6 +15,7 @@ import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 import Audio from "../screens/Relaxation/Audio";
 import Feed from "../screens/Discussion/Feed";
+import AddPost from "../screens/Discussion/AddPost";
 
 const stack = createStackNavigator();
 
@@ -32,6 +33,11 @@ const StackNavigator = () => {
       <stack.Screen
         name="Feed"
         component={Feed}
+        options={{ headerShown: true }}
+      />
+      <stack.Screen
+        name="AddPost"
+        component={AddPost}
         options={{ headerShown: true }}
       />
       <stack.Screen name="Chat" component={Chat} />
