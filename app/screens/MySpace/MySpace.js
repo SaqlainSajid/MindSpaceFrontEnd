@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   FlatList,
   TouchableOpacity,
 } from "react-native";
@@ -20,21 +19,25 @@ export const imagePaths = {
 
 const CardArray = (props) => [
   {
+    id: 1,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Relaxation"),
   },
   {
+    id: 2,
     imageName: "discussion",
     title: "See what's buzzing in the forum",
     onPress: () => props.navigation.navigate("Discussion"),
   },
   {
+    id: 3,
     imageName: "booksession",
     title: "Book a session with a professional",
     onPress: () => props.navigation.navigate("Book Session"),
   },
   {
+    id: 4,
     imageName: "vent",
     title: "Something on your mind?",
     onPress: () => props.navigation.navigate("Vent"),
@@ -54,7 +57,7 @@ const MySpace = (props) => {
         <View style={styles.cardContainer}>
           <FlatList
             data={CardArray(props)}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item.id}
             numColumns={2}
             renderItem={({ item, index }) => (
               <View

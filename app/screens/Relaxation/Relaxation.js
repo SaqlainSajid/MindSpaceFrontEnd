@@ -17,53 +17,60 @@ const CardArray = (props) => [
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 1,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 2,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 3,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 4,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 5,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 6,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 7,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 8,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
   {
+    id: 9,
     imageName: "yoga",
     title: "Start off the day with calmness",
     onPress: () => props.navigation.navigate("Audio"),
   },
 ];
-
-const textArray = ["a", "b", "c", "d", "e"];
 
 const Relaxation = (props) => {
   const [scroll, setScroll] = useState(false);
@@ -80,7 +87,7 @@ const Relaxation = (props) => {
         <FlatList
           ref={flatListRef}
           data={CardArray(props)}
-          keyExtractor={(item) => item.title}
+          keyExtractor={(item) => item.id}
           numColumns={2}
           renderItem={({ item, index }) => (
             <View
