@@ -7,69 +7,129 @@ import {
   TextInput,
 } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import Card from "../../components/Card";
+import Hashtag from "../../components/Hashtag";
 import ItemSeparator from "../../components/ItemSeparator";
 import { Ionicons } from "react-native-vector-icons";
 
 const CardArray = (props) => [
   {
     id: 1,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 1, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 2,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 3,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 4,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 5,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 6,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 7,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 8,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 9,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 10,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
+    title: "#I am into men",
+    posts: [
+      { userid: 1, username: "homer", post: "I love bananas" },
+      { userid: 2, username: "homie", post: "I love bananas" },
+      { userid: 3, username: "holmes", post: "I love bananas" },
+      { userid: 4, username: "beff", post: "I love bananas" },
+      { userid: 5, username: "jezzos", post: "I love bananas" },
+    ],
     onPress: () => props.navigation.navigate("Feed"),
   },
 ];
@@ -105,10 +165,10 @@ const Discussion = (props) => {
                     }
               }
             >
-              <Card
-                imageName={item.imageName}
+              <Hashtag
                 title={item.title}
                 onPress={item.onPress}
+                posts={item.posts}
               />
             </View>
           )}

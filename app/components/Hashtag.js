@@ -5,6 +5,9 @@ const Hashtag = (props) => {
   return (
     <TouchableOpacity style={styles.card} onPress={props.onPress}>
       <Text style={styles.text}>{props.title}</Text>
+      <Text style={styles.post}>
+        {props.posts[0].username}:{props.posts[0].post}
+      </Text>
     </TouchableOpacity>
   );
 };
