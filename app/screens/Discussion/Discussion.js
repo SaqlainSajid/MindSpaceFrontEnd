@@ -24,7 +24,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 2,
@@ -38,7 +37,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 3,
@@ -52,7 +50,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 4,
@@ -66,7 +63,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 5,
@@ -80,7 +76,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 6,
@@ -94,7 +89,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 7,
@@ -108,7 +102,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 8,
@@ -122,7 +115,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 9,
@@ -136,7 +128,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "don't" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
   {
     id: 10,
@@ -150,7 +141,6 @@ const CardArray = (props) => [
       { id: 6, username: "ninki", post: "my anaconda" },
       { id: 7, username: "minjaz", post: "I love bananas" },
     ],
-    onPress: () => props.navigation.navigate("Feed"),
   },
 ];
 
@@ -187,8 +177,8 @@ const Discussion = (props) => {
             >
               <Hashtag
                 title={item.title}
-                onPress={item.onPress}
                 posts={item.posts}
+                navigation={props.navigation}
               />
             </View>
           )}

@@ -11,7 +11,10 @@ import HashtagPost from "../screens/Discussion/HashtagPost";
 const Hashtag = (props) => {
   const posts = props.posts.slice(0, 6);
   return (
-    <TouchableOpacity style={styles.card} onPress={props.onPress}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => props.navigation.navigate("Feed", { posts: props.posts })}
+    >
       <Text style={styles.headertext}>{props.title}</Text>
       <View style={styles.postContainer}>
         {posts.map((post, index) => (
