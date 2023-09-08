@@ -1,15 +1,19 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  FlatList,
+} from "react-native";
 import React from "react";
+import HashtagPost from "../screens/Discussion/HashtagPost";
 
 const Hashtag = (props) => {
   const posts = props.posts;
   return (
     <TouchableOpacity style={styles.card} onPress={props.onPress}>
       <Text style={styles.headertext}>{props.title}</Text>
-      <View style={styles.postContainer}>
-        <Text style={styles.username}>{posts[0].username}:</Text>
-        <Text style={styles.post}>{posts[0].post}</Text>
-      </View>
+      <HashtagPost username={posts[0].username} post={posts[0].post} />
     </TouchableOpacity>
   );
 };
@@ -28,11 +32,6 @@ const styles = StyleSheet.create({
   headertext: {
     fontSize: 18,
     fontWeight: "bold",
-  },
-  postContainer: {
-    flex: 1,
-    flexDirection: "row",
-    marginTop: 20,
   },
   username: {
     color: "grey",
