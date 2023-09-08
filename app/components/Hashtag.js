@@ -9,11 +9,15 @@ import React from "react";
 import HashtagPost from "../screens/Discussion/HashtagPost";
 
 const Hashtag = (props) => {
-  const posts = props.posts;
+  const posts = props.posts.slice(0, 6);
   return (
     <TouchableOpacity style={styles.card} onPress={props.onPress}>
       <Text style={styles.headertext}>{props.title}</Text>
-      <HashtagPost username={posts[0].username} post={posts[0].post} />
+      <View style={styles.postContainer}>
+        {posts.map((post, index) => (
+          <HashtagPost username={post.username} post={post.post} key={index} />
+        ))}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -28,18 +32,14 @@ const styles = StyleSheet.create({
     padding: 15,
     flexBasis: "33%",
     aspectRatio: 1,
+    overflow: "hidden",
   },
   headertext: {
     fontSize: 18,
     fontWeight: "bold",
   },
-  username: {
-    color: "grey",
-    fontSize: 12,
-    fontStyle: "italic",
-  },
-  post: {
-    fontSize: 12,
-    fontStyle: "italic",
+  postContainer: {
+    flex: 1,
+    marginTop: 20,
   },
 });

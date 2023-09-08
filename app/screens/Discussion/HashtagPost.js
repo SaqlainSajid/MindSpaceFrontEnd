@@ -1,17 +1,13 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 const HashtagPost = (props) => {
+  const post = props.post.slice(0, 12);
+  const username = props.username;
   return (
-    <View style={styles.postContainer}>
-      <Text style={styles.username}>{props.username}:</Text>
-      <Text style={styles.post}>{props.post}</Text>
+    <View style={{ flexDirection: "row" }}>
+      <Text style={styles.username}>{username}:</Text>
+      <Text style={styles.post}>{post}...</Text>
     </View>
   );
 };
@@ -19,11 +15,6 @@ const HashtagPost = (props) => {
 export default HashtagPost;
 
 const styles = StyleSheet.create({
-  postContainer: {
-    flex: 1,
-    flexDirection: "row",
-    marginTop: 20,
-  },
   username: {
     color: "grey",
     fontSize: 12,
