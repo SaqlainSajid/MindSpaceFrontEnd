@@ -3,18 +3,14 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import NavBar from "./NavBar";
-// import MySpace from "../screens/MySpace/MySpace";
-import LoginScreen from "../screens/LoginSignup/LoginScreen";
-import SignUpScreen from "../screens/LoginSignup/SignUpScreen";
 import Discussion from "../screens/Discussion/Discussion";
 import Chat from "../screens/Chat/Chat";
 import BookSession from "../screens/BookSession/BookSession";
 import Relaxation from "../screens/Relaxation/Relaxation";
 import Profile from "../screens/Profile/Profile";
-import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 import Audio from "../screens/Relaxation/Audio";
-import Feed from "../screens/Discussion/Feed";
+import Feed from "../screens/Feed/Feed";
 import AddPost from "../screens/Discussion/AddPost";
 
 const stack = createStackNavigator();

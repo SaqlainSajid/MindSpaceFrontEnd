@@ -1,19 +1,18 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import HashtagPost from "../screens/Discussion/HashtagPost";
+import HashtagPost from "./HashtagPost";
 
 const Hashtag = (props) => {
   const posts = props.posts.slice(0, 6);
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => props.navigation.navigate("Feed", { posts: props.posts })}
+      onPress={() =>
+        props.navigation.navigate("Feed", {
+          posts: props.posts,
+          title: props.title,
+        })
+      }
     >
       <Text style={styles.headertext}>{props.title}</Text>
       <View style={styles.postContainer}>

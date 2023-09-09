@@ -7,7 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import Hashtag from "../../components/Hashtag";
+import Hashtag from "./Hashtag";
 import ItemSeparator from "../../components/ItemSeparator";
 import { Ionicons } from "react-native-vector-icons";
 
@@ -194,10 +194,6 @@ const Discussion = (props) => {
 export default Discussion;
 
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    justifyContent: "space-around",
-  },
   searchView: {
     flex: 0.2,
     flexDirection: "row",
