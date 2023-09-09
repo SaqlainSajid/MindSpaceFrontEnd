@@ -32,7 +32,7 @@ const Feed = ({ route, ...props }) => {
       <View style={styles.feed}>
         {posts.map((post) => (
           <Text key={post.id}>
-            {post.user}:{post.post}
+            {post.username}:{post.post.content}
           </Text>
         ))}
       </View>

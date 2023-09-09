@@ -17,7 +17,11 @@ const Hashtag = (props) => {
       <Text style={styles.headertext}>{props.title}</Text>
       <View style={styles.postContainer}>
         {posts.map((post, index) => (
-          <HashtagPost username={post.username} post={post.post} key={index} />
+          <HashtagPost
+            username={post.username}
+            post={post.post.content}
+            key={index}
+          />
         ))}
       </View>
     </TouchableOpacity>
