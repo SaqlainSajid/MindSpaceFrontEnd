@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import Post from "./Post";
-import ItemSeparator from "../../components/ItemSeparator";
+import Separator from "../Feed/Separator";
 
 const Feed = ({ route, ...props }) => {
   const { posts, title } = route.params;
@@ -45,7 +45,7 @@ const Feed = ({ route, ...props }) => {
               time={item.post.time}
             />
           )}
-          ItemSeparatorComponent={ItemSeparator}
+          ItemSeparatorComponent={Separator}
           scrollEnabled={true}
         />
       </View>

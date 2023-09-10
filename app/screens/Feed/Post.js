@@ -6,16 +6,20 @@ const Post = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.profile}>
+        <TouchableOpacity style={styles.profile}>
           <Image
             source={props.image}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
           />
-          <Text>{props.username}</Text>
-        </View>
+          <Text style={{ fontSize: 20 }}>{props.username}</Text>
+        </TouchableOpacity>
         <Text>{props.time}</Text>
       </View>
-      <Text>{props.content}</Text>
+      <View style={styles.content}>
+        <TouchableOpacity>
+          <Text style={{ fontSize: 16 }}>{props.content}</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.footer}>
         <TouchableOpacity>
           <Ionicons name="heart-circle" color="#fe251b" size={24} />
@@ -35,21 +39,35 @@ export default Post;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "white",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   header: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginHorizontal: 10,
+    marginTop: 20,
   },
   profile: {
+    flex: 1,
     flexDirection: "row",
+    alignItems: "center",
+  },
+  content: {
+    flex: 2,
+    marginTop: 10,
+    marginBottom: 20,
+    paddingHorizontal: 5,
   },
   footer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
     marginHorizontal: 50,
+    marginBottom: 20,
   },
 });

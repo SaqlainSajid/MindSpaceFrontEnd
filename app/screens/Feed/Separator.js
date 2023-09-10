@@ -9,6 +9,7 @@ export default ItemSeparator;
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10,
+    height: 5,
+    backgroundColor: "lightgrey",
   },
 });
