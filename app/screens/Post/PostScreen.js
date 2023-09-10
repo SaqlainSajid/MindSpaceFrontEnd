@@ -5,7 +5,7 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 const PostScreen = () => {
   return (
     <ScreenTemplate>
-      <View>
+      <View style={styles.container}>
         <Text>PostScreen</Text>
       </View>
     </ScreenTemplate>
@@ -14,4 +14,13 @@ const PostScreen = () => {
 
 export default PostScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 20,
+    marginBottom: 40,
+    padding: 20,
+    borderRadius: 20,
+    backgroundColor: "white",
+  },
+});
