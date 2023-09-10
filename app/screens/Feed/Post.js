@@ -6,7 +6,10 @@ const Post = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.profile}>
+        <TouchableOpacity
+          style={styles.profile}
+          onPress={() => props.navigation.navigate("PostScreen")}
+        >
           <Image
             source={props.image}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
@@ -16,16 +19,27 @@ const Post = (props) => {
         <Text>{props.time}</Text>
       </View>
       <View style={styles.content}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("PostScreen")}
+        >
           <Text style={{ fontSize: 16 }}>{props.content}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.heart}>
           <Ionicons name="heart-circle" color="#fe251b" size={24} />
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>
+            {props.reactions.heart}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={styles.comment}
+          onPress={() => props.navigation.navigate("PostScreen")}
+        >
           <Fontisto name="comment" size={18} />
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>
+            {props.reactions.comment}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Feather name="send" size={18} />
@@ -69,5 +83,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginHorizontal: 50,
     marginBottom: 20,
+  },
+  heart: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  comment: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

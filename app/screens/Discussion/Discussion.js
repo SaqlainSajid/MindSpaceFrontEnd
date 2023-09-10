@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 24,
+    lineHeight: 24,
   },
   cardGrid: {
     flex: 1,

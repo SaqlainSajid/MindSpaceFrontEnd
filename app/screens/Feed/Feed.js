@@ -20,6 +20,7 @@ const Feed = ({ route, ...props }) => {
       headerTitleStyle: { fontSize: 24 },
     });
   }, []);
+
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
@@ -43,6 +44,8 @@ const Feed = ({ route, ...props }) => {
               content={item.post.content}
               image={item.userpic}
               time={item.post.time}
+              reactions={item.post.reactions}
+              navigation={props.navigation}
             />
           )}
           ItemSeparatorComponent={Separator}
@@ -82,6 +85,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 24,
+    lineHeight: 24,
   },
   feed: {
     flex: 1,

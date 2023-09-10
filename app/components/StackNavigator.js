@@ -12,6 +12,7 @@ import SettingsScreen from "../screens/Settings/SettingsScreen";
 import Audio from "../screens/Relaxation/Audio";
 import Feed from "../screens/Feed/Feed";
 import AddPost from "../screens/Discussion/AddPost";
+import PostScreen from "../screens/Post/PostScreen";
 
 const stack = createStackNavigator();
 
@@ -52,6 +53,11 @@ const StackNavigator = () => {
       <stack.Screen
         name="Settings"
         component={SettingsScreen}
+        options={{ headerShown: true }}
+      />
+      <stack.Screen
+        name="PostScreen"
+        component={PostScreen}
         options={{ headerShown: true }}
       />
     </stack.Navigator>
