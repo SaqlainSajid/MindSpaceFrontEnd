@@ -4,11 +4,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  FlatList,
 } from "react-native";
 import React, { useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import Post from "./Post";
+import ItemSeparator from "../../components/ItemSeparator";
 
 const Feed = ({ route, ...props }) => {
   const { posts, title } = route.params;
@@ -31,15 +33,21 @@ const Feed = ({ route, ...props }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.feed}>
-        {posts.map((post) => (
-          <Post
-            key={post.post.id}
-            username={post.username}
-            content={post.post.content}
-            image={post.userpic}
-            time={post.post.time}
-          />
-        ))}
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item.post.id}
+          renderItem={({ item }) => (
+            <Post
+              key={item.post.id}
+              username={item.username}
+              content={item.post.content}
+              image={item.userpic}
+              time={item.post.time}
+            />
+          )}
+          ItemSeparatorComponent={ItemSeparator}
+          scrollEnabled={true}
+        />
       </View>
     </ScreenTemplate>
   );

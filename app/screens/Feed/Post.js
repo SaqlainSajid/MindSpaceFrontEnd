@@ -6,11 +6,13 @@ const Post = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={props.image}
-          style={{ width: 30, height: 30, borderRadius: 15 }}
-        />
-        <Text>{props.username}</Text>
+        <View style={styles.profile}>
+          <Image
+            source={props.image}
+            style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
+          />
+          <Text>{props.username}</Text>
+        </View>
         <Text>{props.time}</Text>
       </View>
       <Text>{props.content}</Text>
@@ -40,6 +42,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  profile: {
+    flexDirection: "row",
   },
   footer: {
     flexDirection: "row",

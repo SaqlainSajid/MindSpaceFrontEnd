@@ -10,7 +10,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -58,7 +58,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -106,7 +106,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -154,7 +154,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -202,7 +202,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -250,7 +250,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -298,7 +298,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -346,7 +346,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -394,7 +394,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
@@ -442,7 +442,7 @@ export const CardArray = (props) => [
         post: { id: 1, time: "3 hrs ago", content: "I love bananas" },
       },
       {
-        id: 1,
+        id: 2,
         userpic: require("../assets/mountain.jpg"),
         username: "homie",
         post: { id: 1, time: "3 hrs ago", content: "I love bananas too" },
