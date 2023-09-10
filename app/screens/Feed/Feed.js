@@ -8,6 +8,7 @@ import {
 import React, { useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
+import Post from "./Post";
 
 const Feed = ({ route, ...props }) => {
   const { posts, title } = route.params;
@@ -31,9 +32,13 @@ const Feed = ({ route, ...props }) => {
       </View>
       <View style={styles.feed}>
         {posts.map((post) => (
-          <Text key={post.id}>
-            {post.username}:{post.post.content}
-          </Text>
+          <Post
+            key={post.post.id}
+            username={post.username}
+            content={post.post.content}
+            image={post.userpic}
+            time={post.post.time}
+          />
         ))}
       </View>
     </ScreenTemplate>
@@ -72,5 +77,6 @@ const styles = StyleSheet.create({
   },
   feed: {
     flex: 1,
+    overflow: "scroll",
   },
 });
