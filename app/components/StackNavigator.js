@@ -58,7 +58,7 @@ const StackNavigator = () => {
       <stack.Screen
         name="PostScreen"
         component={PostScreen}
-        options={{ headerShown: true }}
+        options={{ headerShown: true, headerTitle: "" }}
       />
     </stack.Navigator>
   );
