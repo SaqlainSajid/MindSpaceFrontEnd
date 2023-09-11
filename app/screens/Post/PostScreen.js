@@ -2,10 +2,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 
-const PostScreen = () => {
+const PostScreen = ({ route, ...props }) => {
+  const { username } = route.params;
   return (
     <ScreenTemplate>
       <View style={styles.container}>
+        <Text>{username}</Text>
         <Text>PostScreen</Text>
       </View>
     </ScreenTemplate>

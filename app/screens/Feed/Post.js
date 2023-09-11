@@ -8,7 +8,11 @@ const Post = (props) => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.profile}
-          onPress={() => props.navigation.navigate("PostScreen")}
+          onPress={() =>
+            props.navigation.navigate("PostScreen", {
+              username: props.username,
+            })
+          }
         >
           <Image
             source={props.image}
@@ -20,7 +24,11 @@ const Post = (props) => {
       </View>
       <View style={styles.content}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("PostScreen")}
+          onPress={() =>
+            props.navigation.navigate("PostScreen", {
+              username: props.username,
+            })
+          }
         >
           <Text style={{ fontSize: 16 }}>{props.content}</Text>
         </TouchableOpacity>
@@ -34,7 +42,11 @@ const Post = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.comment}
-          onPress={() => props.navigation.navigate("PostScreen")}
+          onPress={() =>
+            props.navigation.navigate("PostScreen", {
+              username: props.username,
+            })
+          }
         >
           <Fontisto name="comment" size={18} />
           <Text style={{ marginLeft: 5, fontSize: 12 }}>

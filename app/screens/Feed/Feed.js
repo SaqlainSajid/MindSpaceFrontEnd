@@ -45,6 +45,7 @@ const Feed = ({ route, ...props }) => {
               image={item.userpic}
               time={item.post.time}
               reactions={item.post.reactions}
+              comments={item.post.comments}
               navigation={props.navigation}
             />
           )}
