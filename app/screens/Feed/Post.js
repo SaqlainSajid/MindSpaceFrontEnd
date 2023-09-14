@@ -3,6 +3,14 @@ import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import React from "react";
 
 const Post = (props) => {
+  const passingValues = {
+    username: props.username,
+    content: props.content,
+    userpic: props.image,
+    time: props.time,
+    reactions: props.reactions,
+    comments: props.comments,
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -10,7 +18,7 @@ const Post = (props) => {
           style={styles.profile}
           onPress={() =>
             props.navigation.navigate("PostScreen", {
-              username: props.username,
+              passingValues: passingValues,
             })
           }
         >
@@ -26,7 +34,7 @@ const Post = (props) => {
         <TouchableOpacity
           onPress={() =>
             props.navigation.navigate("PostScreen", {
-              username: props.username,
+              passingValues: passingValues,
             })
           }
         >
@@ -44,7 +52,7 @@ const Post = (props) => {
           style={styles.comment}
           onPress={() =>
             props.navigation.navigate("PostScreen", {
-              username: props.username,
+              passingValues: passingValues,
             })
           }
         >
