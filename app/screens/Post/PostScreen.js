@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 
-const PostScreen = ({ route, ...props }) => {
+const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
   return (
     <ScreenTemplate>
