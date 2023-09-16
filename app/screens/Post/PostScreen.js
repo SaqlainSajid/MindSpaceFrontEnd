@@ -20,8 +20,10 @@ const PostScreen = ({ route }) => {
           <Text style={{ fontSize: 18, fontWeight: "400" }}>
             {passingValues.content}
           </Text>
-          <Text>heart: {passingValues.reactions.heart}</Text>
-          <Text>comment: {passingValues.reactions.heart}</Text>
+          <View style={styles.reactions}>
+            <Text>heart: {passingValues.reactions.heart}</Text>
+            <Text>comment: {passingValues.reactions.heart}</Text>
+          </View>
         </View>
         <Text>
           {passingValues.comments[0].username}:
@@ -71,7 +73,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   content: {
-    flex: 0.2,
-    justifyContent: "center",
+    flex: 0.3,
+    borderWidth: 2,
+    borderColor: "red",
+  },
+  reactions: {
+    borderWidth: 2,
+    borderColor: "black",
   },
 });
