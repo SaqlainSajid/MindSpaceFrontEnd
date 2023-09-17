@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 
 const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
@@ -21,8 +22,17 @@ const PostScreen = ({ route }) => {
             {passingValues.content}
           </Text>
           <View style={styles.reactions}>
-            <Text>heart: {passingValues.reactions.heart}</Text>
-            <Text>comment: {passingValues.reactions.heart}</Text>
+            <TouchableOpacity style={styles.heart}>
+              <Ionicons name="heart-circle" color="#fe251b" size={24} />
+              <Text>{passingValues.reactions.heart}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.comment}>
+              <Fontisto name="comment" size={18} />
+              <Text>{passingValues.reactions.heart}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Feather name="send" size={18} />
+            </TouchableOpacity>
           </View>
         </View>
         <Text>
