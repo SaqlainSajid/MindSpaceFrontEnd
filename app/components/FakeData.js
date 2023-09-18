@@ -43,7 +43,8 @@ export const CardArray = (props) => [
               ],
             },
           ],
-          content: "I love bananas",
+          content:
+            "I love bananas, let's go baby what a treat, I love eating them, need some bananas in my mouth like right now or else, this will be a big big long ass post, so that the freaking devs are annoyed that they can't fit my thoughts into one screen, such that my post doesn't fit into a freaking SSD it's just too much data for any physical hardware to hold",
         },
       },
       {

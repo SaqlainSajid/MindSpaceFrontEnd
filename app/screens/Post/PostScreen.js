@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 
 const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -21,30 +22,37 @@ const PostScreen = ({ route }) => {
           <Text style={{ fontSize: 18, fontWeight: "400" }}>
             {passingValues.content}
           </Text>
-          <View style={styles.reactions}>
-            <TouchableOpacity style={styles.heart}>
-              <Ionicons name="heart-circle" color="#fe251b" size={24} />
-              <Text>{passingValues.reactions.heart}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.comment}>
-              <Fontisto name="comment" size={18} />
-              <Text>{passingValues.reactions.heart}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Feather name="send" size={18} />
-            </TouchableOpacity>
-          </View>
         </View>
-        <Text>
-          {passingValues.comments[0].username}:
-          {passingValues.comments[0].content}
-        </Text>
-        <Text>{passingValues.comments[0].heart}</Text>
-        <Text>
-          {passingValues.comments[0].replies[0].username}:
-          {passingValues.comments[0].replies[0].content}
-        </Text>
-        <Text>{passingValues.comments[0].replies[0].heart}</Text>
+        <View style={styles.reactions}>
+          <TouchableOpacity style={styles.heart}>
+            <Ionicons name="heart-circle" color="#fe251b" size={24} />
+            <Text style={{ marginLeft: 5, fontSize: 12 }}>
+              {passingValues.reactions.heart}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.comment}>
+            <Fontisto name="comment" size={18} />
+            <Text style={{ marginLeft: 5, fontSize: 12 }}>
+              {passingValues.reactions.heart}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Feather name="send" size={18} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.separator} />
+        <View style={styles.commentSection}>
+          <Text>
+            {passingValues.comments[0].username}:
+            {passingValues.comments[0].content}
+          </Text>
+          <Text>{passingValues.comments[0].heart}</Text>
+          <Text>
+            {passingValues.comments[0].replies[0].username}:
+            {passingValues.comments[0].replies[0].content}
+          </Text>
+          <Text>{passingValues.comments[0].replies[0].heart}</Text>
+        </View>
       </View>
     </ScreenTemplate>
   );
@@ -56,8 +64,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 20,
-    marginBottom: 40,
-    padding: 20,
+    marginBottom: 30,
+    padding: 16,
     borderRadius: 20,
     backgroundColor: "white",
   },
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginTop: 10,
-    marginHorizontal: 5,
+    marginHorizontal: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -83,12 +91,33 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   content: {
-    flex: 0.3,
-    borderWidth: 2,
-    borderColor: "red",
+    height: "auto",
+    paddingVertical: 15,
+    paddingHorizontal: 5,
   },
   reactions: {
-    borderWidth: 2,
-    borderColor: "black",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginHorizontal: 50,
+    marginBottom: 10,
+  },
+  heart: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  comment: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  separator: {
+    height: 5,
+    backgroundColor: "lightgrey",
+  },
+  commentSection: {
+    flex: 3,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    overflow: "scroll",
   },
 });

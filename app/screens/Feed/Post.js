@@ -11,6 +11,7 @@ const Post = (props) => {
     reactions: props.reactions,
     comments: props.comments,
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,7 +39,13 @@ const Post = (props) => {
             })
           }
         >
-          <Text style={{ fontSize: 16 }}>{props.content}</Text>
+          {props.content.length < 300 ? (
+            <Text style={{ fontSize: 16 }}>{props.content}</Text>
+          ) : (
+            <Text style={{ fontSize: 16 }}>
+              {props.content.slice(0, 300)}...
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
