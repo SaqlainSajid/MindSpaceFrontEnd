@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 10,
+    overflow: "scroll",
   },
   header: {
     flex: 1,

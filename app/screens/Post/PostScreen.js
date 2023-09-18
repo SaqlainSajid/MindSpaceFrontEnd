@@ -1,7 +1,15 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
+import Comment from "./Comment";
 
 const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
@@ -42,7 +50,22 @@ const PostScreen = ({ route }) => {
         </View>
         <View style={styles.separator} />
         <View style={styles.commentSection}>
-          <Text>
+          <FlatList
+            data={passingValues.comments}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Comment
+                key={item.id}
+                username={item.username}
+                content={item.content}
+                heart={item.heart}
+                replies={item.replies}
+              />
+            )}
+            ItemSeparatorComponent={<View style={{ height: 10 }} />}
+            scrollEnabled={true}
+          />
+          {/* <Text>
             {passingValues.comments[0].username}:
             {passingValues.comments[0].content}
           </Text>
@@ -51,7 +74,7 @@ const PostScreen = ({ route }) => {
             {passingValues.comments[0].replies[0].username}:
             {passingValues.comments[0].replies[0].content}
           </Text>
-          <Text>{passingValues.comments[0].replies[0].heart}</Text>
+          <Text>{passingValues.comments[0].replies[0].heart}</Text> */}
         </View>
       </View>
     </ScreenTemplate>
