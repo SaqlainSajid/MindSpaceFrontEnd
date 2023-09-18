@@ -56,6 +56,7 @@ const PostScreen = ({ route }) => {
             renderItem={({ item }) => (
               <Comment
                 key={item.id}
+                userpic={item.userpic}
                 username={item.username}
                 content={item.content}
                 heart={item.heart}

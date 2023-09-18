@@ -14,12 +14,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -29,12 +31,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -58,12 +62,15 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
-              content: "haha yes",
+              content:
+                "haha yes, let's freaking break the whole app, write all the shit you've ever read, heck just spam random letter alsdknfoiwerlnafoajsdaflnk",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -73,12 +80,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -101,12 +110,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -116,12 +127,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -144,12 +157,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -159,12 +174,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -187,12 +204,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -202,12 +221,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -230,12 +251,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -245,12 +268,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -273,12 +298,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -288,12 +315,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -322,12 +351,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -337,12 +368,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -365,12 +398,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -380,12 +415,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -408,12 +445,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -423,12 +462,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -451,12 +492,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -466,12 +509,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -494,12 +539,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -509,12 +556,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -537,12 +586,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -552,12 +603,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -580,12 +633,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -595,12 +650,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -629,12 +686,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -644,12 +703,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -672,12 +733,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -687,12 +750,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -715,12 +780,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -730,12 +797,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -758,12 +827,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -773,12 +844,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -801,12 +874,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -816,12 +891,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -844,12 +921,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -859,12 +938,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -887,12 +968,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -902,12 +985,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -936,12 +1021,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -951,12 +1038,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -979,12 +1068,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -994,12 +1085,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1022,12 +1115,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1037,12 +1132,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1065,12 +1162,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1080,12 +1179,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1108,12 +1209,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1123,12 +1226,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1151,12 +1256,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1166,12 +1273,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1194,12 +1303,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1209,12 +1320,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1243,12 +1356,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1258,12 +1373,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1286,12 +1403,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1301,12 +1420,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1329,12 +1450,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1344,12 +1467,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1372,12 +1497,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1387,12 +1514,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1415,12 +1544,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1430,12 +1561,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1458,12 +1591,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1473,12 +1608,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1501,12 +1638,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1516,12 +1655,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1550,12 +1691,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1565,12 +1708,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1593,12 +1738,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1608,12 +1755,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1636,12 +1785,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1651,12 +1802,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1679,12 +1832,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1694,12 +1849,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1722,12 +1879,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1737,12 +1896,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1765,12 +1926,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1780,12 +1943,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1808,12 +1973,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1823,12 +1990,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1857,12 +2026,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1872,12 +2043,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1900,12 +2073,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1915,12 +2090,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1943,12 +2120,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1958,12 +2137,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -1986,12 +2167,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2001,12 +2184,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2029,12 +2214,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2044,12 +2231,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2072,12 +2261,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2087,12 +2278,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2115,12 +2308,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2130,12 +2325,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2164,12 +2361,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2179,12 +2378,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2207,12 +2408,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2222,12 +2425,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2250,12 +2455,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2265,12 +2472,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2293,12 +2502,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2308,12 +2519,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2336,12 +2549,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2351,12 +2566,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2379,12 +2596,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2394,12 +2613,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2422,12 +2643,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2437,12 +2660,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2471,12 +2696,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2486,12 +2713,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2514,12 +2743,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2529,12 +2760,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2557,12 +2790,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2572,12 +2807,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2600,12 +2837,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2615,12 +2854,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2643,12 +2884,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2658,12 +2901,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2686,12 +2931,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2701,12 +2948,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2729,12 +2978,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2744,12 +2995,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2778,12 +3031,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2793,12 +3048,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2821,12 +3078,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2836,12 +3095,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2864,12 +3125,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2879,12 +3142,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2907,12 +3172,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2922,12 +3189,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2950,12 +3219,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2965,12 +3236,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -2993,12 +3266,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -3008,12 +3283,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -3036,12 +3313,14 @@ export const CardArray = (props) => [
           comments: [
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "larry",
               content: "haha yes",
               heart: 5,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
@@ -3051,12 +3330,14 @@ export const CardArray = (props) => [
             },
             {
               id: 1,
+              userpic: require("../assets/mountain.jpg"),
               username: "harry",
               content: "heck yea",
               heart: 3,
               replies: [
                 {
                   id: 1,
+                  userpic: require("../assets/mountain.jpg"),
                   username: "barry",
                   content: "that's right",
                   heart: 3,
