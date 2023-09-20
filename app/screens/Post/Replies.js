@@ -1,19 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import Replies from "./Replies";
 import { Ionicons, Fontisto } from "react-native-vector-icons";
 
-const Comment = (props) => {
+const Replies = (props) => {
   return (
     <View style={styles.container}>
-      <View style={styles.commentcontainer}>
+      <View style={styles.replycontainer}>
         <View style={styles.profile}>
           <Image
             source={props.userpic}
@@ -35,7 +27,7 @@ const Comment = (props) => {
             {props.username}
           </Text>
         </View>
-        <View style="comment">
+        <View style="reply">
           <Text style={{ color: "white", fontWeight: "bold" }}>
             {props.content}
           </Text>
@@ -51,36 +43,22 @@ const Comment = (props) => {
           <Text style={{ marginLeft: 5, fontSize: 12 }}>reply</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.replies}>
-        <FlatList
-          data={props.replies}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Replies
-              key={item.id}
-              userpic={item.userpic}
-              username={item.username}
-              content={item.content}
-              heart={item.heart}
-              replies={item.replies}
-            />
-          )}
-          ItemSeparatorComponent={<View style={{ height: 20 }} />}
-        />
-      </View>
     </View>
   );
 };
 
-export default Comment;
+export default Replies;
 
 const styles = StyleSheet.create({
   container: {
-    height: "auto",
-  },
-  commentcontainer: {
     flex: 1,
-    backgroundColor: "#766195",
+    marginLeft: 24,
+    marginTop: 14,
+  },
+  replycontainer: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#a491c0",
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 10,

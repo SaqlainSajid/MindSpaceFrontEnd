@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -41,7 +42,7 @@ const PostScreen = ({ route }) => {
           <TouchableOpacity style={styles.comment}>
             <Fontisto name="comment" size={18} />
             <Text style={{ marginLeft: 5, fontSize: 12 }}>
-              {passingValues.reactions.heart}
+              {passingValues.reactions.comment}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity>
@@ -66,16 +67,9 @@ const PostScreen = ({ route }) => {
             ItemSeparatorComponent={<View style={{ height: 10 }} />}
             scrollEnabled={true}
           />
-          {/* <Text>
-            {passingValues.comments[0].username}:
-            {passingValues.comments[0].content}
-          </Text>
-          <Text>{passingValues.comments[0].heart}</Text>
-          <Text>
-            {passingValues.comments[0].replies[0].username}:
-            {passingValues.comments[0].replies[0].content}
-          </Text>
-          <Text>{passingValues.comments[0].replies[0].heart}</Text> */}
+        </View>
+        <View style={styles.addcomment}>
+          <TextInput style={styles.input} placeholder="Write something..." />
         </View>
       </View>
     </ScreenTemplate>
@@ -142,6 +136,6 @@ const styles = StyleSheet.create({
     flex: 3,
     paddingVertical: 15,
     paddingHorizontal: 5,
-    overflow: "scroll",
   },
+  addcomment: {},
 });
