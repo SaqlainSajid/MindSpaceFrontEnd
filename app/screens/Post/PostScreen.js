@@ -63,21 +63,6 @@ const PostScreen = ({ route }) => {
                 replies={item.replies}
               />
             ))}
-            {/* <FlatList
-              data={passingValues.comments}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <Comment
-                  key={item.id}
-                  userpic={item.userpic}
-                  username={item.username}
-                  content={item.content}
-                  heart={item.heart}
-                  replies={item.replies}
-                />
-              )}
-              ItemSeparatorComponent={<View style={{ height: 10 }} />}
-            /> */}
           </View>
           <View style={styles.addcomment}>
             <TextInput style={styles.input} placeholder="Write something..." />
