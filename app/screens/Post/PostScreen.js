@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -18,43 +19,41 @@ const PostScreen = ({ route }) => {
   return (
     <ScreenTemplate>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.profile}>
-            <Image style={styles.image} source={passingValues.userpic} />
-            <Text style={styles.username}>{passingValues.username}</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <View style={styles.profile}>
+              <Image style={styles.image} source={passingValues.userpic} />
+              <Text style={styles.username}>{passingValues.username}</Text>
+            </View>
+            <Text style={{ fontSize: 14, fontWeight: "300" }}>
+              {passingValues.time}
+            </Text>
           </View>
-          <Text style={{ fontSize: 14, fontWeight: "300" }}>
-            {passingValues.time}
-          </Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={{ fontSize: 18, fontWeight: "400" }}>
-            {passingValues.content}
-          </Text>
-        </View>
-        <View style={styles.reactions}>
-          <TouchableOpacity style={styles.heart}>
-            <Ionicons name="heart-circle" color="#fe251b" size={24} />
-            <Text style={{ marginLeft: 5, fontSize: 12 }}>
-              {passingValues.reactions.heart}
+          <View style={styles.content}>
+            <Text style={{ fontSize: 18, fontWeight: "400" }}>
+              {passingValues.content}
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.comment}>
-            <Fontisto name="comment" size={18} />
-            <Text style={{ marginLeft: 5, fontSize: 12 }}>
-              {passingValues.reactions.comment}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Feather name="send" size={18} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.separator} />
-        <View style={styles.commentSection}>
-          <FlatList
-            data={passingValues.comments}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+          </View>
+          <View style={styles.reactions}>
+            <TouchableOpacity style={styles.heart}>
+              <Ionicons name="heart-circle" color="#fe251b" size={24} />
+              <Text style={{ marginLeft: 5, fontSize: 12 }}>
+                {passingValues.reactions.heart}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.comment}>
+              <Fontisto name="comment" size={18} />
+              <Text style={{ marginLeft: 5, fontSize: 12 }}>
+                {passingValues.reactions.comment}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Feather name="send" size={18} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.separator} />
+          <View style={styles.commentSection}>
+            {passingValues.comments.map((item) => (
               <Comment
                 key={item.id}
                 userpic={item.userpic}
@@ -63,17 +62,30 @@ const PostScreen = ({ route }) => {
                 heart={item.heart}
                 replies={item.replies}
               />
-            )}
-            ItemSeparatorComponent={<View style={{ height: 10 }} />}
-            scrollEnabled={true}
-          />
-        </View>
-        <View style={styles.addcomment}>
-          <TextInput style={styles.input} placeholder="Write something..." />
-          <TouchableOpacity>
-            <Ionicons name="send-sharp" size={24} />
-          </TouchableOpacity>
-        </View>
+            ))}
+            {/* <FlatList
+              data={passingValues.comments}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <Comment
+                  key={item.id}
+                  userpic={item.userpic}
+                  username={item.username}
+                  content={item.content}
+                  heart={item.heart}
+                  replies={item.replies}
+                />
+              )}
+              ItemSeparatorComponent={<View style={{ height: 10 }} />}
+            /> */}
+          </View>
+          <View style={styles.addcomment}>
+            <TextInput style={styles.input} placeholder="Write something..." />
+            <TouchableOpacity>
+              <Ionicons name="send-sharp" size={24} />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     </ScreenTemplate>
   );

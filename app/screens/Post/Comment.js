@@ -52,7 +52,7 @@ const Comment = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.replies}>
-        <FlatList
+        {/* <FlatList
           data={props.replies}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
@@ -66,7 +66,17 @@ const Comment = (props) => {
             />
           )}
           ItemSeparatorComponent={<View style={{ height: 20 }} />}
-        />
+        /> */}
+        {props.replies.map((item) => (
+          <Replies
+            key={item.id}
+            userpic={item.userpic}
+            username={item.username}
+            content={item.content}
+            heart={item.heart}
+            replies={item.replies}
+          />
+        ))}
       </View>
     </View>
   );
