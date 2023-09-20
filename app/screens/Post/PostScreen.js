@@ -70,6 +70,9 @@ const PostScreen = ({ route }) => {
         </View>
         <View style={styles.addcomment}>
           <TextInput style={styles.input} placeholder="Write something..." />
+          <TouchableOpacity>
+            <Ionicons name="send-sharp" size={24} />
+          </TouchableOpacity>
         </View>
       </View>
     </ScreenTemplate>
@@ -137,5 +140,16 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 5,
   },
-  addcomment: {},
+  addcomment: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  input: {
+    flex: 0.9,
+    borderWidth: 2,
+    borderColor: "lightgrey",
+    borderRadius: 10,
+    padding: 10,
+  },
 });
