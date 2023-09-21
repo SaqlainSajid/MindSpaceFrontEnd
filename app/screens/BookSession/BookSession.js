@@ -6,7 +6,7 @@ import Profile from "./Profile";
 const BookSession = () => {
   return (
     <ScreenTemplate>
-      <View>
+      <View style={styles.container}>
         <Profile />
       </View>
     </ScreenTemplate>
@@ -15,4 +15,8 @@ const BookSession = () => {
 
 export default BookSession;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
