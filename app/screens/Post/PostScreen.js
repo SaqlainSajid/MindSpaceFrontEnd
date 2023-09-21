@@ -64,13 +64,13 @@ const PostScreen = ({ route }) => {
               />
             ))}
           </View>
-          <View style={styles.addcomment}>
-            <TextInput style={styles.input} placeholder="Write something..." />
-            <TouchableOpacity>
-              <Ionicons name="send-sharp" size={24} />
-            </TouchableOpacity>
-          </View>
         </ScrollView>
+        <View style={styles.addcomment}>
+          <TextInput style={styles.input} placeholder="Write something..." />
+          <TouchableOpacity>
+            <Ionicons name="send-sharp" size={24} />
+          </TouchableOpacity>
+        </View>
       </View>
     </ScreenTemplate>
   );
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginTop: 10,
   },
   input: {
     flex: 0.9,
