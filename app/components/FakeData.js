@@ -3352,3 +3352,114 @@ export const CardArray = (props) => [
     ],
   },
 ];
+
+export const Doctors = (props) => [
+  {
+    id: 1,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+  {
+    id: 2,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+  {
+    id: 3,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+  {
+    id: 4,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+  {
+    id: 5,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+  {
+    id: 6,
+    pic: require("../assets/mountain.jpg"),
+    name: "Dr Mustari Sadia Roshni",
+    degrees: [
+      { id: 1, name: "BSc", major: "Psychology", institution: "DU" },
+      { id: 2, name: "MSc", major: "Psychology", institution: "DU" },
+    ],
+    spec: [
+      "Depression and Anxiety Cases, using CBT",
+      "Adolescent mental health issues",
+      "Relationship problems including marital problem",
+    ],
+    payment: [
+      { id: 1, amount: 900, timemins: 60 },
+      { id: 2, amount: 1100, timemins: 60 },
+    ],
+  },
+];

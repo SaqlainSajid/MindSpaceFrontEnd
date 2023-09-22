@@ -1,27 +1,43 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
-const Profile = () => {
+const Profile = (props) => {
+  console.log(props.degrees[0].name);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          style={styles.pic}
-          source={require("../../assets/mountain.jpg")}
-        />
+        <Image style={styles.pic} source={props.pic} />
         <View style={styles.namedegrees}>
-          <Text style={styles.name}>Dr Mustari Sadia Roshni</Text>
-          <Text>Degrees</Text>
+          <Text style={styles.name}>{props.name}</Text>
+          <View style={styles.degrees}>
+            {props.degrees.map((item) => {
+              <View key={item.id} style={{ flexDirection: "row" }}>
+                <Text>{item.name}</Text>
+                <Text>({item.major})</Text>
+                <Text>{item.institution}</Text>
+              </View>;
+            })}
+          </View>
         </View>
       </View>
       <View style={styles.main}>
-        <Text>Specialization</Text>
+        {props.spec.map((item) => {
+          <View id={item.id} style={{ flexDirection: "row" }}>
+            <Text>{item}</Text>
+          </View>;
+        })}
       </View>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.button}>
           <Text>BOOK NOW</Text>
         </TouchableOpacity>
-        <Text>Price</Text>
+        <View style={styles.payment}>
+          {props.payment.map((item) => {
+            <View style={{ flexDirection: "row" }}>
+              <Text>{item}</Text>
+            </View>;
+          })}
+        </View>
       </View>
     </View>
   );
@@ -64,7 +80,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  degrees: {
+    flex: 1,
+  },
   footer: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
