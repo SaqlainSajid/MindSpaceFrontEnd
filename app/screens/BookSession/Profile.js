@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
 const Profile = (props) => {
-  console.log(props.degrees[0].name);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -10,33 +9,47 @@ const Profile = (props) => {
         <View style={styles.namedegrees}>
           <Text style={styles.name}>{props.name}</Text>
           <View style={styles.degrees}>
-            {props.degrees.map((item) => {
+            {props.degrees.map((item) => (
               <View key={item.id} style={{ flexDirection: "row" }}>
-                <Text>{item.name}</Text>
-                <Text>({item.major})</Text>
-                <Text>{item.institution}</Text>
-              </View>;
-            })}
+                <Text style={{ fontSize: 14 }}>{item.name}</Text>
+                <Text style={{ fontSize: 14 }}>({item.major})</Text>
+                <Text style={{ fontSize: 14 }}>{item.institution}</Text>
+              </View>
+            ))}
           </View>
         </View>
       </View>
       <View style={styles.main}>
-        {props.spec.map((item) => {
-          <View id={item.id} style={{ flexDirection: "row" }}>
-            <Text>{item}</Text>
-          </View>;
-        })}
+        {props.spec.map((item) => (
+          <View
+            id={item.id}
+            style={{ flexDirection: "row", alignItems: "flex-start" }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 25,
+                marginRight: 5,
+              }}
+            >
+              {"\u2022"}
+            </Text>
+            <Text style={{ marginTop: 8 }}>{item}</Text>
+          </View>
+        ))}
       </View>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.button}>
-          <Text>BOOK NOW</Text>
+          <Text style={{ color: "white" }}>BOOK NOW</Text>
         </TouchableOpacity>
         <View style={styles.payment}>
-          {props.payment.map((item) => {
-            <View style={{ flexDirection: "row" }}>
-              <Text>{item}</Text>
-            </View>;
-          })}
+          {props.payment.map((item) => (
+            <View key={item.id} style={{ flexDirection: "row" }}>
+              <Text style={{ fontWeight: "bold" }}>
+                {item.amount}/{item.timemins}mins
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
     </View>
@@ -60,13 +73,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   pic: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginLeft: 10,
   },
   namedegrees: {
     flex: 1,
-    marginRight: 50,
+    marginRight: 30,
     alignItems: "center",
   },
   name: {
@@ -74,18 +88,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flexWrap: "wrap",
     textAlign: "center",
+    marginTop: 10,
   },
   main: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginTop: 10,
+    marginBottom: 20,
+    paddingHorizontal: 14,
   },
   degrees: {
     flex: 1,
+    marginVertical: 10,
   },
   footer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: "#7ed957",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 25,
   },
 });
