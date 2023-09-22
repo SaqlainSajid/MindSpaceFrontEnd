@@ -18,6 +18,7 @@ const BookSession = (props) => {
               degrees={item.degrees}
               spec={item.spec}
               payment={item.payment}
+              navigation={props.navigation}
             />
           )}
           ItemSeparatorComponent={<View style={{ height: 10 }} />}

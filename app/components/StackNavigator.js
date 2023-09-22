@@ -13,6 +13,7 @@ import Audio from "../screens/Relaxation/Audio";
 import Feed from "../screens/Feed/Feed";
 import AddPost from "../screens/Discussion/AddPost";
 import PostScreen from "../screens/Post/PostScreen";
+import Booking from "../screens/BookSession/Booking";
 
 const stack = createStackNavigator();
 
@@ -38,7 +39,11 @@ const StackNavigator = () => {
         options={{ headerShown: true }}
       />
       <stack.Screen name="Chat" component={Chat} />
-      <stack.Screen name="Book Session" component={BookSession} />
+      <stack.Screen
+        name="Book Session"
+        component={BookSession}
+        options={{ headerShown: true, headerTitle: "Book a Session" }}
+      />
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
         name="Audio"
@@ -59,6 +64,11 @@ const StackNavigator = () => {
         name="PostScreen"
         component={PostScreen}
         options={{ headerShown: true, headerTitle: "" }}
+      />
+      <stack.Screen
+        name="Booking"
+        component={Booking}
+        options={{ headerShown: true, headerTitle: "Book a Session" }}
       />
     </stack.Navigator>
   );
