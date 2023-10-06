@@ -1,30 +1,62 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 
 const Booking = () => {
+  const [clicked, setClicked] = useState(true);
+  const [btnstyle, setbtnstyle] = useState("unclickedbtn");
+  const [txtstyle, setTxtstyle] = useState("unclickedtxt");
   return (
     <ScreenTemplate>
       <View style={styles.container}>
         <Text style={styles.header}>Duration</Text>
         <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text>60 minutes</Text>
+          <TouchableOpacity
+            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              60 minutes
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text>90 minutes</Text>
+          <TouchableOpacity
+            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              90 minutes
+            </Text>
           </TouchableOpacity>
         </TouchableOpacity>
         <Text style={styles.header}>Time</Text>
         <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity style={[styles.button, styles.timebutton]}>
-            <Text>11:00 am</Text>
+          <TouchableOpacity
+            style={[
+              clicked ? styles.clickedbtn : styles.unclickedbtn,
+              styles.timebutton,
+            ]}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              11:00 am
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.timebutton]}>
-            <Text>12:00 pm</Text>
+          <TouchableOpacity
+            style={[
+              clicked ? styles.clickedbtn : styles.unclickedbtn,
+              styles.timebutton,
+            ]}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              12:00 pm
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.timebutton]}>
-            <Text>1:00 pm</Text>
+          <TouchableOpacity
+            style={[
+              clicked ? styles.clickedbtn : styles.unclickedbtn,
+              styles.timebutton,
+            ]}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              1:00 pm
+            </Text>
           </TouchableOpacity>
         </TouchableOpacity>
         <Text style={styles.header}>Date</Text>
@@ -33,15 +65,23 @@ const Booking = () => {
         </View>
         <Text style={styles.header}>Preferred mode of confirmation</Text>
         <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text>Call</Text>
+          <TouchableOpacity
+            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              Call
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text>Email</Text>
+          <TouchableOpacity
+            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
+          >
+            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
+              Email
+            </Text>
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text>Pay Advance</Text>
+        <TouchableOpacity style={styles.unclickedbtn}>
+          <Text style={styles.unclickedtxt}>Pay Advance</Text>
         </TouchableOpacity>
       </View>
     </ScreenTemplate>
@@ -69,8 +109,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     overflow: "scroll",
   },
-  button: {
-    // backgroundColor: "#292c52",
+  unclickedbtn: {
+    borderWidth: 2,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  clickedbtn: {
+    backgroundColor: "#292c52",
     borderWidth: 2,
     paddingHorizontal: 30,
     paddingVertical: 10,
@@ -79,4 +126,8 @@ const styles = StyleSheet.create({
   timebutton: {
     marginHorizontal: 30,
   },
+  clickedtxt: {
+    color: "white",
+  },
+  unclickedtxt: {},
 });
