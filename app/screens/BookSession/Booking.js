@@ -6,14 +6,8 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
+import { Calendar } from "react-native-calendars";
 import ScreenTemplate from "../../components/ScreenTemplate";
-
-//have buttons in lists, there might be multiple sessions with multiple times
-//there might be multiple times of the day that a doctor can have time
-//then basically render the button
-//make another fake data file for Doctors and change the BookSession page accordingly
-//then import the data here too, then make the horizontally scrollable list
-//component for buttons
 
 const durations = [
   { quantity: 15, unit: "minutes" },
@@ -33,37 +27,33 @@ const Booking = () => {
     <ScreenTemplate>
       <View style={styles.container}>
         <Text style={styles.header}>Duration</Text>
-        <ScrollView
-          horizontal={true}
-          alignItems={"center"}
-          style={styles.durationcontainer}
-        >
-          {durations.map((item) => (
-            <TouchableOpacity style={styles.button}>
-              <Text>
-                {item.quantity} {item.unit}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <View style={styles.durationcontainer}>
+          <ScrollView horizontal={true} alignItems={"center"}>
+            {durations.map((item) => (
+              <TouchableOpacity style={styles.button}>
+                <Text>
+                  {item.quantity} {item.unit}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
         <Text style={styles.header}>Time</Text>
-        <ScrollView
-          horizontal={true}
-          alignItems={"center"}
-          style={styles.timecontainer}
-        >
-          {times.map((item) => (
-            <TouchableOpacity style={styles.button}>
-              <Text>
-                {item.hour}:{item.minute}
-                {item.period}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <View style={styles.timecontainer}>
+          <ScrollView horizontal={true} alignItems={"center"}>
+            {times.map((item) => (
+              <TouchableOpacity style={styles.button}>
+                <Text>
+                  {item.hour}:{item.minute}
+                  {item.period}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
         <Text style={styles.header}>Date</Text>
         <View style={styles.calendarcontainer}>
-          <Text>Calendar</Text>
+          <Calendar />
         </View>
         <Text style={styles.header}>Preferred mode of confirmation</Text>
         <TouchableOpacity style={styles.modeconfirmcontainer}>
@@ -106,15 +96,15 @@ const styles = StyleSheet.create({
     flex: 0.1,
   },
   calendarcontainer: {
-    flex: 1,
+    flex: 0.7,
   },
   modeconfirmcontainer: {
-    flex: 0.5,
+    flex: 0.1,
     flexDirection: "row",
     marginTop: 15,
   },
   paycontainer: {
-    flex: 0.5,
+    flex: 0.1,
     marginTop: 10,
     marginBottom: 20,
   },
