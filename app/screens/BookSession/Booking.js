@@ -1,88 +1,84 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 
+//have buttons in lists, there might be multiple sessions with multiple times
+//there might be multiple times of the day that a doctor can have time
+//then basically render the button
+//make another fake data file for Doctors and change the BookSession page accordingly
+//then import the data here too, then make the horizontally scrollable list
+//component for buttons
+
+const durations = [
+  { quantity: 15, unit: "minutes" },
+  { quantity: 30, unit: "minutes" },
+  { quantity: 45, unit: "minutes" },
+  { quantity: 60, unit: "minutes" },
+  { quantity: 90, unit: "minutes" },
+];
+const times = [
+  { hour: 11, minute: 0, period: "am" },
+  { hour: 12, minute: 0, period: "pm" },
+  { hour: 1, minute: 30, period: "pm" },
+];
+
 const Booking = () => {
-  const [clicked, setClicked] = useState(true);
-  const [btnstyle, setbtnstyle] = useState("unclickedbtn");
-  const [txtstyle, setTxtstyle] = useState("unclickedtxt");
   return (
     <ScreenTemplate>
       <View style={styles.container}>
         <Text style={styles.header}>Duration</Text>
-        <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity
-            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              60 minutes
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              90 minutes
-            </Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
+        <ScrollView
+          horizontal={true}
+          alignItems={"center"}
+          style={styles.durationcontainer}
+        >
+          {durations.map((item) => (
+            <TouchableOpacity style={styles.button}>
+              <Text>
+                {item.quantity} {item.unit}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
         <Text style={styles.header}>Time</Text>
-        <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity
-            style={[
-              clicked ? styles.clickedbtn : styles.unclickedbtn,
-              styles.timebutton,
-            ]}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              11:00 am
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              clicked ? styles.clickedbtn : styles.unclickedbtn,
-              styles.timebutton,
-            ]}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              12:00 pm
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              clicked ? styles.clickedbtn : styles.unclickedbtn,
-              styles.timebutton,
-            ]}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              1:00 pm
-            </Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
+        <ScrollView
+          horizontal={true}
+          alignItems={"center"}
+          style={styles.timecontainer}
+        >
+          {times.map((item) => (
+            <TouchableOpacity style={styles.button}>
+              <Text>
+                {item.hour}:{item.minute}
+                {item.period}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
         <Text style={styles.header}>Date</Text>
-        <View>
+        <View style={styles.calendarcontainer}>
           <Text>Calendar</Text>
         </View>
         <Text style={styles.header}>Preferred mode of confirmation</Text>
-        <TouchableOpacity style={styles.buttoncontainer}>
-          <TouchableOpacity
-            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              Call
-            </Text>
+        <TouchableOpacity style={styles.modeconfirmcontainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text>Call</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={clicked ? styles.clickedbtn : styles.unclickedbtn}
-          >
-            <Text style={clicked ? styles.clickedtxt : styles.unclickedtxt}>
-              Email
-            </Text>
+          <TouchableOpacity style={styles.button}>
+            <Text>Email</Text>
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.unclickedbtn}>
-          <Text style={styles.unclickedtxt}>Pay Advance</Text>
-        </TouchableOpacity>
+        <View style={styles.paycontainer}>
+          <TouchableOpacity style={styles.button}>
+            <Text>Pay Advance</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScreenTemplate>
   );
@@ -103,31 +99,35 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 10,
   },
-  buttoncontainer: {
-    marginVertical: 30,
+  durationcontainer: {
+    flex: 0.1,
+  },
+  timecontainer: {
+    flex: 0.1,
+  },
+  calendarcontainer: {
+    flex: 1,
+  },
+  modeconfirmcontainer: {
+    flex: 0.5,
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    overflow: "scroll",
+    marginTop: 15,
   },
-  unclickedbtn: {
+  paycontainer: {
+    flex: 0.5,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  button: {
+    // backgroundColor: "#292c52",
+    flex: 1,
     borderWidth: 2,
     paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 30,
+    justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: 10,
+    height: 40,
   },
-  clickedbtn: {
-    backgroundColor: "#292c52",
-    borderWidth: 2,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30,
-  },
-  timebutton: {
-    marginHorizontal: 30,
-  },
-  clickedtxt: {
-    color: "white",
-  },
-  unclickedtxt: {},
 });
