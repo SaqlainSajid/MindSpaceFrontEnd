@@ -91,12 +91,15 @@ const styles = StyleSheet.create({
   },
   durationcontainer: {
     flex: 0.1,
+    marginVertical: 10,
   },
   timecontainer: {
     flex: 0.1,
+    marginVertical: 10,
   },
   calendarcontainer: {
     flex: 0.7,
+    marginHorizontal: 20,
   },
   modeconfirmcontainer: {
     flex: 0.1,
