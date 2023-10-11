@@ -28,7 +28,11 @@ const Booking = () => {
       <View style={styles.container}>
         <Text style={styles.header}>Duration</Text>
         <View style={styles.durationcontainer}>
-          <ScrollView horizontal={true} alignItems={"center"}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            alignItems={"center"}
+          >
             {durations.map((item) => (
               <TouchableOpacity style={styles.button}>
                 <Text>
@@ -40,11 +44,15 @@ const Booking = () => {
         </View>
         <Text style={styles.header}>Time</Text>
         <View style={styles.timecontainer}>
-          <ScrollView horizontal={true} alignItems={"center"}>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            alignItems={"center"}
+          >
             {times.map((item) => (
               <TouchableOpacity style={styles.button}>
                 <Text>
-                  {item.hour}:{item.minute}
+                  {item.hour}:{item.minute == 0 ? "00" : item.minute}
                   {item.period}
                 </Text>
               </TouchableOpacity>
