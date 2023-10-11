@@ -6,19 +6,31 @@ const CustomCalendar = () => {
   const today = new Date();
   const markedDates = {};
 
-  for (let i = 1; i < today.getDate(); i++) {
-    const date = new Date(today.getFullYear(), today.getMonth(), i);
-    markedDates[date.toISOString().split("T")[0]] = {
-      disabled: true,
-      disableTouchEvent: true,
-      dotColor: "gray",
-    };
-  }
+  //   markedDates[today.toISOString().split("T")[0]] = {
+  //     customStyles: {
+  //       container: {
+  //         backgroundColor: "black",
+  //       },
+  //       text: {
+  //         color: "white",
+  //         fontWeight: "bold",
+  //       },
+  //     },
+  //   };
+
+  const theme = {
+    textDayFontWeight: "bold",
+    textMonthFontWeight: "bold",
+    textDayHeaderFontWeight: "bold",
+    arrowColor: "black",
+  };
 
   return (
     <Calendar
+      markingType={"custom"}
       minDate={today.toISOString().split("T")[0]}
       markedDates={markedDates}
+      theme={theme}
     />
   );
 };
