@@ -6,8 +6,8 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
-import { Calendar } from "react-native-calendars";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import CustomCalendar from "./CustomCalendar";
 
 const durations = [
   { quantity: 15, unit: "minutes" },
@@ -61,7 +61,7 @@ const Booking = () => {
         </View>
         <Text style={styles.header}>Date</Text>
         <View style={styles.calendarcontainer}>
-          <Calendar />
+          <CustomCalendar />
         </View>
         <Text style={styles.header}>Preferred mode of confirmation</Text>
         <TouchableOpacity style={styles.modeconfirmcontainer}>
