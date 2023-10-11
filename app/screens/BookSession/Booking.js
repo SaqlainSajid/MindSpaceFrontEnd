@@ -148,13 +148,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   calendarcontainer: {
-    flex: 0.7,
+    flex: 0.8,
     marginHorizontal: 20,
+    marginBottom: 20,
   },
   modeconfirmcontainer: {
-    flex: 0.1,
+    flex: 0.08,
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 10,
   },
   paycontainer: {
     flex: 0.1,

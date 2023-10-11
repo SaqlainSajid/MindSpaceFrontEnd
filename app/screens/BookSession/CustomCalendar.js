@@ -31,6 +31,8 @@ const CustomCalendar = () => {
       minDate={today.toISOString().split("T")[0]}
       markedDates={markedDates}
       theme={theme}
+      hideExtraDays={true}
+      showSixWeeks={false}
     />
   );
 };
