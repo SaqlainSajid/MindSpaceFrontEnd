@@ -41,7 +41,11 @@ const Profile = (props) => {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => props.navigation.navigate("Booking")}
+          onPress={() =>
+            props.navigation.navigate("Booking", {
+              navigation: props.navigation,
+            })
+          }
         >
           <Text style={{ color: "white" }}>BOOK NOW</Text>
         </TouchableOpacity>

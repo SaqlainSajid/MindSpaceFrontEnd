@@ -22,7 +22,12 @@ const times = [
   { hour: 1, minute: 30, period: "pm" },
 ];
 
-const Booking = () => {
+const Booking = (props) => {
+  const [selectDuration, setSelectDuration] = useState(0);
+  const [selectTime, setSelectTime] = useState(0);
+  const [selectCall, setSelectCall] = useState(true);
+  const [selectEmail, setSelectEmail] = useState(false);
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -33,9 +38,20 @@ const Booking = () => {
             horizontal={true}
             alignItems={"center"}
           >
-            {durations.map((item) => (
-              <TouchableOpacity style={styles.button}>
-                <Text>
+            {durations.map((item, index) => (
+              <TouchableOpacity
+                style={
+                  index == selectDuration ? styles.btnClicked : styles.button
+                }
+                onPress={() => setSelectDuration(index)}
+              >
+                <Text
+                  style={
+                    index == selectDuration
+                      ? styles.btnTxtClicked
+                      : styles.btnTxt
+                  }
+                >
                   {item.quantity} {item.unit}
                 </Text>
               </TouchableOpacity>
@@ -49,9 +65,16 @@ const Booking = () => {
             horizontal={true}
             alignItems={"center"}
           >
-            {times.map((item) => (
-              <TouchableOpacity style={styles.button}>
-                <Text>
+            {times.map((item, index) => (
+              <TouchableOpacity
+                style={index == selectTime ? styles.btnClicked : styles.button}
+                onPress={() => setSelectTime(index)}
+              >
+                <Text
+                  style={
+                    index == selectTime ? styles.btnTxtClicked : styles.btnTxt
+                  }
+                >
                   {item.hour}:{item.minute == 0 ? "00" : item.minute}
                   {item.period}
                 </Text>
@@ -65,15 +88,34 @@ const Booking = () => {
         </View>
         <Text style={styles.header}>Preferred mode of confirmation</Text>
         <TouchableOpacity style={styles.modeconfirmcontainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text>Call</Text>
+          <TouchableOpacity
+            style={selectCall ? styles.btnClicked : styles.button}
+            onPress={() => {
+              setSelectEmail(false);
+              setSelectCall(true);
+            }}
+          >
+            <Text style={selectCall ? styles.btnTxtClicked : styles.btnTxt}>
+              Call
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text>Email</Text>
+          <TouchableOpacity
+            style={selectEmail ? styles.btnClicked : styles.button}
+            onPress={() => {
+              setSelectEmail(true);
+              setSelectCall(false);
+            }}
+          >
+            <Text style={selectEmail ? styles.btnTxtClicked : styles.btnTxt}>
+              Email
+            </Text>
           </TouchableOpacity>
         </TouchableOpacity>
         <View style={styles.paycontainer}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => props.navigation.navigate("PaymentScreen")}
+          >
             <Text>Pay Advance</Text>
           </TouchableOpacity>
         </View>
@@ -120,7 +162,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    // backgroundColor: "#292c52",
     flex: 1,
     borderWidth: 2,
     paddingHorizontal: 30,
@@ -130,5 +171,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 10,
     height: 40,
+  },
+  btnClicked: {
+    backgroundColor: "#292c52",
+    flex: 1,
+    borderWidth: 2,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
+    height: 40,
+  },
+  btnTxt: {
+    color: "black",
+  },
+  btnTxtClicked: {
+    color: "white",
   },
 });

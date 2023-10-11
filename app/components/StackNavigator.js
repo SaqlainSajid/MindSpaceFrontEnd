@@ -14,6 +14,7 @@ import Feed from "../screens/Feed/Feed";
 import AddPost from "../screens/Discussion/AddPost";
 import PostScreen from "../screens/Post/PostScreen";
 import Booking from "../screens/BookSession/Booking";
+import PaymentScreen from "../screens/BookSession/PaymentScreen";
 
 const stack = createStackNavigator();
 
@@ -69,6 +70,11 @@ const StackNavigator = () => {
         name="Booking"
         component={Booking}
         options={{ headerShown: true, headerTitle: "Book a Session" }}
+      />
+      <stack.Screen
+        name="PaymentScreen"
+        component={PaymentScreen}
+        options={{ headerShown: true, headerTitle: "Pay Advance" }}
       />
     </stack.Navigator>
   );
