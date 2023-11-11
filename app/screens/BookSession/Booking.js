@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   paycontainer: {
-    flex: 0.3,
+    flex: 0.2,
     marginTop: 10,
     marginBottom: 20,
   },

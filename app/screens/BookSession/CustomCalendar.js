@@ -1,26 +1,45 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 
 const CustomCalendar = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  //for some reason, today gives me the date of tomorrow, so I got yesterday's date and used it
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
 
   const markedDates = {};
 
-  //this makes the current date's background to dark purple and font color to white
+  //this makes the current date's font color to purple
   markedDates[yesterday.toISOString().split("T")[0]] = {
     customStyles: {
-      container: {
-        backgroundColor: "#292c52",
-      },
       text: {
-        color: "white",
+        color: "#8772a3",
         fontWeight: "bold",
       },
     },
   };
+
+  //this makes the pressed date background to dark purple and font to white
+  const onDayPress = (day) => {
+    setSelectedDate(day.dateString);
+  };
+
+  if (selectedDate) {
+    markedDates[selectedDate] = {
+      customStyles: {
+        container: {
+          backgroundColor: "#292c52",
+        },
+        text: {
+          color: "white",
+          fontWeight: "bold",
+        },
+      },
+    };
+  }
 
   const theme = {
     textDayFontWeight: "bold",
@@ -37,6 +56,7 @@ const CustomCalendar = () => {
       theme={theme}
       hideExtraDays={true}
       showSixWeeks={false}
+      onDayPress={onDayPress}
     />
   );
 };
