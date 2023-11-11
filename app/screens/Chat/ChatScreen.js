@@ -1,11 +1,32 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 subscribe = false;
 const ChatScreen = () => {
+  const [minutes, setMinutes] = useState(15);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(timer);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      } else {
+        setSeconds(seconds - 1);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [seconds, minutes]);
+
   return (
     <ScreenTemplate>
       <View style={styles.main}>
@@ -28,7 +49,7 @@ const ChatScreen = () => {
         </View>
         <View style={styles.timer}>
           <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
-            14:59
+            {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
           </Text>
         </View>
       </View>

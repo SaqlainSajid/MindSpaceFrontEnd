@@ -1,10 +1,31 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 
 const CallScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [minutes, setMinutes] = useState(15);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(timer);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      } else {
+        setSeconds(seconds - 1);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [seconds, minutes]);
+
   return (
     <ScreenTemplate>
       <View style={styles.main}>
@@ -27,7 +48,7 @@ const CallScreen = () => {
               marginTop: 20,
             }}
           >
-            14:59
+            {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
           </Text>
         </View>
         {!isVisible && (
