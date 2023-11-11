@@ -89,7 +89,9 @@ const Booking = (props) => {
             style={styles.btnpayment}
             onPress={() => props.navigation.navigate("PaymentScreen")}
           >
-            <Text style={{ color: "green", fontWeight: "bold" }}>
+            <Text
+              style={{ color: "green", fontWeight: "bold", fontWeight: 400 }}
+            >
               Pay Advance
             </Text>
           </TouchableOpacity>

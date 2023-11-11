@@ -90,7 +90,7 @@ const MySpace = (props) => {
           style={styles.btn}
           onPress={() => props.navigation.navigate("Settings")}
         >
-          <Text style={{ color: "#7ed957", fontWeight: "bold" }}>
+          <Text style={{ color: "#7ed957", fontWeight: 500 }}>
             TRY PREMIUM TODAY
           </Text>
         </TouchableOpacity>

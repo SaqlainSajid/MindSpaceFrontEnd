@@ -13,25 +13,27 @@ const ScreenTemplate = (props) => {
   const theme = useColorScheme();
 
   return (
-    <SafeAreaView edges={["right", "left"]} style={styles.container}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={[
-          "#dedae6",
-          "#cfbede",
-          "#8381bd",
-          "#8381bd",
-          "#cfbede",
-          "#dedae6",
-        ]}
-        locations={[0, 0.1, 0.3, 0.7, 0.9, 1]}
-      >
-        {props.children}
-      </LinearGradient>
+    <>
       <StatusBar
-        barStyle={theme === "dark" ? "dark-content" : "light-content"}
+        barStyle={theme === "light" ? "dark-content" : "light-content"}
       />
-    </SafeAreaView>
+      <SafeAreaView edges={["right", "left"]} style={styles.container}>
+        <LinearGradient
+          style={styles.gradient}
+          colors={[
+            "#dedae6",
+            "#cfbede",
+            "#8381bd",
+            "#8381bd",
+            "#cfbede",
+            "#dedae6",
+          ]}
+          locations={[0, 0.1, 0.3, 0.7, 0.9, 1]}
+        >
+          {props.children}
+        </LinearGradient>
+      </SafeAreaView>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
   },
   headerView: {
     flex: 0.2,
-    backgroundColor: "#f2eff2",
+    backgroundColor: "white",
     borderRadius: 20,
     margin: 20,
     alignItems: "center",
@@ -173,6 +174,8 @@ const styles = StyleSheet.create({
   showText: {
     color: "white",
     paddingBottom: 10,
+    fontWeight: 400,
+    fontSize: 16,
   },
   flatlist: {
     borderRadius: 20,
