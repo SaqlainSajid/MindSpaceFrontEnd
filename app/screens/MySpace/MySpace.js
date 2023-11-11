@@ -17,6 +17,8 @@ export const imagePaths = {
   discussion: require("../../assets/Discussion.png"),
 };
 
+subscribed = false;
+
 const CardArray = (props) => [
   {
     id: 1,
@@ -50,9 +52,9 @@ const MySpace = (props) => {
       <View style={styles.main}>
         <View style={styles.resumeView}>
           <Text style={styles.mainText}>What would you like to do today?</Text>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Text style={styles.resumeButtonText}>Start where you left...</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.cardContainer}>
           <FlatList
@@ -82,8 +84,17 @@ const MySpace = (props) => {
             ItemSeparatorComponent={ItemSeparator}
           />
         </View>
-        <View style={{ flex: 0.1 }} />
       </View>
+      {!subscribed && (
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => props.navigation.navigate("Settings")}
+        >
+          <Text style={{ color: "#7ed957", fontWeight: "bold" }}>
+            TRY PREMIUM TODAY
+          </Text>
+        </TouchableOpacity>
+      )}
     </ScreenTemplate>
   );
 };
@@ -116,5 +127,18 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     margin: 20,
+  },
+  btn: {
+    borderWidth: 2,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginVertical: 30,
+    height: 50,
+    borderColor: "white",
+    backgroundColor: "white",
   },
 });

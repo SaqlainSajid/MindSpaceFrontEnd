@@ -15,6 +15,8 @@ import AddPost from "../screens/Discussion/AddPost";
 import PostScreen from "../screens/Post/PostScreen";
 import Booking from "../screens/BookSession/Booking";
 import PaymentScreen from "../screens/BookSession/PaymentScreen";
+import ChatScreen from "../screens/Chat/ChatScreen";
+import CallScreen from "../screens/Chat/CallScreen";
 
 const stack = createStackNavigator();
 
@@ -75,6 +77,16 @@ const StackNavigator = () => {
         name="PaymentScreen"
         component={PaymentScreen}
         options={{ headerShown: true, headerTitle: "Pay Advance" }}
+      />
+      <stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{ headerShown: true, headerTitle: "Chat" }}
+      />
+      <stack.Screen
+        name="CallScreen"
+        component={CallScreen}
+        options={{ headerShown: true, headerTitle: "Call" }}
       />
     </stack.Navigator>
   );
