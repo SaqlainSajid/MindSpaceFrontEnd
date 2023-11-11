@@ -86,37 +86,14 @@ const Booking = (props) => {
         <View style={styles.calendarcontainer}>
           <CustomCalendar />
         </View>
-        <Text style={styles.header}>Preferred mode of confirmation</Text>
-        <TouchableOpacity style={styles.modeconfirmcontainer}>
-          <TouchableOpacity
-            style={selectCall ? styles.btnClicked : styles.button}
-            onPress={() => {
-              setSelectEmail(false);
-              setSelectCall(true);
-            }}
-          >
-            <Text style={selectCall ? styles.btnTxtClicked : styles.btnTxt}>
-              Call
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={selectEmail ? styles.btnClicked : styles.button}
-            onPress={() => {
-              setSelectEmail(true);
-              setSelectCall(false);
-            }}
-          >
-            <Text style={selectEmail ? styles.btnTxtClicked : styles.btnTxt}>
-              Email
-            </Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
         <View style={styles.paycontainer}>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.btnpayment}
             onPress={() => props.navigation.navigate("PaymentScreen")}
           >
-            <Text>Pay Advance</Text>
+            <Text style={{ color: "green", fontWeight: "bold" }}>
+              Pay Advance
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -140,11 +117,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   durationcontainer: {
-    flex: 0.1,
+    flex: 0.15,
     marginVertical: 10,
   },
   timecontainer: {
-    flex: 0.1,
+    flex: 0.15,
     marginVertical: 10,
   },
   calendarcontainer: {
@@ -152,13 +129,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 20,
   },
-  modeconfirmcontainer: {
-    flex: 0.08,
-    flexDirection: "row",
-    marginTop: 10,
-  },
   paycontainer: {
-    flex: 0.1,
+    flex: 0.3,
     marginTop: 10,
     marginBottom: 20,
   },
@@ -190,5 +162,17 @@ const styles = StyleSheet.create({
   },
   btnTxtClicked: {
     color: "white",
+  },
+  btnpayment: {
+    borderWidth: 2,
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
+    marginVertical: 30,
+    height: 50,
+    borderColor: "green",
   },
 });
