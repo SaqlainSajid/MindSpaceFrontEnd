@@ -25,8 +25,6 @@ const times = [
 const Booking = (props) => {
   const [selectDuration, setSelectDuration] = useState(0);
   const [selectTime, setSelectTime] = useState(0);
-  const [selectCall, setSelectCall] = useState(true);
-  const [selectEmail, setSelectEmail] = useState(false);
 
   return (
     <ScreenTemplate>
@@ -156,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 10,
     height: 40,
+    borderColor: "#292c52",
   },
   btnTxt: {
     color: "black",
