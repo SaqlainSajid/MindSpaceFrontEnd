@@ -22,6 +22,16 @@ const CustomCalendar = () => {
     },
   };
 
+  //this makes the tomorrow's date's font color to black
+  markedDates[today.toISOString().split("T")[0]] = {
+    customStyles: {
+      text: {
+        color: "black",
+        fontWeight: "bold",
+      },
+    },
+  };
+
   //this makes the pressed date background to dark purple and font to white
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);

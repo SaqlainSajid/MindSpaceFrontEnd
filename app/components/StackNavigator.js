@@ -9,7 +9,7 @@ import BookSession from "../screens/BookSession/BookSession";
 import Relaxation from "../screens/Relaxation/Relaxation";
 import Profile from "../screens/Profile/Profile";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
-import Audio from "../screens/Relaxation/Audio";
+import AudioPlayer from "../screens/Relaxation/AudioPlayer";
 import Feed from "../screens/Feed/Feed";
 import AddPost from "../screens/Discussion/AddPost";
 import PostScreen from "../screens/Post/PostScreen";
@@ -49,8 +49,8 @@ const StackNavigator = () => {
       />
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
-        name="Audio"
-        component={Audio}
+        name="AudioPlayer"
+        component={AudioPlayer}
         options={{ headerShown: true }}
       />
       <stack.Screen

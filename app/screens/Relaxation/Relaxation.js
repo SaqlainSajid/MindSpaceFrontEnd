@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  StatusBar,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -15,61 +14,61 @@ const CardArray = (props) => [
   {
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 1,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 2,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 3,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 4,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 5,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 6,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 7,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 8,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
   {
     id: 9,
     imageName: "yoga",
     title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("Audio"),
+    onPress: () => props.navigation.navigate("AudioPlayer"),
   },
 ];
 
