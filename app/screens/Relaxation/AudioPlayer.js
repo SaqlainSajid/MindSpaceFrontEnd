@@ -16,6 +16,14 @@ const AudioPlayer = () => {
       : undefined;
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (sound.current) {
+        sound.current.pauseAsync();
+      }
+    };
+  }, []);
+
   const handlePlayPause = async () => {
     if (!isPlaying) {
       const { sound: playbackObject } = await Audio.Sound.createAsync(
