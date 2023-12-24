@@ -17,18 +17,24 @@ import Booking from "../screens/BookSession/Booking";
 import PaymentScreen from "../screens/BookSession/PaymentScreen";
 import ChatScreen from "../screens/Chat/ChatScreen";
 import CallScreen from "../screens/Chat/CallScreen";
+import LoginScreen from "../screens/LoginSignup/LoginScreen";
+import SignUpScreen from "../screens/LoginSignup/SignUpScreen";
+import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 
 const stack = createStackNavigator();
 
 const StackNavigator = () => {
   return (
     <stack.Navigator
-      initialRouteName="My Space"
+      initialRouteName="Welcome Screen"
       screenOptions={{
         headerShown: false,
         headerBackTitle: "Back",
       }}
     >
+      <stack.Screen name="Welcome Screen" component={WelcomeScreen} />
+      <stack.Screen name="Signup Screen" component={SignUpScreen} />
+      <stack.Screen name="Login Screen" component={LoginScreen} />
       <stack.Screen name="My Space" component={NavBar} />
       <stack.Screen name="Discussion" component={Discussion} />
       <stack.Screen

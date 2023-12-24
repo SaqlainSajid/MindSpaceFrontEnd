@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Audio } from "expo-av";
 import { Ionicons } from "react-native-vector-icons";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import Slider from "@react-native-community/slider";
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -47,17 +48,18 @@ const AudioPlayer = () => {
             source={require("../../assets/mountain.jpg")}
           ></Image>
         </View>
-        <Text
-          style={{
-            alignSelf: "center",
-            marginTop: 10,
-            fontWeight: "500",
-            fontSize: 20,
-          }}
-        >
-          {" "}
-          Best Audio In The Business{" "}
-        </Text>
+        <View style={styles.textContainer}>
+          <Text
+            style={{
+              fontWeight: "500",
+              fontSize: 20,
+            }}
+          >
+            {" "}
+            Best Audio In The Business{" "}
+          </Text>
+        </View>
+
         <TouchableOpacity style={styles.playview} onPress={handlePlayPause}>
           <Ionicons
             name={isPlaying ? "pause" : "play"}
@@ -84,8 +86,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 40,
-    height: 45,
-    width: 45,
+    height: 50,
+    width: 50,
     backgroundColor: "#8772a3",
     alignSelf: "center",
     marginBottom: 20,
@@ -98,15 +100,20 @@ const styles = StyleSheet.create({
     margin: 2,
     padding: 10,
     borderRadius: 25,
-    borderWidth: 5,
     marginBottom: 10,
     borderColor: "#8772a3",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
   },
   image: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
-    borderWidth: 4,
+    width: 250,
+    height: 250,
     borderColor: "#8772a3",
+    shadowColor: "#8772a3",
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 });

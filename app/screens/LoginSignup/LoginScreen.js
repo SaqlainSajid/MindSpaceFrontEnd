@@ -9,7 +9,7 @@ import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 
-const Login2 = () => {
+const Login2 = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.mainTextContainer}>
@@ -36,6 +36,7 @@ const Login2 = () => {
             text="Login"
             class="primary"
             Style={{ width: 300 }}
+            onPress={() => props.navigation.navigate("My Space")}
           />
         </View>
         <View style={styles.FooterTextContainer}>
@@ -44,6 +45,16 @@ const Login2 = () => {
               Forgot Password?
             </Text>
           </TouchableOpacity>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text style={[styles.text, styles.secondaryText]}>
+              New user? Sign Up{" "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Signup Screen")}
+            >
+              <Text style={[styles.text, styles.FooterText]}>here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScreenTemplate>
@@ -103,9 +114,11 @@ const styles = StyleSheet.create({
   FooterTextContainer: {
     flex: 0.5,
     justifyContent: "flex-start",
+    alignItems: "center",
   },
   FooterText: {
     textDecorationLine: "underline",
+    fontSize: 14,
   },
   text: {
     color: "white",
