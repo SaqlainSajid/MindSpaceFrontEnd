@@ -22,10 +22,11 @@ const BookSession = (props) => {
       <View style={styles.container}>
         <FlatList
           data={doctorsData}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Profile
-              pic={item.pic}
+              key={item._id}
+              pic={require("../../assets/mountain.jpg")}
               name={item.name}
               degrees={item.degrees}
               spec={item.spec}
