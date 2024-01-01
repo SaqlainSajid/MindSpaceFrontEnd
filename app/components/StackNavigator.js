@@ -17,9 +17,6 @@ import Booking from "../screens/BookSession/Booking";
 import PaymentScreen from "../screens/BookSession/PaymentScreen";
 import ChatScreen from "../screens/Chat/ChatScreen";
 import CallScreen from "../screens/Chat/CallScreen";
-import LoginScreen from "../screens/LoginSignup/LoginScreen";
-import SignUpScreen from "../screens/LoginSignup/SignUpScreen";
-import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 
 const stack = createStackNavigator();
 
