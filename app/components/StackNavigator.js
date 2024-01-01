@@ -26,15 +26,12 @@ const stack = createStackNavigator();
 const StackNavigator = () => {
   return (
     <stack.Navigator
-      initialRouteName="Welcome Screen"
+      initialRouteName="My Space"
       screenOptions={{
         headerShown: false,
         headerBackTitle: "Back",
       }}
     >
-      <stack.Screen name="Welcome Screen" component={WelcomeScreen} />
-      <stack.Screen name="Signup Screen" component={SignUpScreen} />
-      <stack.Screen name="Login Screen" component={LoginScreen} />
       <stack.Screen name="My Space" component={NavBar} />
       <stack.Screen name="Discussion" component={Discussion} />
       <stack.Screen
