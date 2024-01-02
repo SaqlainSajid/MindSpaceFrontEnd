@@ -15,7 +15,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <StackNavigator />
+        <AuthNavigator />
       </NavigationContainer>
       <StatusBar
         barStyle={theme === "dark" ? "dark-content" : "light-content"}

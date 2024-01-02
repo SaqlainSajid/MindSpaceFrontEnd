@@ -9,11 +9,9 @@ import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 import authApi from "../../api/authApi";
+import { Formik } from "formik";
 
 const Login2 = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   return (
     <ScreenTemplate>
       <View style={styles.mainTextContainer}>
@@ -26,39 +24,50 @@ const Login2 = (props) => {
         </View>
       </View>
       <View style={styles.form}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>EMAIL/USERNAME</Text>
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            placeholder="Email"
-            autoCorrect={false}
-            keyboardType="email-address"
-            textContentType="emailAddress"
-            onChangeText={(text) => setEmail(text)}
-          ></TextInput>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>PASSWORD</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            autoCapitalize="none"
-            placeholder="Password"
-            autoCorrect={false}
-            textContentType="password"
-            onChangeText={(text) => setPassword(text)}
-          ></TextInput>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            style={styles.button}
-            text="Login"
-            class="primary"
-            Style={{ width: 300 }}
-            onPress={() => props.navigation.navigate("My Space")}
-          />
-        </View>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+        >
+          {({ handleChange, handleSubmit }) => (
+            <>
+              <View style={styles.inputContainer}>
+                <Text style={styles.text}>EMAIL/USERNAME</Text>
+                <TextInput
+                  name="email"
+                  style={styles.input}
+                  autoCapitalize="none"
+                  placeholder="Email"
+                  autoCorrect={false}
+                  keyboardType="email-address"
+                  textContentType="emailAddress"
+                  onChangeText={handleChange("email")}
+                ></TextInput>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.text}>PASSWORD</Text>
+                <TextInput
+                  name="password"
+                  style={styles.input}
+                  secureTextEntry={true}
+                  autoCapitalize="none"
+                  placeholder="Password"
+                  autoCorrect={false}
+                  textContentType="password"
+                  onChangeText={handleChange("password")}
+                ></TextInput>
+              </View>
+              <View style={styles.buttonContainer}>
+                <Button
+                  style={styles.button}
+                  text="Login"
+                  class="primary"
+                  Style={{ width: 300 }}
+                  onPress={handleSubmit}
+                />
+              </View>
+            </>
+          )}
+        </Formik>
         <View style={styles.FooterTextContainer}>
           <TouchableOpacity>
             <Text style={[styles.text, styles.FooterText]}>
