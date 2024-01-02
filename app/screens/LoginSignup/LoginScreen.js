@@ -5,11 +5,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
+import authApi from "../../api/authApi";
 
-const Login2 = () => {
+const Login2 = (props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <ScreenTemplate>
       <View style={styles.mainTextContainer}>
@@ -24,11 +28,27 @@ const Login2 = () => {
       <View style={styles.form}>
         <View style={styles.inputContainer}>
           <Text style={styles.text}>EMAIL/USERNAME</Text>
-          <TextInput style={styles.input}></TextInput>
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            placeholder="Email"
+            autoCorrect={false}
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            onChangeText={(text) => setEmail(text)}
+          ></TextInput>
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.text}>PASSWORD</Text>
-          <TextInput style={styles.input} secureTextEntry={true}></TextInput>
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            autoCapitalize="none"
+            placeholder="Password"
+            autoCorrect={false}
+            textContentType="password"
+            onChangeText={(text) => setPassword(text)}
+          ></TextInput>
         </View>
         <View style={styles.buttonContainer}>
           <Button
@@ -36,6 +56,7 @@ const Login2 = () => {
             text="Login"
             class="primary"
             Style={{ width: 300 }}
+            onPress={() => props.navigation.navigate("My Space")}
           />
         </View>
         <View style={styles.FooterTextContainer}>
@@ -44,6 +65,16 @@ const Login2 = () => {
               Forgot Password?
             </Text>
           </TouchableOpacity>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text style={[styles.text, styles.secondaryText]}>
+              New user? Sign Up{" "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Signup Screen")}
+            >
+              <Text style={[styles.text, styles.FooterText]}>here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScreenTemplate>
@@ -103,9 +134,11 @@ const styles = StyleSheet.create({
   FooterTextContainer: {
     flex: 0.5,
     justifyContent: "flex-start",
+    alignItems: "center",
   },
   FooterText: {
     textDecorationLine: "underline",
+    fontSize: 14,
   },
   text: {
     color: "white",

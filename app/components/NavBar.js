@@ -18,7 +18,7 @@ const Tab = createBottomTabNavigator();
 const NavBar = (props) => {
   return (
     <Tab.Navigator
-      initialRouteName="My Space"
+      initialRouteName="MySpace"
       screenOptions={{
         headerRight: () => (
           <TouchableOpacity
@@ -74,7 +74,7 @@ const NavBar = (props) => {
         }}
       />
       <Tab.Screen
-        name="My Space"
+        name="MySpace"
         component={MySpace}
         listeners={({ navigation }) => ({
           tabPress: () => navigation.navigate("My Space"),

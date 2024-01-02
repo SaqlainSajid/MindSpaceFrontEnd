@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import { imagePaths } from "../screens/MySpace/MySpace";
+
+export const imagePaths = {
+  yoga: require("../assets/YogaOriginal.png"),
+  vent: require("../assets/Vent.png"),
+  booksession: require("../assets/BookSession.png"),
+  discussion: require("../assets/Discussion.png"),
+};
 
 const Card = (props) => {
   const src = imagePaths[props.imageName];

@@ -9,7 +9,7 @@ import React from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 
-const SignUpScreen = () => {
+const SignUpScreen = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.mainTextContainer}>
@@ -19,7 +19,10 @@ const SignUpScreen = () => {
           <Text style={[styles.text, styles.secondaryText]}>
             Already Registered? Log in{" "}
           </Text>
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity
+            style={styles.link}
+            onPress={() => props.navigation.navigate("Login Screen")}
+          >
             <Text style={[styles.text, styles.linkText]}>here</Text>
           </TouchableOpacity>
         </View>

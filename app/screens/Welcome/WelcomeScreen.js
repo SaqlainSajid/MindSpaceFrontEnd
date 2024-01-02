@@ -10,7 +10,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../components/Button";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen(props) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -22,7 +22,12 @@ export default function WelcomeScreen() {
       </View>
       <View style={styles.footerContainer}>
         <Text style={styles.footerText}>The space for your MIND is here!</Text>
-        <Button text="Sign Up" class="primary" style={{ width: 200 }} />
+        <Button
+          text="Sign Up"
+          class="primary"
+          style={{ width: 200 }}
+          onPress={() => props.navigation.navigate("Signup Screen")}
+        />
       </View>
     </SafeAreaView>
   );

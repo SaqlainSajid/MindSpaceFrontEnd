@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <ScreenTemplate>
       <View>
-        <Text>Profile</Text>
+        <Text>Profile Page</Text>
       </View>
     </ScreenTemplate>
   );

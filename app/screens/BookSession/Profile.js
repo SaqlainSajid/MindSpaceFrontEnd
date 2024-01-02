@@ -10,7 +10,7 @@ const Profile = (props) => {
           <Text style={styles.name}>{props.name}</Text>
           <View style={styles.degrees}>
             {props.degrees.map((item) => (
-              <View key={item.id} style={{ flexDirection: "row" }}>
+              <View key={item._id} style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 14 }}>{item.name}</Text>
                 <Text style={{ fontSize: 14 }}>({item.major})</Text>
                 <Text style={{ fontSize: 14 }}>{item.institution}</Text>
@@ -22,7 +22,7 @@ const Profile = (props) => {
       <View style={styles.main}>
         {props.spec.map((item) => (
           <View
-            id={item.id}
+            key={item._id}
             style={{ flexDirection: "row", alignItems: "flex-start" }}
           >
             <Text
@@ -34,7 +34,7 @@ const Profile = (props) => {
             >
               {"\u2022"}
             </Text>
-            <Text style={{ marginTop: 8 }}>{item}</Text>
+            <Text style={{ marginTop: 8 }}>{item.name}</Text>
           </View>
         ))}
       </View>
@@ -51,7 +51,7 @@ const Profile = (props) => {
         </TouchableOpacity>
         <View style={styles.payment}>
           {props.payment.map((item) => (
-            <View key={item.id} style={{ flexDirection: "row" }}>
+            <View key={item._id} style={{ flexDirection: "row" }}>
               <Text style={{ fontWeight: "bold" }}>
                 {item.amount}/{item.timemins}mins
               </Text>

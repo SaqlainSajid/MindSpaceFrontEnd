@@ -8,6 +8,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./app/components/StackNavigator";
+import AuthNavigator from "./app/components/AuthNavigator";
 
 export default function App() {
   const theme = useColorScheme();

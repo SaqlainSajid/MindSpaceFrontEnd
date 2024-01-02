@@ -10,13 +10,6 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
 import ItemSeparator from "../../components/ItemSeparator";
 
-export const imagePaths = {
-  yoga: require("../../assets/YogaOriginal.png"),
-  vent: require("../../assets/Vent.png"),
-  booksession: require("../../assets/BookSession.png"),
-  discussion: require("../../assets/Discussion.png"),
-};
-
 subscribed = false;
 
 const CardArray = (props) => [
