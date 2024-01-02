@@ -18,6 +18,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login2 = (props) => {
+  const [loginFailed, setLoginFailed] = useState(false);
+  const handleSubmit = async ({ email, password }) => {
+    const result = await authApi.login(email, password);
+    if (!result.ok) return setLoginFailed(true);
+    setLoginFailed(false);
+    console.log(result.data);
+  };
   return (
     <ScreenTemplate>
       <View style={styles.mainTextContainer}>
@@ -32,12 +39,19 @@ const Login2 = (props) => {
       <View style={styles.form}>
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           {({ handleChange, handleSubmit, errors }) => (
             <>
               <View style={styles.inputContainer}>
+                {loginFailed ? (
+                  <Text style={{ color: "red", alignSelf: "center" }}>
+                    Ivalid Email or Password
+                  </Text>
+                ) : (
+                  <Text></Text>
+                )}
                 <Text style={styles.text}>EMAIL/USERNAME</Text>
                 <TextInput
                   name="email"
