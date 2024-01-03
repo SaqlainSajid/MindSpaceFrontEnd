@@ -11,6 +11,9 @@ import Button from "../../components/Button";
 import authApi from "../../api/authApi";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { decode } from "base-64";
+
+global.atob = decode;
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -24,6 +27,8 @@ const Login2 = (props) => {
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
     console.log(result.data);
+    const user = JSON.parse(atob(result.data.split(".")[1]));
+    console.log(user);
   };
   return (
     <ScreenTemplate>
