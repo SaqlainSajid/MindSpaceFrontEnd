@@ -5,13 +5,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Button from "../../components/Button";
 import authApi from "../../api/authApi";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { decode } from "base-64";
+import AuthContext from "../../auth/context";
 
 global.atob = decode;
 
@@ -21,14 +22,14 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login2 = (props) => {
+  const authContext = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
   const handleSubmit = async ({ email, password }) => {
     const result = await authApi.login(email, password);
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
-    console.log(result.data);
     const user = JSON.parse(atob(result.data.split(".")[1]));
-    console.log(user);
+    authContext.setUser(user);
   };
   return (
     <ScreenTemplate>
