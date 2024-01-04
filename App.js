@@ -7,15 +7,18 @@ import {
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
+import * as SplashScreen from "expo-splash-screen";
 import StackNavigator from "./app/components/StackNavigator";
 import AuthNavigator from "./app/components/AuthNavigator";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [user, setUser] = useState();
-  const [isReady, setIsReady] = useState(false);
+  const [appLoaded, setAppLoaded] = useState(false);
   const theme = useColorScheme();
 
   const restoreToken = async () => {
@@ -27,10 +30,17 @@ export default function App() {
 
   useEffect(() => {
     restoreToken();
+    setAppLoaded(true);
   }, []);
 
+  const onLayout = useCallback(async () => {
+    if (appLoaded) await SplashScreen.hideAsync();
+  }, [appLoaded]);
+
+  if (!appLoaded) return null;
+
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider onLayout={onLayout}>
       <AuthContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
           {user ? <StackNavigator /> : <AuthNavigator />}
