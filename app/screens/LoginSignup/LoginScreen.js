@@ -13,6 +13,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { decode } from "base-64";
 import AuthContext from "../../auth/context";
+import authStorage from "../../auth/storage";
 
 global.atob = decode;
 
@@ -30,6 +31,7 @@ const Login2 = (props) => {
     setLoginFailed(false);
     const user = JSON.parse(atob(result.data.split(".")[1]));
     authContext.setUser(user);
+    authStorage.storeToken(result.data);
   };
   return (
     <ScreenTemplate>
