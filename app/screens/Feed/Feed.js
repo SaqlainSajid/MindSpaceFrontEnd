@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -12,18 +13,25 @@ import { Ionicons } from "react-native-vector-icons";
 import Post from "./Post";
 import Separator from "../Feed/Separator";
 import postsApi from "../../api/postsApi";
+import filter from "lodash.filter";
 
 const Feed = ({ route, ...props }) => {
   const [postsData, setPostsData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     loadPosts();
   }, []);
 
   const loadPosts = async () => {
     const response = await postsApi.getPosts(title);
     setPostsData(response.data);
+    setFilteredData(response.data);
+    setIsLoading(false);
   };
 
   const { title } = route.params;
@@ -34,11 +42,47 @@ const Feed = ({ route, ...props }) => {
     });
   }, []);
 
+  //if we're fetching data, we show the loading screen
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
+
+  const handleSearch = (query) => {
+    setSearchInput(query);
+    const formattedQuery = query.toLowerCase();
+    const filtered = filter(postsData, (post) => {
+      return contains(post, formattedQuery);
+    });
+    setFilteredData(filtered);
+  };
+
+  const contains = ({ user, content }, query) => {
+    const lowerUser = user.toLowerCase();
+    const lowerContent = content.toLowerCase();
+    if (lowerUser.includes(query) || lowerContent.includes(query)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
         <Ionicons name="search" size={24} />
-        <TextInput style={styles.input} placeholder="Search for a post..." />
+        <TextInput
+          style={styles.input}
+          value={searchInput}
+          onChangeText={(text) => handleSearch(text)}
+          placeholder="Search for a post..."
+          clearButtonMode="while-editing"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => props.navigation.navigate("AddPost")}
@@ -48,7 +92,7 @@ const Feed = ({ route, ...props }) => {
       </View>
       <View style={styles.feed}>
         <FlatList
-          data={postsData}
+          data={filteredData}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Post
