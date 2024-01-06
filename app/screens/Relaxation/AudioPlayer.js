@@ -57,10 +57,12 @@ const AudioPlayer = () => {
     setPosition(positionMillis);
   };
 
-  if (position == duration) {
-    setIsPlaying(false);
-    setPosition(0);
-  }
+  useEffect(() => {
+    if (position === duration) {
+      setIsPlaying(false);
+      setPosition(0);
+    }
+  }, [position, duration]);
 
   return (
     <ScreenTemplate>
