@@ -6,13 +6,25 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
+import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Hashtag from "./Hashtag";
 import ItemSeparator from "../../components/ItemSeparator";
 import { Ionicons } from "react-native-vector-icons";
 import { CardArray } from "../../components/FakeData";
+import postsApi from "../../api/postsApi";
 
 const Discussion = (props) => {
+  const [topicsData, setTopicsData] = useState([]);
+
+  useEffect(() => {
+    loadTopics();
+  }, []);
+
+  const loadTopics = async () => {
+    const response = await postsApi.getTopics();
+    setTopicsData(response.data);
+  };
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
