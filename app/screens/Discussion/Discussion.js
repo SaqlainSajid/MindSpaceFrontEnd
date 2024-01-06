@@ -16,6 +16,7 @@ import postsApi from "../../api/postsApi";
 
 const Discussion = (props) => {
   const [topicsData, setTopicsData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     loadTopics();
@@ -25,11 +26,18 @@ const Discussion = (props) => {
     const response = await postsApi.getTopics();
     setTopicsData(response.data);
   };
+
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
         <Ionicons name="search" size={24} />
-        <TextInput style={styles.input} placeholder="Search for a topic..." />
+        <TextInput
+          style={styles.input}
+          value={searchInput}
+          onChangeText={(text) => setSearchInput(text)}
+          placeholder="Search for a topic..."
+          clearButtonMode="while-editing"
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => props.navigation.navigate("AddPost")}
