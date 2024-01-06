@@ -1,29 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HashtagPost from "./HashtagPost";
 
 const Hashtag = (props) => {
-  const posts = props.posts.slice(0, 6);
   return (
     <TouchableOpacity
       style={styles.card}
       onPress={() =>
         props.navigation.navigate("Feed", {
-          posts: props.posts,
           title: props.title,
         })
       }
     >
-      <Text style={styles.headertext}>{props.title}</Text>
-      <View style={styles.postContainer}>
-        {posts.map((post, index) => (
-          <HashtagPost
-            username={post.username}
-            post={post.post.content}
-            key={index}
-          />
-        ))}
-      </View>
+      <Text style={styles.headertext}>#{props.title}</Text>
     </TouchableOpacity>
   );
 };
@@ -39,6 +28,8 @@ const styles = StyleSheet.create({
     flexBasis: "33%",
     aspectRatio: 1,
     overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headertext: {
     fontSize: 18,

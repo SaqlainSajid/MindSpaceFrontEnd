@@ -13,8 +13,18 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import Comment from "./Comment";
 
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};
+
 const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
+  const formattedTime = formatDate(passingValues.time);
 
   return (
     <ScreenTemplate>
@@ -26,7 +36,7 @@ const PostScreen = ({ route }) => {
               <Text style={styles.username}>{passingValues.username}</Text>
             </View>
             <Text style={{ fontSize: 14, fontWeight: "300" }}>
-              {passingValues.time}
+              {formattedTime}
             </Text>
           </View>
           <View style={styles.content}>
@@ -38,13 +48,13 @@ const PostScreen = ({ route }) => {
             <TouchableOpacity style={styles.heart}>
               <Ionicons name="heart-circle" color="#fe251b" size={24} />
               <Text style={{ marginLeft: 5, fontSize: 12 }}>
-                {passingValues.reactions.heart}
+                {passingValues.likeNum}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.comment}>
               <Fontisto name="comment" size={18} />
               <Text style={{ marginLeft: 5, fontSize: 12 }}>
-                {passingValues.reactions.comment}
+                {passingValues.commentNum}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity>
@@ -55,11 +65,11 @@ const PostScreen = ({ route }) => {
           <View style={styles.commentSection}>
             {passingValues.comments.map((item) => (
               <Comment
-                key={item.id}
-                userpic={item.userpic}
-                username={item.username}
+                key={item._id}
+                userpic={require("../../assets/mountain.jpg")}
+                username={item.user}
                 content={item.content}
-                heart={item.heart}
+                heart={item.likes}
                 replies={item.replies}
               />
             ))}

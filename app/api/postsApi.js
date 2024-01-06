@@ -1,6 +1,11 @@
 import apiClient from "./apiClient";
 
-const endpoint = "/posts/topics";
-const getTopics = () => apiClient.get(endpoint);
+//gets all the topics
+const endpoint1 = "/posts/topics";
+const getTopics = () => apiClient.get(endpoint1);
 
-export default { getTopics };
+//gets all posts for a given topic
+const endpoint2 = "/posts/topics/";
+const getPosts = (topicName) => apiClient.get(`${endpoint2}/${topicName}`);
+
+export default { getTopics, getPosts };

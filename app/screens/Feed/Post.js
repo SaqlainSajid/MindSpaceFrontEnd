@@ -2,15 +2,27 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import React from "react";
 
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};
+
 const Post = (props) => {
   const passingValues = {
     username: props.username,
     content: props.content,
     userpic: props.image,
     time: props.time,
-    reactions: props.reactions,
+    likeNum: props.likeNum,
+    commentNum: props.commentNum,
     comments: props.comments,
   };
+
+  const formattedTime = formatDate(props.time);
 
   return (
     <View style={styles.container}>
@@ -29,7 +41,7 @@ const Post = (props) => {
           />
           <Text style={{ fontSize: 20 }}>{props.username}</Text>
         </TouchableOpacity>
-        <Text>{props.time}</Text>
+        <Text>{formattedTime}</Text>
       </View>
       <View style={styles.content}>
         <TouchableOpacity
@@ -51,9 +63,7 @@ const Post = (props) => {
       <View style={styles.footer}>
         <TouchableOpacity style={styles.heart}>
           <Ionicons name="heart-circle" color="#fe251b" size={24} />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>
-            {props.reactions.heart}
-          </Text>
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>{props.likeNum}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.comment}
@@ -65,7 +75,7 @@ const Post = (props) => {
         >
           <Fontisto name="comment" size={18} />
           <Text style={{ marginLeft: 5, fontSize: 12 }}>
-            {props.reactions.comment}
+            {props.commentNum}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>

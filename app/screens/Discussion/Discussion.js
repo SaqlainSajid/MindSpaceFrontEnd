@@ -39,8 +39,8 @@ const Discussion = (props) => {
       </View>
       <View style={styles.cardGrid}>
         <FlatList
-          data={CardArray(props)}
-          keyExtractor={(item) => item.id}
+          data={topicsData}
+          keyExtractor={(item) => item}
           numColumns={2}
           renderItem={({ item, index }) => (
             <View
@@ -55,11 +55,7 @@ const Discussion = (props) => {
                     }
               }
             >
-              <Hashtag
-                title={item.title}
-                posts={item.posts}
-                navigation={props.navigation}
-              />
+              <Hashtag title={item} navigation={props.navigation} />
             </View>
           )}
           ItemSeparatorComponent={ItemSeparator}

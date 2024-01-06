@@ -6,14 +6,27 @@ import {
   View,
   FlatList,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import Post from "./Post";
 import Separator from "../Feed/Separator";
+import postsApi from "../../api/postsApi";
 
 const Feed = ({ route, ...props }) => {
-  const { posts, title } = route.params;
+  const [postsData, setPostsData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    const response = await postsApi.getPosts(title);
+    setPostsData(response.data);
+  };
+
+  const { title } = route.params;
   useEffect(() => {
     props.navigation.setOptions({
       title: title,
@@ -35,22 +48,25 @@ const Feed = ({ route, ...props }) => {
       </View>
       <View style={styles.feed}>
         <FlatList
-          data={posts}
-          keyExtractor={(item) => item.post.id}
+          data={postsData}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Post
-              key={item.post.id}
-              username={item.username}
-              content={item.post.content}
-              image={item.userpic}
-              time={item.post.time}
-              reactions={item.post.reactions}
-              comments={item.post.comments}
+              key={item._id}
+              username={item.user}
+              content={item.content}
+              image={require("../../assets/mountain.jpg")}
+              time={item.createdAt}
+              likeNum={item.likes}
+              commentNum={item.comments}
+              comments={item.replies}
               navigation={props.navigation}
             />
           )}
           ItemSeparatorComponent={Separator}
           scrollEnabled={true}
+          refreshing={refreshing}
+          onRefresh={loadPosts}
         />
       </View>
     </ScreenTemplate>
