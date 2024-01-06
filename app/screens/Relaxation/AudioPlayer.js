@@ -78,6 +78,7 @@ const AudioPlayer = () => {
             style={{
               fontWeight: "500",
               fontSize: 20,
+              marginBottom: 20,
             }}
           >
             {" "}
@@ -96,26 +97,26 @@ const AudioPlayer = () => {
           ) : (
             <Text>00:00</Text>
           )}
-        </View>
-        <Slider
-          style={{ width: "100%", height: 40 }}
-          value={position / duration || 0}
-          maximumValue={1}
-          minimumValue={0}
-          step={0.001}
-          thumbTintColor="#8772a3"
-          maximumTrackTintColor="#ccc"
-          minimumTrackTintColor="#8772a3"
-          onSlidingComplete={(value) => handleSeek(value * duration)}
-        />
-
-        <TouchableOpacity style={styles.playview} onPress={handlePlayPause}>
-          <Ionicons
-            name={isPlaying ? "pause" : "play"}
-            size={20}
-            style={{ color: "white", marginLeft: 3 }}
+          <Slider
+            style={{ width: "100%", height: 40 }}
+            value={position / duration || 0}
+            maximumValue={1}
+            minimumValue={0}
+            step={0.001}
+            thumbTintColor="#8772a3"
+            maximumTrackTintColor="#ccc"
+            minimumTrackTintColor="#8772a3"
+            onSlidingComplete={(value) => handleSeek(value * duration)}
           />
-        </TouchableOpacity>
+
+          <TouchableOpacity style={styles.playview} onPress={handlePlayPause}>
+            <Ionicons
+              name={isPlaying ? "pause" : "play"}
+              size={20}
+              style={{ color: "white", marginLeft: 3 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </ScreenTemplate>
   );
@@ -149,7 +150,6 @@ const styles = StyleSheet.create({
     margin: 2,
     padding: 10,
     borderRadius: 25,
-    marginBottom: 10,
     borderColor: "#8772a3",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    justifyContent: "flex-start",
     alignItems: "center",
+    justifyContent: "center",
   },
 });
