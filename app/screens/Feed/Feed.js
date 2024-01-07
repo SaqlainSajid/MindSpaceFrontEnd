@@ -97,6 +97,7 @@ const Feed = ({ route, ...props }) => {
           renderItem={({ item }) => (
             <Post
               key={item._id}
+              postId={item._id}
               username={item.user}
               content={item.content}
               image={require("../../assets/mountain.jpg")}

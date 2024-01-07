@@ -8,10 +8,11 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import Comment from "./Comment";
+import usersApi from "../../api/usersApi";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -25,6 +26,27 @@ const formatDate = (dateString) => {
 const PostScreen = ({ route }) => {
   const { passingValues } = route.params;
   const formattedTime = formatDate(passingValues.time);
+  const [userName, setUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserName();
+  }, []);
+
+  const getUserName = async () => {
+    const res = await usersApi.getUser(passingValues.username);
+    setUserName(res.data.name);
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
 
   return (
     <ScreenTemplate>
@@ -33,7 +55,7 @@ const PostScreen = ({ route }) => {
           <View style={styles.header}>
             <View style={styles.profile}>
               <Image style={styles.image} source={passingValues.userpic} />
-              <Text style={styles.username}>{passingValues.username}</Text>
+              <Text style={styles.username}>{userName}</Text>
             </View>
             <Text style={{ fontSize: 14, fontWeight: "300" }}>
               {formattedTime}
