@@ -7,6 +7,7 @@ import {
   FlatList,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
