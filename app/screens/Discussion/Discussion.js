@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -13,23 +14,84 @@ import ItemSeparator from "../../components/ItemSeparator";
 import { Ionicons } from "react-native-vector-icons";
 import { CardArray } from "../../components/FakeData";
 import postsApi from "../../api/postsApi";
+import filter from "lodash.filter";
 
 const Discussion = (props) => {
   const [topicsData, setTopicsData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
+  //this is run only the first time the screen loads
   useEffect(() => {
+    setIsLoading(true);
     loadTopics();
   }, []);
 
+  const Topics = [
+    "Anxiety",
+    "Depression",
+    "ADHD",
+    "BPD",
+    "PTSD",
+    "Bipolar",
+    "Eating Related Issues",
+    "Schizophrenia",
+    "Narcissism",
+    "Anger",
+    "Self Esteem & Confidence",
+    "OCD",
+    "Others",
+  ];
+  //gets all the topics from the database
   const loadTopics = async () => {
-    const response = await postsApi.getTopics();
-    setTopicsData(response.data);
+    // const response = await postsApi.getTopics();
+    setFilteredData(Topics);
+    setTopicsData(Topics);
+    setIsLoading(false);
   };
+
+  //if we're fetching data, we show the loading screen
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
+
+  //Searching Topics
+  const handleSearch = (query) => {
+    setSearchInput(query);
+    const formattedQuery = query.toLowerCase();
+    const filtered = filter(topicsData, (topic) => {
+      return contains(topic, formattedQuery);
+    });
+    setFilteredData(filtered);
+  };
+
+  const contains = (topic, query) => {
+    const lowerTopic = topic.toLowerCase();
+    if (lowerTopic.includes(query)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <ScreenTemplate>
       <View style={styles.searchView}>
         <Ionicons name="search" size={24} />
-        <TextInput style={styles.input} placeholder="Search for a topic..." />
+        <TextInput
+          style={styles.input}
+          value={searchInput}
+          onChangeText={(text) => handleSearch(text)}
+          placeholder="Search for a topic..."
+          clearButtonMode="while-editing"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => props.navigation.navigate("AddPost")}
@@ -39,8 +101,8 @@ const Discussion = (props) => {
       </View>
       <View style={styles.cardGrid}>
         <FlatList
-          data={CardArray(props)}
-          keyExtractor={(item) => item.id}
+          data={filteredData}
+          keyExtractor={(item) => item}
           numColumns={2}
           renderItem={({ item, index }) => (
             <View
@@ -55,11 +117,7 @@ const Discussion = (props) => {
                     }
               }
             >
-              <Hashtag
-                title={item.title}
-                posts={item.posts}
-                navigation={props.navigation}
-              />
+              <Hashtag title={item} navigation={props.navigation} />
             </View>
           )}
           ItemSeparatorComponent={ItemSeparator}

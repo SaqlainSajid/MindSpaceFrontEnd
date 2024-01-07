@@ -40,7 +40,9 @@ const AudioPlayer = () => {
   const handlePlayPause = async () => {
     if (!isPlaying) {
       const { sound: playbackObject } = await Audio.Sound.createAsync(
-        require("../../assets/paris.mp3"),
+        {
+          uri: "https://drive.google.com/uc?id=19BkTSfIaw5VpMU1LJRQyNFZmMSESGGJH",
+        },
         { shouldPlay: true, positionMillis: position }
       );
       sound.current = playbackObject;

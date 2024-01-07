@@ -51,18 +51,22 @@ const Comment = (props) => {
           <Text style={{ marginLeft: 5, fontSize: 12 }}>reply</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.replies}>
-        {props.replies.map((item) => (
-          <Replies
-            key={item.id}
-            userpic={item.userpic}
-            username={item.username}
-            content={item.content}
-            heart={item.heart}
-            replies={item.replies}
-          />
-        ))}
-      </View>
+      {props.replies ? (
+        <View style={styles.replies}>
+          {props.replies.map((item) => (
+            <Replies
+              key={item.id}
+              userpic={item.userpic}
+              username={item.username}
+              content={item.content}
+              heart={item.heart}
+              replies={item.replies}
+            />
+          ))}
+        </View>
+      ) : (
+        <View />
+      )}
     </View>
   );
 };
