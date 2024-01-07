@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
