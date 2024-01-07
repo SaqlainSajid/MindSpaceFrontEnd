@@ -28,11 +28,26 @@ const Discussion = (props) => {
     loadTopics();
   }, []);
 
+  const Topics = [
+    "Anxiety",
+    "Depression",
+    "ADHD",
+    "BPD",
+    "PTSD",
+    "Bipolar",
+    "Eating Related Issues",
+    "Schizophrenia",
+    "Narcissism",
+    "Anger",
+    "Self Esteem & Confidence",
+    "OCD",
+    "Others",
+  ];
   //gets all the topics from the database
   const loadTopics = async () => {
-    const response = await postsApi.getTopics();
-    setFilteredData(response.data);
-    setTopicsData(response.data);
+    // const response = await postsApi.getTopics();
+    setFilteredData(Topics);
+    setTopicsData(Topics);
     setIsLoading(false);
   };
 

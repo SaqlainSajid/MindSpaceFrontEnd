@@ -29,8 +29,13 @@ const Feed = ({ route, ...props }) => {
 
   const loadPosts = async () => {
     const response = await postsApi.getPosts(title);
-    setPostsData(response.data);
-    setFilteredData(response.data);
+    if (response.data) {
+      setPostsData(response.data);
+      setFilteredData(response.data);
+    } else {
+      setPostsData([]);
+      setFilteredData([]);
+    }
     setIsLoading(false);
   };
 
@@ -91,28 +96,30 @@ const Feed = ({ route, ...props }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.feed}>
-        <FlatList
-          data={filteredData}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <Post
-              key={item._id}
-              postId={item._id}
-              username={item.user}
-              content={item.content}
-              image={require("../../assets/mountain.jpg")}
-              time={item.createdAt}
-              likeNum={item.likes}
-              commentNum={item.comments}
-              comments={item.replies}
-              navigation={props.navigation}
-            />
-          )}
-          ItemSeparatorComponent={Separator}
-          scrollEnabled={true}
-          refreshing={refreshing}
-          onRefresh={loadPosts}
-        />
+        {filteredData ? (
+          <FlatList
+            data={filteredData}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }) => (
+              <Post
+                key={item._id}
+                postId={item._id}
+                username={item.user}
+                content={item.content}
+                image={require("../../assets/mountain.jpg")}
+                time={item.createdAt}
+                likeNum={item.likes}
+                commentNum={item.comments}
+                comments={item.replies}
+                navigation={props.navigation}
+              />
+            )}
+            ItemSeparatorComponent={Separator}
+            scrollEnabled={true}
+            refreshing={refreshing}
+            onRefresh={loadPosts}
+          />
+        ) : null}
       </View>
     </ScreenTemplate>
   );

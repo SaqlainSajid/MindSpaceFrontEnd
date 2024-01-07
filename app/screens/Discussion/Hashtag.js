@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headertext: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "bold",
   },
   postContainer: {
