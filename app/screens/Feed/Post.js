@@ -24,17 +24,6 @@ const formatDate = (dateString) => {
 const Post = (props) => {
   const authContext = useContext(AuthContext);
 
-  const passingValues = {
-    postId: props.postId,
-    username: props.username,
-    content: props.content,
-    userpic: props.image,
-    time: props.time,
-    likeNum: props.likeNum,
-    commentNum: props.commentNum,
-    comments: props.comments,
-  };
-
   const [userName, setUserName] = useState("");
   const [likes, setLikes] = useState(props.likeNum);
   const [liked, setLiked] = useState(false);
@@ -70,6 +59,17 @@ const Post = (props) => {
       const res = await postsApi.removeLike(props.postId, authContext.user._id);
       setLikes(res.data.likes);
     }
+  };
+
+  const passingValues = {
+    postId: props.postId,
+    username: props.username,
+    content: props.content,
+    userpic: props.image,
+    time: props.time,
+    likeNum: likes,
+    commentNum: props.commentNum,
+    comments: props.comments,
   };
 
   if (isLoading) {
