@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "react-native-vector-icons";
@@ -14,15 +15,26 @@ import doctorsApi from "../../api/doctorsApi";
 
 const BookSession = (props) => {
   const [doctorsData, setDoctorsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     loadDoctors();
   }, []);
 
   const loadDoctors = async () => {
     const response = await doctorsApi.getDoctors();
     setDoctorsData(response.data);
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
 
   return (
     <ScreenTemplate>

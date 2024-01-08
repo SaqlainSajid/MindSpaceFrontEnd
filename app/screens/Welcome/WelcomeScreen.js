@@ -22,12 +22,24 @@ export default function WelcomeScreen(props) {
       </View>
       <View style={styles.footerContainer}>
         <Text style={styles.footerText}>The space for your MIND is here!</Text>
-        <Button
-          text="Sign Up"
-          class="primary"
-          style={{ width: 200 }}
-          onPress={() => props.navigation.navigate("Signup Screen")}
-        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <Button
+              text="Sign Up"
+              class="primary"
+              style={{ width: 200 }}
+              onPress={() => props.navigation.navigate("Signup Screen")}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              text="Login"
+              class="primary"
+              style={{ width: 200 }}
+              onPress={() => props.navigation.navigate("Login Screen")}
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -56,8 +68,19 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   footerContainer: {
-    flex: 0.2,
+    flex: 0.5,
+    padding: 15,
+    paddingBottom: 0,
     alignItems: "center",
+    justifyContent: "space-between",
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   footerText: {
     fontSize: 16,

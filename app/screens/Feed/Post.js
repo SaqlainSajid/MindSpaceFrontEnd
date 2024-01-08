@@ -1,16 +1,84 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import postsApi from "../../api/postsApi";
+import usersApi from "../../api/usersApi";
+import AuthContext from "../../auth/context";
+
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = new Date(dateString).toLocaleDateString(
+    "en-US",
+    options
+  );
+  return formattedDate;
+};
 
 const Post = (props) => {
+  const authContext = useContext(AuthContext);
+
+  const [userName, setUserName] = useState("");
+  const [likes, setLikes] = useState(props.likeNum);
+  const [liked, setLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const formattedTime = formatDate(props.time);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserName();
+    checkIfLiked();
+    setIsLoading(false);
+  }, []);
+
+  const getUserName = async () => {
+    const res = await usersApi.getUser(props.username);
+    setUserName(res.data.name);
+  };
+
+  const checkIfLiked = async () => {
+    const res = await postsApi.checkLike(props.postId, authContext.user._id);
+    setLiked(res.data.isLikedByUser);
+  };
+
+  const handleLike = async () => {
+    if (!liked) {
+      setLiked(true);
+      const res = await postsApi.addLike(props.postId, authContext.user._id);
+      setLikes(res.data.likes);
+    }
+    if (liked) {
+      setLiked(false);
+      const res = await postsApi.removeLike(props.postId, authContext.user._id);
+      setLikes(res.data.likes);
+    }
+  };
+
   const passingValues = {
+    postId: props.postId,
     username: props.username,
     content: props.content,
     userpic: props.image,
     time: props.time,
-    reactions: props.reactions,
+    likeNum: likes,
+    commentNum: props.commentNum,
     comments: props.comments,
   };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -27,9 +95,9 @@ const Post = (props) => {
             source={props.image}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
           />
-          <Text style={{ fontSize: 20 }}>{props.username}</Text>
+          <Text style={{ fontSize: 20 }}>{userName}</Text>
         </TouchableOpacity>
-        <Text>{props.time}</Text>
+        <Text>{formattedTime}</Text>
       </View>
       <View style={styles.content}>
         <TouchableOpacity
@@ -49,11 +117,13 @@ const Post = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.heart}>
-          <Ionicons name="heart-circle" color="#fe251b" size={24} />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>
-            {props.reactions.heart}
-          </Text>
+        <TouchableOpacity style={styles.heart} onPress={handleLike}>
+          {liked ? (
+            <Ionicons name="heart-circle" color="#fe251b" size={24} />
+          ) : (
+            <Ionicons name="heart-circle" color="lightgrey" size={24} />
+          )}
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.comment}
@@ -65,7 +135,7 @@ const Post = (props) => {
         >
           <Fontisto name="comment" size={18} />
           <Text style={{ marginLeft: 5, fontSize: 12 }}>
-            {props.reactions.comment}
+            {props.commentNum}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>

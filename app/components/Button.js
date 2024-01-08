@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
     padding: 20,
     width: 200,
   },
+  danger: {
+    alignItems: "center",
+    backgroundColor: "red",
+    borderRadius: 25,
+    padding: 20,
+    width: 200,
+  },
   buttonText: {
     fontSize: 16,
     fontWeight: "bold",

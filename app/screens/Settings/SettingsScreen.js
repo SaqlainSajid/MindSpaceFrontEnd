@@ -6,12 +6,7 @@ const SettingsScreen = (props) => {
   return (
     <ScreenTemplate>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.setting}
-          onPress={() => props.navigation.navigate("Login Screen")}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Log Out</Text>
-        </TouchableOpacity>
+        <Text>Settings</Text>
       </View>
     </ScreenTemplate>
   );
@@ -23,16 +18,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    margin: 20,
-    padding: 15,
-    borderRadius: 10,
-  },
-  setting: {
-    flex: 0.1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
     margin: 20,
     padding: 15,
     borderRadius: 10,
