@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AuthContext from "../../auth/context";
 
@@ -52,7 +52,7 @@ const AddPost = (props) => {
     };
 
     try {
-      const response = await api.post('/posts', postData);
+      const response = await api.post(postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
@@ -75,7 +75,6 @@ const AddPost = (props) => {
         placeholder="Share your thoughts..."
         value={postText}
         onChangeText={(text) => setPostText(text)}
-        onSubmitEditing={placePost}
       />
       <View style={styles.topicsContainer}>
         {predefinedTopics.map((topic) => (
