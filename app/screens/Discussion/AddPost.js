@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import ScreenTemplate from "../../components/ScreenTemplate";
+import AuthContext from "../../auth/context";
 
 const predefinedTopics = [
   "Anxiety",
@@ -44,14 +44,15 @@ const AddPost = (props) => {
   };
 
   const placePost = async () => {
+    const authContext = useContext(AuthContext);
     const postData = {
       content: postText,
-      user: "userId",  //How to get userID??
+      user: authContext.user._id,
       topics: selectedTopics,
     };
 
     try {
-      const response = await axios.post('https://brainy-boa-teddy.cyclic.app/posts', postData);
+      const response = await api.post('/posts', postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
