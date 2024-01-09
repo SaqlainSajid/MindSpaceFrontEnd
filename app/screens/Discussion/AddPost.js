@@ -1,10 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import axios from 'axios'; // Install axios using "npm install axios"
 import ScreenTemplate from "../../components/ScreenTemplate";
-//Api sauce
-
 
 const predefinedTopics = [
   "Anxiety",
