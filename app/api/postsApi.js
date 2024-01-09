@@ -20,4 +20,7 @@ const removeLike = (id, user) => apiClient.patch(`${endpoint4}/${id}/${user}`);
 const endpoint5 = "/posts/check-like";
 const checkLike = (id, user) => apiClient.get(`${endpoint5}/${id}/${user}`);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike };
+const endpoint6 = "/posts";
+const getPost = (id) => apiClient.get(`${endpoint6}/${id}`);
+
+export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost };

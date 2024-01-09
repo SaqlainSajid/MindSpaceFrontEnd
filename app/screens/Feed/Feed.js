@@ -7,13 +7,14 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import Post from "./Post";
 import Separator from "../Feed/Separator";
 import postsApi from "../../api/postsApi";
 import filter from "lodash.filter";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Feed = ({ route, ...props }) => {
   const [postsData, setPostsData] = useState([]);
@@ -22,10 +23,12 @@ const Feed = ({ route, ...props }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    loadPosts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      loadPosts();
+    }, [])
+  );
 
   const loadPosts = async () => {
     const response = await postsApi.getPosts(title);
