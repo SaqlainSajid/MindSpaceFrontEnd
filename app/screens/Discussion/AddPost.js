@@ -54,7 +54,7 @@ const AddPost = (props) => {
     };
 
     try {
-      const response = await axios.post('https://brainy-boa-teddy.cyclic.app/posts/topics', postData);
+      const response = await axios.post('https://brainy-boa-teddy.cyclic.app/posts', postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
