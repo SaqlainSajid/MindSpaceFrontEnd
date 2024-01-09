@@ -70,6 +70,7 @@ const Post = (props) => {
     likeNum: likes,
     commentNum: props.commentNum,
     comments: props.comments,
+    liked: liked,
   };
 
   if (isLoading) {
@@ -80,6 +81,7 @@ const Post = (props) => {
     );
   }
 
+  console.log(liked);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
