@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import axios from 'axios'; // Install axios using "npm install axios"
 import ScreenTemplate from "../../components/ScreenTemplate";
+//Api sauce
+
 
 const predefinedTopics = [
   "Anxiety",
@@ -52,7 +54,7 @@ const AddPost = (props) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/posts', postData);
+      const response = await axios.post('https://brainy-boa-teddy.cyclic.app/posts/topics', postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
