@@ -20,7 +20,12 @@ const removeLike = (id, user) => apiClient.patch(`${endpoint4}/${id}/${user}`);
 const endpoint5 = "/posts/check-like";
 const checkLike = (id, user) => apiClient.get(`${endpoint5}/${id}/${user}`);
 
+//finds a post with a specific id
 const endpoint6 = "/posts";
 const getPost = (id) => apiClient.get(`${endpoint6}/${id}`);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost };
+//adds a post
+const endpoint7 = "/posts";
+const AddPost = () => apiClient.get(endpoint7);
+
+export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost };
