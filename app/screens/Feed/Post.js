@@ -81,7 +81,6 @@ const Post = (props) => {
     );
   }
 
-  console.log(liked);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

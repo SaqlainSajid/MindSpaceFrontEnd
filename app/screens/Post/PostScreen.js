@@ -9,11 +9,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import Comment from "./Comment";
 import usersApi from "../../api/usersApi";
+import postsApi from "../../api/postsApi";
+import AuthContext from "../../auth/context";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -25,13 +27,18 @@ const formatDate = (dateString) => {
 };
 
 const PostScreen = ({ route }) => {
+  const authContext = useContext(AuthContext);
   const { passingValues } = route.params;
   const formattedTime = formatDate(passingValues.time);
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [likes, setLikes] = useState(passingValues.likeNum);
+  const [liked, setLiked] = useState(passingValues.liked);
 
   useEffect(() => {
     setIsLoading(true);
+    getPost();
+    checkIfLiked();
     getUserName();
   }, []);
 
@@ -39,6 +46,19 @@ const PostScreen = ({ route }) => {
     const res = await usersApi.getUser(passingValues.username);
     setUserName(res.data.name);
     setIsLoading(false);
+  };
+
+  const getPost = async () => {
+    const res = await postsApi.getPost(passingValues.postId);
+    setLikes(res.data.likes);
+  };
+
+  const checkIfLiked = async () => {
+    const res = await postsApi.checkLike(
+      passingValues.postId,
+      authContext.user._id
+    );
+    setLiked(res.data.isLikedByUser);
   };
 
   if (isLoading) {
@@ -69,10 +89,12 @@ const PostScreen = ({ route }) => {
           </View>
           <View style={styles.reactions}>
             <TouchableOpacity style={styles.heart}>
-              <Ionicons name="heart-circle" color="#fe251b" size={24} />
-              <Text style={{ marginLeft: 5, fontSize: 12 }}>
-                {passingValues.likeNum}
-              </Text>
+              {liked ? (
+                <Ionicons name="heart-circle" color="#fe251b" size={24} />
+              ) : (
+                <Ionicons name="heart-circle" color="lightgrey" size={24} />
+              )}
+              <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.comment}>
               <Fontisto name="comment" size={18} />
