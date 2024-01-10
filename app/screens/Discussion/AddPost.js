@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AuthContext from "../../auth/context";
+import postsApi from "../api/postsApi";
 
 const predefinedTopics = [
   "Anxiety",
@@ -52,7 +53,7 @@ const AddPost = (props) => {
     };
 
     try {
-      const response = await api.post(postData);
+      const response = await postsApi.AddPost(postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
