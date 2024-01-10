@@ -26,6 +26,6 @@ const getPost = (id) => apiClient.get(`${endpoint6}/${id}`);
 
 //adds a post
 const endpoint7 = "/posts";
-const AddPost = () => apiClient.get(endpoint7);
+const AddPost = (postData) => apiClient.post(endpoint7, postData);
 
 export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost };
