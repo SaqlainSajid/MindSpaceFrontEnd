@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import axios from 'axios'; // Install axios using "npm install axios"
-import ScreenTemplate from "../../components/ScreenTemplate";
+import AuthContext from "../../auth/context";
+import postsApi from "../../api/postsApi";
 
 const predefinedTopics = [
   "Anxiety",
@@ -45,14 +45,15 @@ const AddPost = (props) => {
   };
 
   const placePost = async () => {
+    const authContext = useContext(AuthContext);
     const postData = {
       content: postText,
-      user: "userId",  //How to get userID??
+      user: authContext.user._id,
       topics: selectedTopics,
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/posts', postData);
+      const response = await postsApi.AddPost(postData);
 
       if (response.status === 201) {
         console.log('Post created:', response.data);
@@ -75,7 +76,6 @@ const AddPost = (props) => {
         placeholder="Share your thoughts..."
         value={postText}
         onChangeText={(text) => setPostText(text)}
-        onSubmitEditing={placePost}
       />
       <View style={styles.topicsContainer}>
         {predefinedTopics.map((topic) => (
