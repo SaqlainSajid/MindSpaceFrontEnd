@@ -61,6 +61,25 @@ const PostScreen = ({ route }) => {
     setLiked(res.data.isLikedByUser);
   };
 
+  const handleLike = async () => {
+    if (!liked) {
+      setLiked(true);
+      const res = await postsApi.addLike(
+        passingValues.postId,
+        authContext.user._id
+      );
+      setLikes(res.data.likes);
+    }
+    if (liked) {
+      setLiked(false);
+      const res = await postsApi.removeLike(
+        passingValues.postId,
+        authContext.user._id
+      );
+      setLikes(res.data.likes);
+    }
+  };
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -88,7 +107,7 @@ const PostScreen = ({ route }) => {
             </Text>
           </View>
           <View style={styles.reactions}>
-            <TouchableOpacity style={styles.heart}>
+            <TouchableOpacity style={styles.heart} onPress={handleLike}>
               {liked ? (
                 <Ionicons name="heart-circle" color="#fe251b" size={24} />
               ) : (
