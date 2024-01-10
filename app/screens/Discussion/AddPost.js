@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AuthContext from "../../auth/context";
-import postsApi from "../api/postsApi";
+import postsApi from "../../api/postsApi";
 
 const predefinedTopics = [
   "Anxiety",
