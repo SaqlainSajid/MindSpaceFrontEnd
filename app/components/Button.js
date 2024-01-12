@@ -14,7 +14,8 @@ export default function Button(props) {
 
 const styles = StyleSheet.create({
   primary: {
-    alignItems: "center",
+    alignSelf: "center",
+    alignItems: 'center',
     backgroundColor: "#0a1145",
     borderRadius: 25,
     padding: 20,
