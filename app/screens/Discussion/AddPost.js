@@ -69,7 +69,7 @@ const AddPost = (props) => {
       // Clear the text input and selected topics after creating the post
       setPostText('');
       setSelectedTopics([]);
-      props.navigation.navigate('Discussion');
+      props.navigation.goBack();
     };
   };
 
