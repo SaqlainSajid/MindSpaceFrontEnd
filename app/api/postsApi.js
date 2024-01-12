@@ -28,4 +28,8 @@ const getPost = (id) => apiClient.get(`${endpoint6}/${id}`);
 const endpoint7 = "/posts";
 const AddPost = (postData) => apiClient.post(endpoint7, postData);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost };
+//for delete post
+const endpoint8 = "/posts"
+const DeletePost = (id) => apiClient.delete(`${endpoint6}/${id}`);
+
+export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost };
