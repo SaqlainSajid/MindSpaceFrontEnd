@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AuthContext from "../../auth/context";
 import postsApi from "../../api/postsApi";
+import Button from "../../components/Button";
+import ScreenTemplate from "../../components/ScreenTemplate";
 
 const predefinedTopics = [
   "Anxiety",
@@ -74,29 +76,33 @@ const AddPost = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Share your thoughts..."
-        value={postText}
-        onChangeText={(text) => setPostText(text)}
-      />
-      <View style={styles.topicsContainer}>
-        {predefinedTopics.map((topic) => (
-          <TouchableOpacity
-            key={topic}
-            style={[
-              styles.topicButton,
-              selectedTopics.includes(topic) && styles.selectedTopicButton
-            ]}
-            onPress={() => toggleTopic(topic)}
-          >
-            <Text style={styles.topicButtonText}>{topic}</Text>
-          </TouchableOpacity>
-        ))}
+    <ScreenTemplate>
+      <View style={styles.container}>
+        <TextInput
+          style={[styles.input, { backgroundColor: 'white' }]}
+          placeholder="Share your thoughts..."
+          value={postText}
+          onChangeText={(text) => setPostText(text)}
+        />
+        <View style={styles.topicsContainer}>
+          {predefinedTopics.map((topic) => (
+            <TouchableOpacity
+              key={topic}
+              style={[
+                styles.topicButton,
+                selectedTopics.includes(topic) && styles.selectedTopicButton
+              ]}
+              onPress={() => toggleTopic(topic)}
+            >
+              <Text style={styles.topicButtonText}>{topic}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button style={styles.button} class="primary" text="Post" onPress={placePost}/>
+        </View>
       </View>
-      <Button title="Post" onPress={placePost} />
-    </View>
+    </ScreenTemplate>
   );
 };
 
@@ -114,6 +120,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
+    backgroundColor: 'white',
   },
   topicsContainer: {
     flexDirection: 'row',
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   selectedTopicButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'rgba(128, 0, 128, 0.1)',
   },
   topicButtonText: {
     color: '#333',
