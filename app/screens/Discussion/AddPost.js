@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AuthContext from "../../auth/context";
@@ -23,7 +22,7 @@ const predefinedTopics = [
 const AddPost = (props) => {
   const [postText, setPostText] = useState('');
   const [selectedTopics, setSelectedTopics] = useState([]);
-
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -39,34 +38,38 @@ const AddPost = (props) => {
       if (selectedTopics.length < 2) {
         setSelectedTopics([...selectedTopics, topic]);
       } else {
-        console.warn('Maximum limit of topics (2) reached for this post.');
+        setSelectedTopics([]);
       }
     }
   };
 
   const placePost = async () => {
-    const authContext = useContext(AuthContext);
-    const postData = {
-      content: postText,
-      user: authContext.user._id,
-      topics: selectedTopics,
-    };
+    if (selectedTopics.length < 1 || postText == '') {
+      setPostText('');
+      setSelectedTopics([]);
+    } else {
+      const postData = {
+        content: postText,
+        user: authContext.user._id,
+        topics: selectedTopics,
+        }
 
-    try {
-      const response = await postsApi.AddPost(postData);
+      try {
+        const response = await postsApi.AddPost(postData);
 
-      if (response.status === 201) {
-        console.log('Post created:', response.data);
-      } else {
-        console.error('Error creating post:', response.data.message);
+        if (response.status === 201) {
+          console.log('Post created:', response.data);
+        } else {
+          console.error('Error creating post:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error creating post:', error.message);
       }
-    } catch (error) {
-      console.error('Error creating post:', error.message);
-    }
 
-    // Clear the text input and selected topics after creating the post
-    setPostText('');
-    setSelectedTopics([]);
+      // Clear the text input and selected topics after creating the post
+      setPostText('');
+      setSelectedTopics([]);
+    };
   };
 
   return (
