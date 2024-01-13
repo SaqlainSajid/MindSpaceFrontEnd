@@ -16,6 +16,7 @@ import Comment from "./Comment";
 import usersApi from "../../api/usersApi";
 import postsApi from "../../api/postsApi";
 import AuthContext from "../../auth/context";
+import Share from "react-native-share";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -59,6 +60,25 @@ const PostScreen = ({ route }) => {
       authContext.user._id
     );
     setLiked(res.data.isLikedByUser);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await postsApi.DeletePost(passingValues.postId);
+    } catch (error) {
+      console.error("Error deleting Psot:", error);
+    }
+  }
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.open({
+        message: 'Check out this post by ${userName}: ${passingValues.content}',
+      });
+      console.log(result);
+    } catch (error) {
+      console.error("Error sharing post:", error.message);
+    }
   };
 
   const handleLike = async () => {
@@ -121,9 +141,14 @@ const PostScreen = ({ route }) => {
                 {passingValues.commentNum}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleShare}>
               <Feather name="send" size={18} />
             </TouchableOpacity>
+            {authContext.user._id === passingValues.userId && (
+              <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
+                <Feather name="trash" size={24} color="red"/>
+              </TouchableOpacity>
+            )}
           </View>
           <View style={styles.separator} />
           <View style={styles.commentSection}>
