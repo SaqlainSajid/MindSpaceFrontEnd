@@ -11,6 +11,7 @@ import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
 import AuthContext from "../../auth/context";
+import Share from "react-native-share";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -61,6 +62,17 @@ const Post = (props) => {
     }
   };
 
+  const handleShare = async () => {
+    try {
+      const result = await Share.open({
+        message: 'Check out this post by ${userName}: ${passingValues.content}',
+      });
+      console.log(result);
+    } catch (error) {
+      console.error("Error sharing post:", error.message);
+    }
+  };
+  
   const passingValues = {
     postId: props.postId,
     username: props.username,
@@ -139,7 +151,7 @@ const Post = (props) => {
             {props.commentNum}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleShare}>
           <Feather name="send" size={18} />
         </TouchableOpacity>
       </View>
