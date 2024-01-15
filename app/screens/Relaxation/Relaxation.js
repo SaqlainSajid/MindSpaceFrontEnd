@@ -4,77 +4,43 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
 import ItemSeparator from "../../components/ItemSeparator";
-
-const CardArray = (props) => [
-  {
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 1,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 2,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 3,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 4,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 5,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 6,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 7,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 8,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-  {
-    id: 9,
-    imageName: "yoga",
-    title: "Start off the day with calmness",
-    onPress: () => props.navigation.navigate("AudioPlayer"),
-  },
-];
+import googleDriveApi from "../../api/googleDriveApi";
 
 const Relaxation = (props) => {
   const [scroll, setScroll] = useState(false);
+  const [Audios, setAudios] = useState({});
   const flatListRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getAudios();
+  }, []);
+
+  const getAudios = async () => {
+    const res = await googleDriveApi.getAudios();
+    setAudios(res.data.files);
+    setIsLoading(false);
+  };
+
+  const HandlePress = (audio) => {
+    props.navigation.navigate("AudioPlayer", { audio });
+  };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
+
   return (
     <ScreenTemplate>
       <View style={styles.headerView}>
@@ -86,7 +52,7 @@ const Relaxation = (props) => {
       <View style={styles.cardGrid}>
         <FlatList
           ref={flatListRef}
-          data={CardArray(props)}
+          data={Audios}
           keyExtractor={(item) => item.id}
           numColumns={2}
           renderItem={({ item, index }) => (
@@ -103,9 +69,9 @@ const Relaxation = (props) => {
               }
             >
               <Card
-                imageName={item.imageName}
-                title={item.title}
-                onPress={item.onPress}
+                imageName={"yoga"}
+                title={item.name}
+                onPress={() => HandlePress(item)}
               />
             </View>
           )}

@@ -26,9 +26,9 @@ const formatDate = (dateString) => {
   return formattedDate;
 };
 
-const PostScreen = ({ route }) => {
+const PostScreen = () => {
   const authContext = useContext(AuthContext);
-  const { passingValues } = route.params;
+  // const { passingValues } = route.params;
   const formattedTime = formatDate(passingValues.time);
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);

@@ -5,11 +5,19 @@ import { Ionicons } from "react-native-vector-icons";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Slider from "@react-native-community/slider";
 
-const AudioPlayer = () => {
+const AudioPlayer = (props) => {
+  const audioFile = props.route.params.audio;
   const [isPlaying, setIsPlaying] = useState(false);
+  const [googleAudio, setGoogleAudio] = useState({});
   const [sound, setSound] = useState(new Audio.Sound());
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     return sound.current
@@ -41,7 +49,7 @@ const AudioPlayer = () => {
     if (!isPlaying) {
       const { sound: playbackObject } = await Audio.Sound.createAsync(
         {
-          uri: "https://drive.google.com/uc?id=19BkTSfIaw5VpMU1LJRQyNFZmMSESGGJH",
+          uri: `https://drive.google.com/uc?id=${audioFile.id}`,
         },
         { shouldPlay: true, positionMillis: position }
       );
@@ -66,6 +74,14 @@ const AudioPlayer = () => {
     }
   }, [position, duration]);
 
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
+
   return (
     <ScreenTemplate>
       <View style={styles.main}>
@@ -83,8 +99,7 @@ const AudioPlayer = () => {
               marginBottom: 20,
             }}
           >
-            {" "}
-            Best Audio In The Business{" "}
+            {audioFile.name}
           </Text>
           {position ? (
             <Text>
