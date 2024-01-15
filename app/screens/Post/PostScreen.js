@@ -66,7 +66,7 @@ const PostScreen = ({ route }) => {
     try {
       await postsApi.DeletePost(passingValues.postId);
     } catch (error) {
-      console.error("Error deleting Psot:", error);
+      console.error("Error deleting Post:", error);
     }
   }
 
@@ -144,7 +144,7 @@ const PostScreen = ({ route }) => {
             <TouchableOpacity onPress={handleShare}>
               <Feather name="send" size={18} />
             </TouchableOpacity>
-            {authContext.user._id === passingValues.userId && (
+            {authContext.user._id === passingValues.username && (
               <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
                 <Feather name="trash" size={24} color="red"/>
               </TouchableOpacity>
