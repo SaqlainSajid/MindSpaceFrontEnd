@@ -8,6 +8,8 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  Share,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -16,7 +18,6 @@ import Comment from "./Comment";
 import usersApi from "../../api/usersApi";
 import postsApi from "../../api/postsApi";
 import AuthContext from "../../auth/context";
-import Share from "react-native-share";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -35,6 +36,7 @@ const PostScreen = ({ route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [likes, setLikes] = useState(passingValues.likeNum);
   const [liked, setLiked] = useState(passingValues.liked);
+  const [commentContent, setCommentContent] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,6 +50,27 @@ const PostScreen = ({ route }) => {
     setUserName(res.data.name);
     setIsLoading(false);
   };
+
+  const handleShare = async () => {
+    try {
+      const postLink = `https://brainy-boa-teddy.cyclic.app/posts/${passingValues.postId}`;
+      const shareOptions = {
+        message: `Check out this post by ${userName}:\n\n${passingValues.content}\n\n${postLink}`,
+        url: postLink, // URL to open when tapping the shared message (not supported on Android)
+      };
+
+      if (Platform.OS === "ios") {
+        // For iOS, use Share.share instead of Share.shareSingle
+        await Share.share(shareOptions);
+      } else {
+        await Share.shareSingle(shareOptions);
+      }
+    } catch (error) {
+      console.error("Error sharing post:", error.message);
+    }
+  };
+
+
 
   const getPost = async () => {
     const res = await postsApi.getPost(passingValues.postId);
@@ -68,18 +91,28 @@ const PostScreen = ({ route }) => {
     } catch (error) {
       console.error("Error deleting Post:", error);
     }
-  }
-
-  const handleShare = async () => {
-    try {
-      const result = await Share.open({
-        message: 'Check out this post by ${userName}: ${passingValues.content}',
-      });
-      console.log(result);
-    } catch (error) {
-      console.error("Error sharing post:", error.message);
-    }
   };
+
+  const handleAddComment = async () => {
+    try {
+      if (commentContent.trim() === "") {
+        return;
+      }
+  
+      await postsApi.addCommentToPost(passingValues.postId, {
+        content: commentContent,
+        user: authContext.user._id,
+      });
+  
+      // Fetch the updated post after adding the comment
+      await getPost();
+  
+      // Clear the comment input field
+      setCommentContent("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };   
 
   const handleLike = async () => {
     if (!liked) {
@@ -165,8 +198,8 @@ const PostScreen = ({ route }) => {
           </View>
         </ScrollView>
         <View style={styles.addcomment}>
-          <TextInput style={styles.input} placeholder="Write something..." />
-          <TouchableOpacity>
+          <TextInput style={styles.input} placeholder="Write something..."  value={commentContent} onChangeText={(text) => setCommentContent(text)}/>
+          <TouchableOpacity onPress={handleAddComment}>
             <Ionicons name="send-sharp" size={24} />
           </TouchableOpacity>
         </View>
