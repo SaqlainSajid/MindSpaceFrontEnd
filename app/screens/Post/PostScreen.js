@@ -8,6 +8,8 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  Share,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -34,6 +36,7 @@ const PostScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [likes, setLikes] = useState(passingValues.likeNum);
   const [liked, setLiked] = useState(passingValues.liked);
+  const [commentContent, setCommentContent] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,6 +51,27 @@ const PostScreen = () => {
     setIsLoading(false);
   };
 
+  const handleShare = async () => {
+    try {
+      const postLink = `https://brainy-boa-teddy.cyclic.app/posts/${passingValues.postId}`;
+      const shareOptions = {
+        message: `Check out this post by ${userName}:\n\n${passingValues.content}\n\n${postLink}`,
+        url: postLink, // URL to open when tapping the shared message (not supported on Android)
+      };
+
+      if (Platform.OS === "ios") {
+        // For iOS, use Share.share instead of Share.shareSingle
+        await Share.share(shareOptions);
+      } else {
+        await Share.shareSingle(shareOptions);
+      }
+    } catch (error) {
+      console.error("Error sharing post:", error.message);
+    }
+  };
+
+
+
   const getPost = async () => {
     const res = await postsApi.getPost(passingValues.postId);
     setLikes(res.data.likes);
@@ -60,6 +84,35 @@ const PostScreen = () => {
     );
     setLiked(res.data.isLikedByUser);
   };
+
+  const handleDelete = async () => {
+    try {
+      await postsApi.DeletePost(passingValues.postId);
+    } catch (error) {
+      console.error("Error deleting Post:", error);
+    }
+  };
+
+  const handleAddComment = async () => {
+    try {
+      if (commentContent.trim() === "") {
+        return;
+      }
+  
+      await postsApi.addCommentToPost(passingValues.postId, {
+        content: commentContent,
+        user: authContext.user._id,
+      });
+  
+      // Fetch the updated post after adding the comment
+      await getPost();
+  
+      // Clear the comment input field
+      setCommentContent("");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };   
 
   const handleLike = async () => {
     if (!liked) {
@@ -121,9 +174,14 @@ const PostScreen = () => {
                 {passingValues.commentNum}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleShare}>
               <Feather name="send" size={18} />
             </TouchableOpacity>
+            {authContext.user._id === passingValues.username && (
+              <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
+                <Feather name="trash" size={24} color="red"/>
+              </TouchableOpacity>
+            )}
           </View>
           <View style={styles.separator} />
           <View style={styles.commentSection}>
@@ -140,8 +198,8 @@ const PostScreen = () => {
           </View>
         </ScrollView>
         <View style={styles.addcomment}>
-          <TextInput style={styles.input} placeholder="Write something..." />
-          <TouchableOpacity>
+          <TextInput style={styles.input} placeholder="Write something..."  value={commentContent} onChangeText={(text) => setCommentContent(text)}/>
+          <TouchableOpacity onPress={handleAddComment}>
             <Ionicons name="send-sharp" size={24} />
           </TouchableOpacity>
         </View>
