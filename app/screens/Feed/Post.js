@@ -5,13 +5,14 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Share,
+  Platform,
 } from "react-native";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
 import AuthContext from "../../auth/context";
-import Share from "react-native-share";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -24,7 +25,6 @@ const formatDate = (dateString) => {
 
 const Post = (props) => {
   const authContext = useContext(AuthContext);
-
   const [userName, setUserName] = useState("");
   const [likes, setLikes] = useState(props.likeNum);
   const [liked, setLiked] = useState(false);
@@ -60,16 +60,33 @@ const Post = (props) => {
       const res = await postsApi.removeLike(props.postId, authContext.user._id);
       setLikes(res.data.likes);
     }
-  };
-
+  }; 
+  
   const handleShare = async () => {
     try {
-      const result = await Share.open({
-        message: 'Check out this post by ${userName}: ${passingValues.content}',
-      });
-      console.log(result);
+      const postLink = `https://brainy-boa-teddy.cyclic.app/posts/${passingValues.postId}`;
+      const shareOptions = {
+        message: `Check out this post by ${userName}:\n\n${passingValues.content}\n\n${postLink}`,
+        url: postLink, // URL to open when tapping the shared message (not supported on Android)
+      };
+
+      if (Platform.OS === "ios") {
+        // For iOS, use Share.share instead of Share.shareSingle
+        await Share.share(shareOptions);
+      } else {
+        await Share.shareSingle(shareOptions);
+      }
     } catch (error) {
       console.error("Error sharing post:", error.message);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await postsApi.DeletePost(passingValues.postId);
+      props.navigation.goBack();
+    } catch (error) {
+      console.error("Error deleting Post:", error);
     }
   };
   
@@ -154,6 +171,11 @@ const Post = (props) => {
         <TouchableOpacity onPress={handleShare}>
           <Feather name="send" size={18} />
         </TouchableOpacity>
+        {authContext.user._id === passingValues.username && (
+              <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
+                <Feather name="trash" size={24} color="red"/>
+              </TouchableOpacity>
+            )}
       </View>
     </View>
   );
