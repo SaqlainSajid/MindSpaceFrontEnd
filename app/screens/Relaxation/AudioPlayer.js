@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { Audio } from "expo-av";
 import { Ionicons } from "react-native-vector-icons";
@@ -8,24 +15,20 @@ import Slider from "@react-native-community/slider";
 const AudioPlayer = (props) => {
   const audioFile = props.route.params.audio;
   const [isPlaying, setIsPlaying] = useState(false);
-  const [googleAudio, setGoogleAudio] = useState({});
+  const [googleAudio, setGoogleAudio] = useState(null);
   const [sound, setSound] = useState(new Audio.Sound());
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
+    getAudio(); // Fetch audio when the screen starts
     return sound.current
-      ? () => {
-          sound.current.unloadAsync();
+      ? async () => {
+          await sound.current.unloadAsync();
         }
       : undefined;
-  }, []);
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   useEffect(() => {
     if (isPlaying) {
@@ -45,15 +48,30 @@ const AudioPlayer = (props) => {
     };
   }, []);
 
-  const handlePlayPause = async () => {
-    if (!isPlaying) {
-      const { sound: playbackObject } = await Audio.Sound.createAsync(
+  const getAudio = async () => {
+    try {
+      const { sound: audio } = await Audio.Sound.createAsync(
         {
           uri: `https://drive.google.com/uc?id=${audioFile.id}`,
         },
-        { shouldPlay: true, positionMillis: position }
+        { shouldPlay: false, positionMillis: position }
       );
-      sound.current = playbackObject;
+      setGoogleAudio(audio);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error loading audio:", error);
+      setIsLoading(false);
+    }
+  };
+
+  const handlePlayPause = async () => {
+    if (!isPlaying) {
+      if (!googleAudio) {
+        // If audio is not loaded, return early
+        return;
+      }
+      sound.current = googleAudio;
+      await sound.current.playAsync();
       setIsPlaying(true);
     } else {
       await sound.current.pauseAsync();
@@ -99,7 +117,7 @@ const AudioPlayer = (props) => {
               marginBottom: 20,
             }}
           >
-            {audioFile.name}
+            {audioFile.name.replace(".mp3", "")}
           </Text>
           {position ? (
             <Text>

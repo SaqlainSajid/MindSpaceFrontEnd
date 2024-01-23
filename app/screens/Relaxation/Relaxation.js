@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import Card from "../../components/Card";
+import AudioCard from "../../components/AudioCard";
 import ItemSeparator from "../../components/ItemSeparator";
 import googleDriveApi from "../../api/googleDriveApi";
 
@@ -68,9 +68,9 @@ const Relaxation = (props) => {
                     }
               }
             >
-              <Card
+              <AudioCard
                 imageName={"yoga"}
-                title={item.name}
+                title={item.name.replace(".mp3", "")}
                 onPress={() => HandlePress(item)}
               />
             </View>
