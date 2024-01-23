@@ -1,9 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from "react-native";
 import AuthContext from "../../auth/context";
 import postsApi from "../../api/postsApi";
 import Button from "../../components/Button";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import { ScrollView } from "react-native-gesture-handler";
 
 const predefinedTopics = [
   "Anxiety",
@@ -18,11 +26,11 @@ const predefinedTopics = [
   "Anger",
   "Self Esteem & Confidence",
   "OCD",
-  "Others"
+  "Others",
 ];
 
 const AddPost = (props) => {
-  const [postText, setPostText] = useState('');
+  const [postText, setPostText] = useState("");
   const [selectedTopics, setSelectedTopics] = useState([]);
   const authContext = useContext(AuthContext);
 
@@ -35,7 +43,9 @@ const AddPost = (props) => {
 
   const toggleTopic = (topic) => {
     if (selectedTopics.includes(topic)) {
-      setSelectedTopics(selectedTopics.filter((selectedTopic) => selectedTopic !== topic));
+      setSelectedTopics(
+        selectedTopics.filter((selectedTopic) => selectedTopic !== topic)
+      );
     } else {
       if (selectedTopics.length < 2) {
         setSelectedTopics([...selectedTopics, topic]);
@@ -46,62 +56,77 @@ const AddPost = (props) => {
   };
 
   const placePost = async () => {
-    if (selectedTopics.length < 1 || postText == '') {
-      setPostText('');
+    if (selectedTopics.length < 1 || postText == "") {
+      setPostText("");
       setSelectedTopics([]);
     } else {
       const postData = {
-        content: postText,
+        content: postText.trim(),
         user: authContext.user._id,
         topics: selectedTopics,
-        }
+      };
 
       try {
         const response = await postsApi.AddPost(postData);
 
         if (response.status === 201) {
-          console.log('Post created:', response.data);
+          console.log("Post created:", response.data);
         } else {
-          console.error('Error creating post:', response.data.message);
+          console.error("Error creating post:", response.data.message);
         }
       } catch (error) {
-        console.error('Error creating post:', error.message);
+        console.error("Error creating post:", error.message);
       }
 
       // Clear the text input and selected topics after creating the post
-      setPostText('');
+      setPostText("");
       setSelectedTopics([]);
       props.navigation.goBack();
-    };
+    }
   };
 
   return (
     <ScreenTemplate>
-      <View style={styles.container}>
-        <TextInput
-          style={[styles.input, { backgroundColor: 'white' }]}
-          placeholder="Share your thoughts..."
-          value={postText}
-          onChangeText={(text) => setPostText(text)}
-        />
-        <View style={styles.topicsContainer}>
-          {predefinedTopics.map((topic) => (
-            <TouchableOpacity
-              key={topic}
-              style={[
-                styles.topicButton,
-                selectedTopics.includes(topic) && styles.selectedTopicButton
-              ]}
-              onPress={() => toggleTopic(topic)}
-            >
-              <Text style={styles.topicButtonText}>{topic}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button style={styles.button} class="primary" text="Post" onPress={placePost}/>
-        </View>
-      </View>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      >
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.container}>
+            <TextInput
+              style={[styles.input, { backgroundColor: "white", flex: 2 }]}
+              placeholder="Share your thoughts..."
+              value={postText}
+              multiline={true}
+              onChangeText={(text) => setPostText(text)}
+            />
+            <View style={styles.topicsContainer}>
+              {predefinedTopics.map((topic) => (
+                <TouchableOpacity
+                  key={topic}
+                  style={[
+                    styles.topicButton,
+                    selectedTopics.includes(topic) &&
+                      styles.selectedTopicButton,
+                  ]}
+                  onPress={() => toggleTopic(topic)}
+                >
+                  <Text style={styles.topicButtonText}>{topic}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                style={styles.button}
+                class="primary"
+                text="Post"
+                onPress={placePost}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ScreenTemplate>
   );
 };
@@ -112,24 +137,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   input: {
+    flex: 1,
     height: 100,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   topicsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     marginBottom: 16,
   },
   topicButton: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -137,9 +163,9 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   selectedTopicButton: {
-    backgroundColor: 'rgba(128, 0, 128, 0.1)',
+    backgroundColor: "rgba(128, 0, 128, 0.1)",
   },
   topicButtonText: {
-    color: '#333',
+    color: "#333",
   },
 });

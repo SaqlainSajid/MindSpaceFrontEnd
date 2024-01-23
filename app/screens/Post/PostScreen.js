@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Share,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -28,9 +29,9 @@ const formatDate = (dateString) => {
   return formattedDate;
 };
 
-const PostScreen = () => {
+const PostScreen = ({ route }) => {
   const authContext = useContext(AuthContext);
-  // const { passingValues } = route.params;
+  const { passingValues } = route.params;
   const formattedTime = formatDate(passingValues.time);
   const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -70,8 +71,6 @@ const PostScreen = () => {
     }
   };
 
-
-
   const getPost = async () => {
     const res = await postsApi.getPost(passingValues.postId);
     setLikes(res.data.likes);
@@ -98,21 +97,21 @@ const PostScreen = () => {
       if (commentContent.trim() === "") {
         return;
       }
-  
+
       await postsApi.addCommentToPost(passingValues.postId, {
         content: commentContent,
         user: authContext.user._id,
       });
-  
+
       // Fetch the updated post after adding the comment
       await getPost();
-  
+
       // Clear the comment input field
       setCommentContent("");
     } catch (error) {
       console.error("Error adding comment:", error);
     }
-  };   
+  };
 
   const handleLike = async () => {
     if (!liked) {
@@ -143,67 +142,78 @@ const PostScreen = () => {
 
   return (
     <ScreenTemplate>
-      <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <View style={styles.profile}>
-              <Image style={styles.image} source={passingValues.userpic} />
-              <Text style={styles.username}>{userName}</Text>
-            </View>
-            <Text style={{ fontSize: 14, fontWeight: "300" }}>
-              {formattedTime}
-            </Text>
-          </View>
-          <View style={styles.content}>
-            <Text style={{ fontSize: 18, fontWeight: "400" }}>
-              {passingValues.content}
-            </Text>
-          </View>
-          <View style={styles.reactions}>
-            <TouchableOpacity style={styles.heart} onPress={handleLike}>
-              {liked ? (
-                <Ionicons name="heart-circle" color="#fe251b" size={24} />
-              ) : (
-                <Ionicons name="heart-circle" color="lightgrey" size={24} />
-              )}
-              <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.comment}>
-              <Fontisto name="comment" size={18} />
-              <Text style={{ marginLeft: 5, fontSize: 12 }}>
-                {passingValues.commentNum}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      >
+        <View style={styles.container}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.header}>
+              <View style={styles.profile}>
+                <Image style={styles.image} source={passingValues.userpic} />
+                <Text style={styles.username}>{userName}</Text>
+              </View>
+              <Text style={{ fontSize: 14, fontWeight: "300" }}>
+                {formattedTime}
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleShare}>
-              <Feather name="send" size={18} />
-            </TouchableOpacity>
-            {authContext.user._id === passingValues.username && (
-              <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
-                <Feather name="trash" size={24} color="red"/>
+            </View>
+            <View style={styles.content}>
+              <Text style={{ fontSize: 18, fontWeight: "400" }}>
+                {passingValues.content}
+              </Text>
+            </View>
+            <View style={styles.reactions}>
+              <TouchableOpacity style={styles.heart} onPress={handleLike}>
+                {liked ? (
+                  <Ionicons name="heart-circle" color="#fe251b" size={24} />
+                ) : (
+                  <Ionicons name="heart-circle" color="lightgrey" size={24} />
+                )}
+                <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
               </TouchableOpacity>
-            )}
+              <TouchableOpacity style={styles.comment}>
+                <Fontisto name="comment" size={18} />
+                <Text style={{ marginLeft: 5, fontSize: 12 }}>
+                  {passingValues.commentNum}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleShare}>
+                <Feather name="send" size={18} />
+              </TouchableOpacity>
+              {authContext.user._id === passingValues.username && (
+                <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+                  <Feather name="trash" size={24} color="red" />
+                </TouchableOpacity>
+              )}
+            </View>
+            <View style={styles.separator} />
+            <View style={styles.commentSection}>
+              {passingValues.comments.map((item) => (
+                <Comment
+                  key={item._id}
+                  userpic={require("../../assets/mountain.jpg")}
+                  username={item.user}
+                  content={item.content}
+                  heart={item.likes}
+                  replies={item.replies}
+                />
+              ))}
+            </View>
+          </ScrollView>
+          <View style={styles.addcomment}>
+            <TextInput
+              style={styles.input}
+              placeholder="Write something..."
+              value={commentContent}
+              onChangeText={(text) => setCommentContent(text)}
+            />
+            <TouchableOpacity onPress={handleAddComment}>
+              <Ionicons name="send-sharp" size={24} />
+            </TouchableOpacity>
           </View>
-          <View style={styles.separator} />
-          <View style={styles.commentSection}>
-            {passingValues.comments.map((item) => (
-              <Comment
-                key={item._id}
-                userpic={require("../../assets/mountain.jpg")}
-                username={item.user}
-                content={item.content}
-                heart={item.likes}
-                replies={item.replies}
-              />
-            ))}
-          </View>
-        </ScrollView>
-        <View style={styles.addcomment}>
-          <TextInput style={styles.input} placeholder="Write something..."  value={commentContent} onChangeText={(text) => setCommentContent(text)}/>
-          <TouchableOpacity onPress={handleAddComment}>
-            <Ionicons name="send-sharp" size={24} />
-          </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ScreenTemplate>
   );
 };
