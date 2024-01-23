@@ -30,6 +30,22 @@ const AddPost = (postData) => apiClient.post(endpoint7, postData);
 
 //for delete post
 const endpoint8 = "/posts"
-const DeletePost = (id) => apiClient.delete(`${endpoint6}/${id}`);
+const DeletePost = (id) => apiClient.delete(`${endpoint8}/${id}`);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost };
+//for adding a comment
+const endpoint9 = "/posts/add-comment"
+const addCommentToPost = (id, newComment) => apiClient.post(`${endpoint9}/${id}`, {newComment});
+
+//for deleting a comment
+const endpoint10 = "/posts/delete-comment"
+const deleteCommentFromPost = (id, commentId) => apiClient.delete(`${endpoint10}/${id}/${commentId}`);
+
+//for liking a comment
+const endpoint11 = "/posts/like-comment"
+const likeComment = (id, commentId, userId) => apiClient.patch(`${endpoint11}/${id}/${commentId}/${userId}`);
+
+//for unliking a comment
+const endpoint12 = "/posts/unlike-comment"
+const unlikeComment = (id, commentId, userId) => apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
+
+export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost, addCommentToPost, deleteCommentFromPost, likeComment, unlikeComment };

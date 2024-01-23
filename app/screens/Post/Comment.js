@@ -1,16 +1,40 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
-import Replies from "./Replies";
-import { Ionicons, Fontisto } from "react-native-vector-icons";
+import { Ionicons } from "react-native-vector-icons";
+import postsApi from "../../api/postsApi";
 
 const Comment = (props) => {
+  const [liked, setLiked] = useState(props.isLiked);
+
+  const handleLike = async () => {
+    try {
+      if (liked) {
+        await postsApi.removeLikeComment(props.commentId);
+      } else {
+        await postsApi.addLikeComment(props.commentId);
+      }
+      setLiked(!liked);
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await postsApi.deleteComment(props.commentId);
+      // Assuming you have a callback from the parent to refresh comments after deletion
+      props.onDelete();
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.commentcontainer}>
@@ -35,38 +59,30 @@ const Comment = (props) => {
             {props.username}
           </Text>
         </View>
-        <View style="comment">
+        <View style={styles.comment}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
             {props.content}
           </Text>
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.reaction}>
-          <Ionicons name="heart-circle" color="#fe251b" size={24} />
+        <TouchableOpacity style={styles.reaction} onPress={handleLike}>
+          <Ionicons
+            name="heart-circle"
+            color={liked ? "#fe251b" : "lightgrey"}
+            size={24}
+          />
           <Text style={{ marginLeft: 5, fontSize: 12 }}>{props.heart}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.reaction, { marginLeft: 10 }]}>
-          <Fontisto name="comment" size={18} />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>reply</Text>
-        </TouchableOpacity>
+        {props.isCurrentUser && (
+          <TouchableOpacity
+            style={[styles.reaction, { marginLeft: 10 }]}
+            onPress={handleDelete}
+          >
+            <Ionicons name="trash" size={24} color="red" />
+          </TouchableOpacity>
+        )}
       </View>
-      {props.replies ? (
-        <View style={styles.replies}>
-          {props.replies.map((item) => (
-            <Replies
-              key={item.id}
-              userpic={item.userpic}
-              username={item.username}
-              content={item.content}
-              heart={item.heart}
-              replies={item.replies}
-            />
-          ))}
-        </View>
-      ) : (
-        <View />
-      )}
     </View>
   );
 };
