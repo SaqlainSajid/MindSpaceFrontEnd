@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import postsApi from "../../api/postsApi";
+import usersApi from "../../api/usersApi";
 
 const Comment = (props) => {
   const [liked, setLiked] = useState(props.isLiked);
+  const [userName, setUserName] = useState(props.username);
+
+  useEffect(() => {
+    getUserName();
+  }, []);
+
+  const getUserName = async () => {
+    const res = await usersApi.getUser(props.username);
+    setUserName(res.data.name);
+  };
 
   const handleLike = async () => {
     try {
@@ -50,7 +61,7 @@ const Comment = (props) => {
               marginRight: 10,
             }}
           >
-            {props.username}
+            {userName}
           </Text>
         </View>
         <View style={styles.comment}>
