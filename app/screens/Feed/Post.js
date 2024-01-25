@@ -60,8 +60,8 @@ const Post = (props) => {
       const res = await postsApi.removeLike(props.postId, authContext.user._id);
       setLikes(res.data.likes);
     }
-  }; 
-  
+  };
+
   const handleShare = async () => {
     try {
       const postLink = `https://brainy-boa-teddy.cyclic.app/posts/${passingValues.postId}`;
@@ -89,7 +89,7 @@ const Post = (props) => {
       console.error("Error deleting Post:", error);
     }
   };
-  
+
   const passingValues = {
     postId: props.postId,
     username: props.username,
@@ -100,6 +100,7 @@ const Post = (props) => {
     commentNum: props.commentNum,
     comments: props.comments,
     liked: liked,
+    feedTitle: props.feedTitle,
   };
 
   if (isLoading) {
@@ -172,10 +173,10 @@ const Post = (props) => {
           <Feather name="send" size={18} />
         </TouchableOpacity>
         {authContext.user._id === passingValues.username && (
-              <TouchableOpacity style ={styles.trash} onPress={handleDelete}>
-                <Feather name="trash" size={24} color="red"/>
-              </TouchableOpacity>
-            )}
+          <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+            <Feather name="trash" size={24} color="red" />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

@@ -115,6 +115,7 @@ const Feed = ({ route, ...props }) => {
                 commentNum={item.comments}
                 comments={item.replies}
                 navigation={props.navigation}
+                feedTitle={title}
               />
             )}
             ItemSeparatorComponent={Separator}

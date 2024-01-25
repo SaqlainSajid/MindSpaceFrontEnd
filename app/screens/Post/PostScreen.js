@@ -19,6 +19,7 @@ import Comment from "./Comment";
 import usersApi from "../../api/usersApi";
 import postsApi from "../../api/postsApi";
 import AuthContext from "../../auth/context";
+import { useNavigation } from "@react-navigation/native";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -39,6 +40,7 @@ const PostScreen = ({ route }) => {
   const [liked, setLiked] = useState(passingValues.liked);
   const [commentContent, setCommentContent] = useState("");
   const [comments, setComments] = useState(passingValues.comments);
+  const nav = useNavigation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -92,6 +94,7 @@ const PostScreen = ({ route }) => {
     } catch (error) {
       console.error("Error deleting Post:", error);
     }
+    nav.navigate("Feed", { title: passingValues.feedTitle });
   };
 
   const handleAddComment = async () => {

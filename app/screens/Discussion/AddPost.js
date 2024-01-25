@@ -92,15 +92,15 @@ const AddPost = (props) => {
         behavior="padding"
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
-        <ScrollView style={{ flex: 1 }}>
-          <View style={styles.container}>
-            <TextInput
-              style={[styles.input, { backgroundColor: "white", flex: 2 }]}
-              placeholder="Share your thoughts..."
-              value={postText}
-              multiline={true}
-              onChangeText={(text) => setPostText(text)}
-            />
+        <View style={styles.container}>
+          <TextInput
+            style={[styles.input, { backgroundColor: "white", flex: 1 }]}
+            placeholder="Share your thoughts..."
+            value={postText}
+            multiline={true}
+            onChangeText={(text) => setPostText(text)}
+          />
+          <ScrollView style={{ flex: 1 }}>
             <View style={styles.topicsContainer}>
               {predefinedTopics.map((topic) => (
                 <TouchableOpacity
@@ -112,20 +112,28 @@ const AddPost = (props) => {
                   ]}
                   onPress={() => toggleTopic(topic)}
                 >
-                  <Text style={styles.topicButtonText}>{topic}</Text>
+                  <Text
+                    style={[
+                      styles.topicButtonText,
+                      selectedTopics.includes(topic) &&
+                        styles.selectedTopicText,
+                    ]}
+                  >
+                    {topic}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                style={styles.button}
-                class="primary"
-                text="Post"
-                onPress={placePost}
-              />
-            </View>
+          </ScrollView>
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.button}
+              class="primary"
+              text="Post"
+              onPress={placePost}
+            />
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </ScreenTemplate>
   );
@@ -136,36 +144,46 @@ export default AddPost;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     justifyContent: "space-between",
-  },
-  input: {
-    flex: 1,
-    height: 100,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
+    margin: 20,
+    padding: 16,
+    borderRadius: 20,
     backgroundColor: "white",
   },
+  input: {
+    flex: 0.8,
+    height: 100,
+    borderColor: "gray",
+    borderWidth: 2,
+    paddingHorizontal: 8,
+    backgroundColor: "white",
+    borderColor: "purple",
+    borderRadius: 10,
+  },
   topicsContainer: {
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginBottom: 16,
+    justifyContent: "space-evenly",
+    marginVertical: 12,
   },
   topicButton: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "white",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
     marginVertical: 8,
     marginRight: 8,
+    borderColor: "#0a1145",
+    borderWidth: 2,
   },
   selectedTopicButton: {
-    backgroundColor: "rgba(128, 0, 128, 0.1)",
+    backgroundColor: "#0a1145",
   },
   topicButtonText: {
-    color: "#333",
+    color: "black",
+  },
+  selectedTopicText: {
+    color: "white",
   },
 });
