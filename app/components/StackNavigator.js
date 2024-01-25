@@ -17,6 +17,7 @@ import Booking from "../screens/BookSession/Booking";
 import PaymentScreen from "../screens/BookSession/PaymentScreen";
 import ChatScreen from "../screens/Chat/ChatScreen";
 import CallScreen from "../screens/Chat/CallScreen";
+import Bookings from "../screens/BookSession/forDocs/Bookings";
 
 const stack = createStackNavigator();
 
@@ -46,6 +47,11 @@ const StackNavigator = () => {
         name="Book Session"
         component={BookSession}
         options={{ headerShown: true, headerTitle: "Book a Session" }}
+      />
+      <stack.Screen
+        name="Bookings"
+        component={Bookings}
+        options={{ headerShown: true, headerTitle: "Bookings" }}
       />
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen

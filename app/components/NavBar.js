@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import MySpace from "../screens/MySpace/MySpace";
@@ -7,15 +7,18 @@ import Relaxation from "../screens/Relaxation/Relaxation";
 import Discussion from "../screens/Discussion/Discussion";
 import Chat from "../screens/Chat/Chat";
 import BookSession from "../screens/BookSession/BookSession";
+import Bookings from "../screens/BookSession/forDocs/Bookings";
 
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { Octicons } from "react-native-vector-icons";
 import { Entypo } from "react-native-vector-icons";
 import { Ionicons } from "react-native-vector-icons";
+import AuthContext from "../auth/context";
 
 const Tab = createBottomTabNavigator();
 
 const NavBar = (props) => {
+  const authContext = useContext(AuthContext);
   return (
     <Tab.Navigator
       initialRouteName="MySpace"
@@ -85,18 +88,33 @@ const NavBar = (props) => {
           },
         }}
       />
-      <Tab.Screen
-        name="Book Session"
-        component={BookSession}
-        listeners={({ navigation }) => ({
-          tabPress: () => navigation.navigate("Book Session"),
-        })}
-        options={{
-          tabBarIcon: () => {
-            return <Ionicons name="calendar-outline" size={30} />;
-          },
-        }}
-      />
+      {authContext.user.role == "user" ? (
+        <Tab.Screen
+          name="Book Session"
+          component={BookSession}
+          listeners={({ navigation }) => ({
+            tabPress: () => navigation.navigate("Book Session"),
+          })}
+          options={{
+            tabBarIcon: () => {
+              return <Ionicons name="calendar-outline" size={30} />;
+            },
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="Bookings"
+          component={Bookings}
+          listeners={({ navigation }) => ({
+            tabPress: () => navigation.navigate("Bookings"),
+          })}
+          options={{
+            tabBarIcon: () => {
+              return <Ionicons name="calendar-outline" size={30} />;
+            },
+          }}
+        />
+      )}
       <Tab.Screen
         name="Vent"
         component={Chat}

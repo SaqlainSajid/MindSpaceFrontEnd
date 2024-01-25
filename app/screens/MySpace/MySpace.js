@@ -5,14 +5,13 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Card from "../../components/Card";
 import ItemSeparator from "../../components/ItemSeparator";
+import AuthContext from "../../auth/context";
 
-subscribed = false;
-
-const CardArray = (props) => [
+const CardArrayUser = (props) => [
   {
     id: 1,
     imageName: "yoga",
@@ -39,43 +38,98 @@ const CardArray = (props) => [
   },
 ];
 
+const CardArrayDoc = (props) => [
+  {
+    id: 1,
+    imageName: "yoga",
+    title: "Start off the day with calmness",
+    onPress: () => props.navigation.navigate("Relaxation"),
+  },
+  {
+    id: 2,
+    imageName: "discussion",
+    title: "See what's buzzing in the forum",
+    onPress: () => props.navigation.navigate("Discussion"),
+  },
+  {
+    id: 3,
+    imageName: "booksession",
+    title: "Check your Bookings",
+    onPress: () => props.navigation.navigate("Bookings"),
+  },
+  {
+    id: 4,
+    imageName: "vent",
+    title: "Something on your mind?",
+    onPress: () => props.navigation.navigate("Vent"),
+  },
+];
+
 const MySpace = (props) => {
+  const authContext = useContext(AuthContext);
+  const subscribed = authContext.user.subscribed;
   return (
     <ScreenTemplate>
       <View style={styles.main}>
         <View style={styles.resumeView}>
           <Text style={styles.mainText}>What would you like to do today?</Text>
-          {/* <TouchableOpacity>
-            <Text style={styles.resumeButtonText}>Start where you left...</Text>
-          </TouchableOpacity> */}
         </View>
         <View style={styles.cardContainer}>
-          <FlatList
-            data={CardArray(props)}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            renderItem={({ item, index }) => (
-              <View
-                style={
-                  index % 2 === 0
-                    ? {
-                        flex: 1,
-                        paddingRight: 10,
-                      }
-                    : {
-                        flex: 1,
-                      }
-                }
-              >
-                <Card
-                  imageName={item.imageName}
-                  title={item.title}
-                  onPress={item.onPress}
-                />
-              </View>
-            )}
-            ItemSeparatorComponent={ItemSeparator}
-          />
+          {authContext.user.role == "user" ? (
+            <FlatList
+              data={CardArrayUser(props)}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              renderItem={({ item, index }) => (
+                <View
+                  style={
+                    index % 2 === 0
+                      ? {
+                          flex: 1,
+                          paddingRight: 10,
+                        }
+                      : {
+                          flex: 1,
+                        }
+                  }
+                >
+                  <Card
+                    imageName={item.imageName}
+                    title={item.title}
+                    onPress={item.onPress}
+                  />
+                </View>
+              )}
+              ItemSeparatorComponent={ItemSeparator}
+            />
+          ) : (
+            <FlatList
+              data={CardArrayDoc(props)}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              renderItem={({ item, index }) => (
+                <View
+                  style={
+                    index % 2 === 0
+                      ? {
+                          flex: 1,
+                          paddingRight: 10,
+                        }
+                      : {
+                          flex: 1,
+                        }
+                  }
+                >
+                  <Card
+                    imageName={item.imageName}
+                    title={item.title}
+                    onPress={item.onPress}
+                  />
+                </View>
+              )}
+              ItemSeparatorComponent={ItemSeparator}
+            />
+          )}
         </View>
       </View>
       {!subscribed && (

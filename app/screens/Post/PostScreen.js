@@ -38,6 +38,7 @@ const PostScreen = ({ route }) => {
   const [likes, setLikes] = useState(passingValues.likeNum);
   const [liked, setLiked] = useState(passingValues.liked);
   const [commentContent, setCommentContent] = useState("");
+  const [comments, setComments] = useState(passingValues.comments);
 
   useEffect(() => {
     setIsLoading(true);
@@ -74,6 +75,7 @@ const PostScreen = ({ route }) => {
   const getPost = async () => {
     const res = await postsApi.getPost(passingValues.postId);
     setLikes(res.data.likes);
+    setComments(res.data.replies);
   };
 
   const checkIfLiked = async () => {
@@ -189,7 +191,7 @@ const PostScreen = ({ route }) => {
             </View>
             <View style={styles.separator} />
             <View style={styles.commentSection}>
-              {passingValues.comments.map((item) => (
+              {comments.map((item) => (
                 <Comment
                   key={item._id}
                   userpic={require("../../assets/mountain.jpg")}
