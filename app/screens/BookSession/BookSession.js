@@ -12,9 +12,12 @@ import { Ionicons } from "react-native-vector-icons";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import Profile from "./Profile";
 import doctorsApi from "../../api/doctorsApi";
+import filter from "lodash.filter";
 
 const BookSession = (props) => {
   const [doctorsData, setDoctorsData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -22,9 +25,34 @@ const BookSession = (props) => {
     loadDoctors();
   }, []);
 
+  const handleSearch = (query) => {
+    setSearchInput(query);
+    const formattedQuery = query.toLowerCase();
+    const filtered = filter(doctorsData, (doctor) => {
+      return contains(doctor, formattedQuery);
+    });
+    setFilteredData(filtered);
+  };
+
+  const contains = ({ name, price }, query) => {
+    const lowerName = name.toLowerCase();
+    const stringPrice = price.toString();
+    if (lowerName.includes(query) || stringPrice.includes(query)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const loadDoctors = async () => {
     const response = await doctorsApi.getDoctors();
-    setDoctorsData(response.data);
+    if (response.data) {
+      setDoctorsData(response.data);
+      setFilteredData(response.data);
+    } else {
+      setDoctorsData([]);
+      setFilteredData([]);
+    }
     setIsLoading(false);
   };
 
@@ -40,14 +68,22 @@ const BookSession = (props) => {
     <ScreenTemplate>
       <View style={styles.searchView}>
         <Ionicons name="search" size={24} />
-        <TextInput style={styles.input} placeholder="Search for a doctor..." />
+        <TextInput
+          style={styles.input}
+          value={searchInput}
+          onChangeText={(text) => handleSearch(text)}
+          placeholder="Search for a doctor..."
+          clearButtonMode="while-editing"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
         <TouchableOpacity style={styles.button}>
           <Ionicons name="filter-outline" size={24} />
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
         <FlatList
-          data={doctorsData}
+          data={filteredData}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Profile
