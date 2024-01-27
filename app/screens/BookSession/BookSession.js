@@ -34,10 +34,15 @@ const BookSession = (props) => {
     setFilteredData(filtered);
   };
 
-  const contains = ({ name, price }, query) => {
+  const contains = ({ name, price, spec }, query) => {
     const lowerName = name.toLowerCase();
     const stringPrice = price.toString();
-    if (lowerName.includes(query) || stringPrice.includes(query)) {
+
+    if (
+      lowerName.includes(query) ||
+      stringPrice.includes(query) ||
+      spec.some((specItem) => specItem.toLowerCase().includes(query))
+    ) {
       return true;
     } else {
       return false;
