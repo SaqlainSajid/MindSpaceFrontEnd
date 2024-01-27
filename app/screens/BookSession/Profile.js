@@ -36,7 +36,7 @@ const Profile = (props) => {
             <Text
               style={{
                 fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 18,
                 marginRight: 5,
               }}
             >
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
+    marginTop: 10,
   },
   pic: {
     width: 80,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   },
   namedegrees: {
     flex: 1,
-    marginRight: 30,
+    marginLeft: 30,
     alignItems: "center",
   },
   name: {
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
   },
   degrees: {
     flex: 1,
+    alignItems: "center",
     marginVertical: 10,
     marginHorizontal: 10,
   },
