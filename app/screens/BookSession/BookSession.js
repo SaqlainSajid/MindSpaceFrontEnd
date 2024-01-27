@@ -56,7 +56,8 @@ const BookSession = (props) => {
               name={item.name}
               degrees={item.degrees}
               spec={item.spec}
-              payment={item.payment}
+              price={item.price}
+              duration={item.duration}
               navigation={props.navigation}
             />
           )}
