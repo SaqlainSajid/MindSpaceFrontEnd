@@ -47,8 +47,6 @@ const BookingSettings = (props) => {
     );
   }
 
-  console.log(doctor);
-
   return (
     <ScreenTemplate>
       <View style={styles.container}>
