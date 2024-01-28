@@ -3,6 +3,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
+  Modal,
   View,
   FlatList,
   ActivityIndicator,
@@ -19,6 +21,9 @@ const BookSession = (props) => {
   const [searchInput, setSearchInput] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,6 +66,30 @@ const BookSession = (props) => {
     setIsLoading(false);
   };
 
+  const handleSortOption = (option) => {
+    setSelectedOption(option);
+    setIsModalVisible(false);
+
+    const sortedData = [...filteredData];
+
+    switch (option) {
+      case "name":
+        // Sort by name in ascending order
+        sortedData.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "price":
+        // Sort by price in ascending order
+        sortedData.sort((a, b) => a.price - b.price);
+        break;
+      // Add more cases for other sorting options if needed
+      default:
+      // Do nothing for unknown options
+    }
+
+    // Update the state with the sorted data
+    setFilteredData(sortedData);
+  };
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -82,9 +111,40 @@ const BookSession = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setIsModalVisible(true)}
+        >
           <Ionicons name="filter-outline" size={24} />
         </TouchableOpacity>
+        {/* MODAL */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={() => {
+            setIsModalVisible(!isModalVisible);
+          }}
+        >
+          <View style={styles.modalContainer}>
+            <Text>Sort By:</Text>
+            <TouchableHighlight
+              style={styles.modalOption}
+              underlayColor="#f5f0ff"
+              onPress={() => handleSortOption("name")}
+            >
+              <Text>Name</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.modalOption}
+              underlayColor="#f5f0ff"
+              onPress={() => handleSortOption("price")}
+            >
+              <Text>Price</Text>
+            </TouchableHighlight>
+          </View>
+        </Modal>
+        {/* MODAL */}
       </View>
       <View style={styles.container}>
         <FlatList
@@ -139,5 +199,21 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  modalContainer: {
+    position: "absolute",
+    top: 60, // Adjust this based on your layout
+    right: 10, // Adjust this based on your layout
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 5,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: "purple",
+  },
+  modalOption: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
   },
 });
