@@ -1,12 +1,83 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import React, { useContext, useCallback, useState } from "react";
 import ScreenTemplate from "../../../components/ScreenTemplate";
+import AuthContext from "../../../auth/context";
+import Button from "../../../components/Button";
+import BookingForm from "./BookingsForm";
+import doctorsApi from "../../../api/doctorsApi";
+import { useFocusEffect } from "@react-navigation/native";
 
 const BookingSettings = (props) => {
+  const authContext = useContext(AuthContext);
+  const [days, setDays] = useState(authContext.user.daysOfWeek);
+  const [bookSet, setBookSet] = useState(authContext.user.bookSet);
+  const [isLoading, setIsLoading] = useState(false);
+  const [doctor, setDoctor] = useState({});
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      loadDoctor();
+    }, [])
+  );
+
+  const loadDoctor = async () => {
+    const response = await doctorsApi.getDoctor(authContext.user._id);
+    if (response.data) {
+      setDoctor(response.data);
+      setIsLoading(false);
+      setDays(response.data.daysOfWeek);
+      setBookSet(response.data.bookSet);
+    } else {
+      console.log("Error fetching Doctor");
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
+
+  console.log(doctor);
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
-        <Text>Booking Settings</Text>
+        {bookSet ? (
+          <View style={styles.textDetails}>
+            <View>
+              <Text>duration: {doctor.duration}</Text>
+              <Text>price: {doctor.price}</Text>
+            </View>
+            <View>
+              {days.map((day) => (
+                <View key={day._id}>
+                  <Text>Day: {day.day}</Text>
+                  <Text>Start Time:{day.timeFrom}</Text>
+                  <Text>End Time:{day.timeTo}</Text>
+                </View>
+              ))}
+            </View>
+            <View style={styles.footer}>
+              <Button
+                class="primary"
+                text="Edit"
+                onPress={() => setBookSet(false)}
+              />
+            </View>
+          </View>
+        ) : (
+          <BookingForm nav={props.navigation} />
+        )}
       </View>
     </ScreenTemplate>
   );
