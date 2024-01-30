@@ -7,12 +7,48 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import ScreenTemplate from "../../../components/ScreenTemplate";
+import Button from "../../../components/Button";
 
 const Bookings = (props) => {
+  const texts = [
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+    "t1",
+  ];
+
+  const handlePress = () => {
+    props.navigation.navigate("BookingSettings");
+  };
   return (
     <ScreenTemplate>
       <View style={styles.container}>
-        <Text>Whassup</Text>
+        <View style={styles.topView}>
+          <Text style={styles.topText}>Upcoming Bookings</Text>
+        </View>
+        <View style={styles.listContainer}></View>
+        <View style={styles.footer}>
+          <Button
+            class="primary"
+            text="Booking Settings"
+            onPress={handlePress}
+          />
+        </View>
       </View>
     </ScreenTemplate>
   );
@@ -23,74 +59,30 @@ export default Bookings;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "flex-start",
+  },
+  topView: {
+    flex: 0.1,
     backgroundColor: "white",
-    margin: 10,
-    padding: 15,
-    borderRadius: 10,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginLeft: 10,
-  },
-  durationcontainer: {
-    flex: 0.15,
-    marginVertical: 10,
-  },
-  timecontainer: {
-    flex: 0.15,
-    marginVertical: 10,
-  },
-  calendarcontainer: {
-    flex: 0.8,
+    borderRadius: 20,
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
-  paycontainer: {
-    flex: 0.2,
-    marginTop: 10,
-    marginBottom: 20,
+  topText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
-  button: {
+  listContainer: {
     flex: 1,
-    borderWidth: 2,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 10,
-    height: 40,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    backgroundColor: "white",
+    borderRadius: 20,
   },
-  btnClicked: {
-    backgroundColor: "#292c52",
-    flex: 1,
-    borderWidth: 2,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 10,
-    height: 40,
-    borderColor: "#292c52",
-  },
-  btnTxt: {
-    color: "black",
-  },
-  btnTxtClicked: {
-    color: "white",
-  },
-  btnpayment: {
-    borderWidth: 2,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 10,
-    marginVertical: 30,
-    height: 50,
-    borderColor: "green",
+  footer: {
+    marginBottom: 20,
   },
 });

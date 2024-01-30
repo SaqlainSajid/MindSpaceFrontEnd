@@ -2,6 +2,14 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
 const Profile = (props) => {
+  props.degrees.map((item) => {
+    const words = item.institution.split(" ");
+    var inst = "";
+    words.map((word) => {
+      inst += word[0];
+    });
+    item.institution = inst;
+  });
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -28,11 +36,11 @@ const Profile = (props) => {
             <Text
               style={{
                 fontWeight: "bold",
-                fontSize: 25,
+                fontSize: 18,
                 marginRight: 5,
               }}
             >
-              {"\u2022"}
+              {"\u2022"} {item}
             </Text>
             <Text style={{ marginTop: 8 }}>{item.name}</Text>
           </View>
@@ -50,13 +58,11 @@ const Profile = (props) => {
           <Text style={{ color: "white" }}>BOOK NOW</Text>
         </TouchableOpacity>
         <View style={styles.payment}>
-          {props.payment.map((item) => (
-            <View key={item._id} style={{ flexDirection: "row" }}>
-              <Text style={{ fontWeight: "bold" }}>
-                {item.amount}/{item.timemins}mins
-              </Text>
-            </View>
-          ))}
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>
+              {props.price}/{props.duration}mins
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -77,7 +83,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
+    marginTop: 10,
   },
   pic: {
     width: 80,
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
   },
   namedegrees: {
     flex: 1,
-    marginRight: 30,
+    marginLeft: 30,
     alignItems: "center",
   },
   name: {
@@ -107,7 +114,9 @@ const styles = StyleSheet.create({
   },
   degrees: {
     flex: 1,
+    alignItems: "center",
     marginVertical: 10,
+    marginHorizontal: 10,
   },
   footer: {
     flex: 1,
