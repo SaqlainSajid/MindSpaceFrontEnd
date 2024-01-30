@@ -38,7 +38,7 @@ const addCommentToPost = (id, newComment) => apiClient.post(`${endpoint9}/${id}`
 
 //for deleting a comment
 const endpoint10 = "/posts/delete-comment"
-const deleteCommentFromPost = (id, commentId) => apiClient.delete(`${endpoint10}/${id}/${commentId}`);
+const deleteComment = (id, commentId) => apiClient.delete(`${endpoint10}/${id}/${commentId}`);
 
 //for liking a comment
 const endpoint11 = "/posts/like-comment"
@@ -48,4 +48,8 @@ const likeComment = (id, commentId, userId) => apiClient.patch(`${endpoint11}/${
 const endpoint12 = "/posts/unlike-comment"
 const unlikeComment = (id, commentId, userId) => apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost, addCommentToPost, deleteCommentFromPost, likeComment, unlikeComment };
+//checks if a post has been liked by current user
+const endpoint13 = "/posts/check-comment-like";
+const checkCommentLike = (id, commentId, user) => apiClient.get(`${endpoint5}/${id}/${commentId}/${user}`);
+
+export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost, addCommentToPost, deleteComment, likeComment, unlikeComment, checkCommentLike };
