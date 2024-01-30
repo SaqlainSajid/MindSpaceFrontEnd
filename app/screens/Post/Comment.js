@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "react-native-vector-icons";
+import { Ionicons, Feather } from "react-native-vector-icons";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
+import AuthContext from "../../auth/context";
 
 const Comment = (props) => {
-  const [liked, setLiked] = useState(props.isLiked);
+  const authContext = useContext(AuthContext);
+  const [liked, setLiked] = useState(props.isLiked || false);
   const [userName, setUserName] = useState(props.username);
 
   useEffect(() => {
@@ -20,11 +22,14 @@ const Comment = (props) => {
   const handleLike = async () => {
     try {
       if (liked) {
-        await postsApi.removeLikeComment(props.commentId);
+        await postsApi.unlikeComment(props.postId, props.commentId, props.userId);
       } else {
-        await postsApi.addLikeComment(props.commentId);
+        await postsApi.likeComment(props.postId, props.commentId, props.userId);
       }
       setLiked(!liked);
+
+      props.onRefresh();
+
     } catch (error) {
       console.error("Error toggling like:", error);
     }
@@ -32,9 +37,10 @@ const Comment = (props) => {
 
   const handleDelete = async () => {
     try {
-      await postsApi.deleteComment(props.commentId);
-      // Assuming you have a callback from the parent to refresh comments after deletion
-      props.onDelete();
+      await postsApi.deleteComment(props.postId, props.commentId);
+      if (props.onDeleteComment) {
+        props.onDeleteComment();
+      }
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -79,12 +85,9 @@ const Comment = (props) => {
           />
           <Text style={{ marginLeft: 5, fontSize: 12 }}>{props.heart}</Text>
         </TouchableOpacity>
-        {props.isCurrentUser && (
-          <TouchableOpacity
-            style={[styles.reaction, { marginLeft: 10 }]}
-            onPress={handleDelete}
-          >
-            <Ionicons name="trash" size={24} color="red" />
+        {authContext.user._id === props.username && (
+          <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+            <Feather name="trash" size={24} color="red" />
           </TouchableOpacity>
         )}
       </View>
