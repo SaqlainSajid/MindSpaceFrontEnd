@@ -41,12 +41,14 @@ const PostScreen = ({ route }) => {
   const [commentContent, setCommentContent] = useState("");
   const [comments, setComments] = useState(passingValues.comments);
   const nav = useNavigation();
+  const [commentLikes, setCommentLikes] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
     getPost();
     checkIfLiked();
     getUserName();
+    checkIfCommentLiked();
   }, []);
 
   const getUserName = async () => {
@@ -117,6 +119,40 @@ const PostScreen = ({ route }) => {
       console.error("Error adding comment:", error);
     }
   };
+
+  const handleCommentDelete = async (commentId) => {
+    try {
+      // Call your API to delete the comment
+      await postsApi.deleteComment(passingValues.postId, commentId);
+
+      // Fetch the updated post after deleting the comment
+      await getPost();
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
+  const checkIfCommentLiked = async () => {
+    const commentLikesInfo = {};
+    for (const comment of passingValues.comments) {
+      const res = await postsApi.checkCommentLike(
+        passingValues.postId,
+        comment._id,
+        authContext.user._id
+      );
+      commentLikesInfo[comment._id] = res.data.isLikedByUser;
+    }
+    setCommentLikes(commentLikesInfo);
+  };
+
+  const refreshPost = async () => {
+    try {
+      // Fetch the updated post details
+      await getPost();
+    } catch (error) {
+      console.error("Error refreshing post:", error);
+    }
+  };  
 
   const handleLike = async () => {
     if (!liked) {
@@ -199,9 +235,14 @@ const PostScreen = ({ route }) => {
                   key={item._id}
                   userpic={require("../../assets/mountain.jpg")}
                   username={item.user}
+                  isLiked={commentLikes[item._id]}
                   content={item.content}
                   heart={item.likes}
                   replies={item.replies}
+                  commentId={item._id}
+                  postId={passingValues.postId}
+                  onRefresh={refreshPost}
+                  onDeleteComment={() => handleCommentDelete(item._id)}
                 />
               ))}
             </View>
