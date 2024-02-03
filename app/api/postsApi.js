@@ -38,9 +38,11 @@ const addCommentToPost = (id, newComment) =>
   apiClient.post(`${endpoint9}/${id}`, newComment);
 
 //for deleting a comment
+
 const endpoint10 = "/posts/delete-comment";
 const deleteCommentFromPost = (id, commentId) =>
   apiClient.patch(`${endpoint10}/${id}/${commentId}`);
+
 
 //for liking a comment
 const endpoint11 = "/posts/like-comment";
@@ -51,6 +53,7 @@ const likeComment = (id, commentId, userId) =>
 const endpoint12 = "/posts/unlike-comment";
 const unlikeComment = (id, commentId, userId) =>
   apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
+
 
 export default {
   getTopics,
@@ -66,3 +69,4 @@ export default {
   likeComment,
   unlikeComment,
 };
+
