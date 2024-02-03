@@ -6,10 +6,8 @@ import usersApi from "../../api/usersApi";
 import AuthContext from "../../auth/context";
 
 const Comment = (props) => {
-
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(props.heart);
-
 
   const [userName, setUserName] = useState(props.username);
   const authContext = useContext(AuthContext);
@@ -27,7 +25,6 @@ const Comment = (props) => {
   const handleLike = async () => {
     try {
       if (liked) {
-
         await postsApi.unlikeComment(
           props.postId,
           props.commentId,
@@ -43,13 +40,8 @@ const Comment = (props) => {
         );
         setLiked(true);
         setLikes((prevLikes) => prevLikes + 1);
-
-
       }
       setLiked(!liked);
-
-      props.onRefresh();
-
     } catch (error) {
       console.error("Error toggling like:", error);
     }
@@ -57,14 +49,11 @@ const Comment = (props) => {
 
   const handleDelete = async () => {
     try {
-
       await postsApi.deleteCommentFromPost(props.postId, props.commentId);
       const updatedComments = props.comments.filter(
         (comment) => comment._id !== props.commentId
       );
       props.setComments(updatedComments);
-
-
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -112,8 +101,7 @@ const Comment = (props) => {
 
         {authContext.user._id === props.username && (
           <TouchableOpacity style={styles.trash} onPress={handleDelete}>
-            <Feather name="trash" size={24} color="red" />
-
+            <Ionicons name="trash" size={24} color="red" />
           </TouchableOpacity>
         )}
       </View>
