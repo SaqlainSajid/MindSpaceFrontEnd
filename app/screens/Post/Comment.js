@@ -41,7 +41,6 @@ const Comment = (props) => {
         setLiked(true);
         setLikes((prevLikes) => prevLikes + 1);
       }
-      setLiked(!liked);
     } catch (error) {
       console.error("Error toggling like:", error);
     }
