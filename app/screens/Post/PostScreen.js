@@ -47,7 +47,6 @@ const PostScreen = ({ route }) => {
     setIsLoading(true);
     getPost();
     getUserName();
-    checkIfCommentLiked();
   }, []);
 
   const getUserName = async () => {
@@ -124,18 +123,18 @@ const PostScreen = ({ route }) => {
     }
   };
 
-  const checkIfCommentLiked = async () => {
-    const commentLikesInfo = {};
-    for (const comment of passingValues.comments) {
-      const res = await postsApi.checkCommentLike(
-        passingValues.postId,
-        comment._id,
-        authContext.user._id
-      );
-      commentLikesInfo[comment._id] = res.data.isLikedByUser;
-    }
-    setCommentLikes(commentLikesInfo);
-  };
+  // const checkIfCommentLiked = async () => {
+  //   const commentLikesInfo = {};
+  //   for (const comment of passingValues.comments) {
+  //     const res = await postsApi.checkCommentLike(
+  //       passingValues.postId,
+  //       comment._id,
+  //       authContext.user._id
+  //     );
+  //     commentLikesInfo[comment._id] = res.data.isLikedByUser;
+  //   }
+  //   setCommentLikes(commentLikesInfo);
+  // };
 
   const refreshPost = async () => {
     try {
@@ -144,7 +143,7 @@ const PostScreen = ({ route }) => {
     } catch (error) {
       console.error("Error refreshing post:", error);
     }
-  };  
+  };
 
   const handleLike = async () => {
     if (!liked) {
@@ -233,11 +232,9 @@ const PostScreen = ({ route }) => {
                   content={item.content}
                   heart={item.likes}
                   replies={item.replies}
-
                   comments={comments}
                   setComments={setComments}
                   likedBy={item.likedBy}
-
                 />
               ))}
             </View>
