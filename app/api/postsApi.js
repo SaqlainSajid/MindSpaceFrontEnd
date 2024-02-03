@@ -29,27 +29,44 @@ const endpoint7 = "/posts";
 const AddPost = (postData) => apiClient.post(endpoint7, postData);
 
 //for delete post
-const endpoint8 = "/posts"
+const endpoint8 = "/posts";
 const DeletePost = (id) => apiClient.delete(`${endpoint8}/${id}`);
 
 //for adding a comment
-const endpoint9 = "/posts/add-comment"
-const addCommentToPost = (id, newComment) => apiClient.post(`${endpoint9}/${id}`, {newComment});
+const endpoint9 = "/posts/add-comment";
+const addCommentToPost = (id, newComment) =>
+  apiClient.post(`${endpoint9}/${id}`, newComment);
 
 //for deleting a comment
-const endpoint10 = "/posts/delete-comment"
-const deleteComment = (id, commentId) => apiClient.delete(`${endpoint10}/${id}/${commentId}`);
+
+const endpoint10 = "/posts/delete-comment";
+const deleteCommentFromPost = (id, commentId) =>
+  apiClient.patch(`${endpoint10}/${id}/${commentId}`);
+
 
 //for liking a comment
-const endpoint11 = "/posts/like-comment"
-const likeComment = (id, commentId, userId) => apiClient.patch(`${endpoint11}/${id}/${commentId}/${userId}`);
+const endpoint11 = "/posts/like-comment";
+const likeComment = (id, commentId, userId) =>
+  apiClient.patch(`${endpoint11}/${id}/${commentId}/${userId}`);
 
 //for unliking a comment
-const endpoint12 = "/posts/unlike-comment"
-const unlikeComment = (id, commentId, userId) => apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
+const endpoint12 = "/posts/unlike-comment";
+const unlikeComment = (id, commentId, userId) =>
+  apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
 
-//checks if a post has been liked by current user
-const endpoint13 = "/posts/check-comment-like";
-const checkCommentLike = (id, commentId, user) => apiClient.get(`${endpoint5}/${id}/${commentId}/${user}`);
 
-export default { getTopics, getPosts, addLike, removeLike, checkLike, getPost, AddPost, DeletePost, addCommentToPost, deleteComment, likeComment, unlikeComment, checkCommentLike };
+export default {
+  getTopics,
+  getPosts,
+  addLike,
+  removeLike,
+  checkLike,
+  getPost,
+  AddPost,
+  DeletePost,
+  addCommentToPost,
+  deleteCommentFromPost,
+  likeComment,
+  unlikeComment,
+};
+

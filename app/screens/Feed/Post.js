@@ -41,7 +41,11 @@ const Post = (props) => {
 
   const getUserName = async () => {
     const res = await usersApi.getUser(props.username);
-    setUserName(res.data.name);
+    if (res.data.name) {
+      setUserName(res.data.name);
+    } else {
+      setUserName("user deleted");
+    }
   };
 
   const checkIfLiked = async () => {
@@ -126,6 +130,7 @@ const Post = (props) => {
             source={props.image}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
           />
+
           <Text style={{ fontSize: 20 }}>{userName}</Text>
         </TouchableOpacity>
         <Text>{formattedTime}</Text>

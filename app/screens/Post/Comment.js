@@ -6,9 +6,13 @@ import usersApi from "../../api/usersApi";
 import AuthContext from "../../auth/context";
 
 const Comment = (props) => {
-  const authContext = useContext(AuthContext);
-  const [liked, setLiked] = useState(props.isLiked || false);
+
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(props.heart);
+
+
   const [userName, setUserName] = useState(props.username);
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     getUserName();
@@ -17,14 +21,30 @@ const Comment = (props) => {
   const getUserName = async () => {
     const res = await usersApi.getUser(props.username);
     setUserName(res.data.name);
+    if (props.likedBy.includes(authContext.user._id)) setLiked(true);
   };
 
   const handleLike = async () => {
     try {
       if (liked) {
-        await postsApi.unlikeComment(props.postId, props.commentId, props.userId);
+
+        await postsApi.unlikeComment(
+          props.postId,
+          props.commentId,
+          authContext.user._id
+        );
+        setLiked(false);
+        setLikes((prevLikes) => prevLikes - 1);
       } else {
-        await postsApi.likeComment(props.postId, props.commentId, props.userId);
+        await postsApi.likeComment(
+          props.postId,
+          props.commentId,
+          authContext.user._id
+        );
+        setLiked(true);
+        setLikes((prevLikes) => prevLikes + 1);
+
+
       }
       setLiked(!liked);
 
@@ -37,10 +57,14 @@ const Comment = (props) => {
 
   const handleDelete = async () => {
     try {
-      await postsApi.deleteComment(props.postId, props.commentId);
-      if (props.onDeleteComment) {
-        props.onDeleteComment();
-      }
+
+      await postsApi.deleteCommentFromPost(props.postId, props.commentId);
+      const updatedComments = props.comments.filter(
+        (comment) => comment._id !== props.commentId
+      );
+      props.setComments(updatedComments);
+
+
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -83,11 +107,13 @@ const Comment = (props) => {
             color={liked ? "#fe251b" : "lightgrey"}
             size={24}
           />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>{props.heart}</Text>
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
         </TouchableOpacity>
+
         {authContext.user._id === props.username && (
           <TouchableOpacity style={styles.trash} onPress={handleDelete}>
             <Feather name="trash" size={24} color="red" />
+
           </TouchableOpacity>
         )}
       </View>
