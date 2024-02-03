@@ -77,7 +77,7 @@ const PostScreen = ({ route }) => {
     const res = await postsApi.getPost(passingValues.postId);
     setLikes(res.data.likes);
     setComments(res.data.replies);
-    if (res.data.likedBy.includes(user._id)) setLiked(true);
+    if (res.data.likedBy.includes(authContext.user._id)) setLiked(true);
   };
 
   const handleDelete = async () => {
