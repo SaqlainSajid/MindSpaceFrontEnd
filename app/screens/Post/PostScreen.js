@@ -45,7 +45,6 @@ const PostScreen = ({ route }) => {
   useEffect(() => {
     setIsLoading(true);
     getPost();
-    checkIfLiked();
     getUserName();
   }, []);
 
@@ -78,14 +77,7 @@ const PostScreen = ({ route }) => {
     const res = await postsApi.getPost(passingValues.postId);
     setLikes(res.data.likes);
     setComments(res.data.replies);
-  };
-
-  const checkIfLiked = async () => {
-    const res = await postsApi.checkLike(
-      passingValues.postId,
-      authContext.user._id
-    );
-    setLiked(res.data.isLikedByUser);
+    if (res.data.likedBy.includes(user._id)) setLiked(true);
   };
 
   const handleDelete = async () => {
@@ -197,11 +189,16 @@ const PostScreen = ({ route }) => {
               {comments.map((item) => (
                 <Comment
                   key={item._id}
+                  commentId={item._id}
+                  postId={passingValues.postId}
                   userpic={require("../../assets/mountain.jpg")}
                   username={item.user}
                   content={item.content}
                   heart={item.likes}
                   replies={item.replies}
+                  comments={comments}
+                  setComments={setComments}
+                  likedBy={item.likedBy}
                 />
               ))}
             </View>

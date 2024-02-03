@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
+import AuthContext from "../../auth/context";
 
 const Comment = (props) => {
-  const [liked, setLiked] = useState(props.isLiked);
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(props.heart);
   const [userName, setUserName] = useState(props.username);
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     getUserName();
@@ -15,14 +18,27 @@ const Comment = (props) => {
   const getUserName = async () => {
     const res = await usersApi.getUser(props.username);
     setUserName(res.data.name);
+    if (props.likedBy.includes(authContext.user._id)) setLiked(true);
   };
 
   const handleLike = async () => {
     try {
       if (liked) {
-        await postsApi.removeLikeComment(props.commentId);
+        await postsApi.unlikeComment(
+          props.postId,
+          props.commentId,
+          authContext.user._id
+        );
+        setLiked(false);
+        setLikes((prevLikes) => prevLikes - 1);
       } else {
-        await postsApi.addLikeComment(props.commentId);
+        await postsApi.likeComment(
+          props.postId,
+          props.commentId,
+          authContext.user._id
+        );
+        setLiked(true);
+        setLikes((prevLikes) => prevLikes + 1);
       }
       setLiked(!liked);
     } catch (error) {
@@ -32,9 +48,11 @@ const Comment = (props) => {
 
   const handleDelete = async () => {
     try {
-      await postsApi.deleteComment(props.commentId);
-      // Assuming you have a callback from the parent to refresh comments after deletion
-      props.onDelete();
+      await postsApi.deleteCommentFromPost(props.postId, props.commentId);
+      const updatedComments = props.comments.filter(
+        (comment) => comment._id !== props.commentId
+      );
+      props.setComments(updatedComments);
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -77,9 +95,9 @@ const Comment = (props) => {
             color={liked ? "#fe251b" : "lightgrey"}
             size={24}
           />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>{props.heart}</Text>
+          <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
         </TouchableOpacity>
-        {props.isCurrentUser && (
+        {props.username === authContext.user._id && (
           <TouchableOpacity
             style={[styles.reaction, { marginLeft: 10 }]}
             onPress={handleDelete}
