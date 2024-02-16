@@ -28,9 +28,9 @@ const Profile = (props) => {
         </View>
       </View>
       <View style={styles.main}>
-        {props.spec.map((item) => (
+        {props.spec.map((item, index) => (
           <View
-            key={item._id}
+            key={index}
             style={{ flexDirection: "row", alignItems: "flex-start" }}
           >
             <Text

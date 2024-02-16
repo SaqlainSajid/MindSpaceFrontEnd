@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
@@ -28,32 +34,38 @@ const ChatScreen = () => {
   }, [seconds, minutes]);
 
   return (
-    <ScreenTemplate>
-      <View style={styles.main}>
-        <View style={styles.chatdisplay}></View>
-        <View style={styles.inputview}>
-          <TouchableOpacity>
-            <Ionicons
-              name="folder-outline"
-              size={24}
-              style={{ marginRight: 5 }}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior="padding"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
+      <ScreenTemplate>
+        <View style={styles.main}>
+          <View style={styles.chatdisplay}></View>
+          <View style={styles.inputview}>
+            <TouchableOpacity>
+              <Ionicons
+                name="folder-outline"
+                size={24}
+                style={{ marginRight: 5 }}
+              />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="what's on your mind..."
             />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            placeholder="what's on your mind..."
-          />
-          <TouchableOpacity>
-            <Ionicons name="send-sharp" size={24} style={{ marginLeft: 5 }} />
-          </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons name="send-sharp" size={24} style={{ marginLeft: 5 }} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.timer}>
+            <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
+              {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
+            </Text>
+          </View>
         </View>
-        <View style={styles.timer}>
-          <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
-            {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
-          </Text>
-        </View>
-      </View>
-    </ScreenTemplate>
+      </ScreenTemplate>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -78,13 +90,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#8772a3",
     height: 50,
+    marginTop: 5,
   },
   input: {
     flex: 1,
     borderColor: "lightgrey",
-    borderWidth: 1,
     borderRadius: 20,
-    height: "80%",
+    height: 40,
     paddingHorizontal: 10,
     borderWidth: 2,
   },
@@ -94,5 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 5,
   },
 });
