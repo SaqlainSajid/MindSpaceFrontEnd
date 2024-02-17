@@ -68,7 +68,7 @@ const Post = (props) => {
 
   const handleShare = async () => {
     try {
-      const postLink = `https://brainy-boa-teddy.cyclic.app/posts/${passingValues.postId}`;
+      const postLink = `https://mindspace-backend-4bec1331aedc.herokuapp.com/posts/${passingValues.postId}`;
       const shareOptions = {
         message: `Check out this post by ${userName}:\n\n${passingValues.content}\n\n${postLink}`,
         url: postLink, // URL to open when tapping the shared message (not supported on Android)
