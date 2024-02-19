@@ -1,56 +1,101 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import AuthContext from "../../auth/context";
 
 subscribed = false;
 
 const Chat = (props) => {
+  const authContext = useContext(AuthContext);
+
   if (subscribed === false) {
-    return (
-      <ScreenTemplate>
-        <View style={styles.main}>
-          <View style={styles.headerview}>
-            <Text style={styles.headerText}>Hey! How's it going? </Text>
-            <Text style={styles.secondaryText}>
-              no matter how you're feeling our dedicated volunteers are always
-              here to guide you through it! give us a call or text!
-            </Text>
+    if (authContext.user.role === "user") {
+      return (
+        <ScreenTemplate>
+          <View style={styles.main}>
+            <View style={styles.headerview}>
+              <Text style={styles.headerText}>Hey! How's it going? </Text>
+              <Text style={styles.secondaryText}>
+                no matter how you're feeling our dedicated volunteers are always
+                here to guide you through it! give us a call or text!
+              </Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.headerText}>Chat with a volunteer</Text>
+              <Text style={styles.secondaryText}>
+                You can chat with one of our volunteers for free for 15 minutes!
+              </Text>
+              <Text style={styles.secondaryText}>
+                If you are a subscribed member, you get unlimited chat time for
+                just BDT 200/month!
+              </Text>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => props.navigation.navigate("ChatScreen")}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.headerText}>Call a volunteer</Text>
+              <Text style={styles.secondaryText}>
+                You can talk with one of our volunteers for free for 15 minutes!
+              </Text>
+              <Text style={styles.secondaryText}>
+                If you are a subscribed member, you get unlimited talk time for
+                just BDT 200/month!
+              </Text>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => props.navigation.navigate("CallScreen")}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.card}>
-            <Text style={styles.headerText}>Chat with a volunteer</Text>
-            <Text style={styles.secondaryText}>
-              You can chat with one of our volunteers for free for 15 minutes!
-            </Text>
-            <Text style={styles.secondaryText}>
-              If you are a subscribed member, you get unlimited chat time for
-              just BDT 200/month!
-            </Text>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => props.navigation.navigate("ChatScreen")}
-            >
-              <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
-            </TouchableOpacity>
+        </ScreenTemplate>
+      );
+    } else {
+      return (
+        <ScreenTemplate>
+          <View style={styles.main}>
+            <View style={styles.headerview}>
+              <Text style={styles.headerText}>Hey! How's it going? </Text>
+              <Text style={styles.secondaryText}>
+                Click on Chat/Call and we will connect you to a user
+              </Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.headerText}>Chat with a user</Text>
+              <Text style={styles.secondaryText}>
+                If a user is not subscribed, chat closes automatically after 15
+                minutes, other wise it stays open for as long as the user wants
+              </Text>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => props.navigation.navigate("ChatScreen")}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.card}>
+              <Text style={styles.headerText}>Take a call</Text>
+              <Text style={styles.secondaryText}>
+                If a user is not subscribed, call is disconnected automatically
+                after 15 minutes, other wise it stays connected for as long as
+                the user wants
+              </Text>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => props.navigation.navigate("CallScreen")}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.card}>
-            <Text style={styles.headerText}>Call a volunteer</Text>
-            <Text style={styles.secondaryText}>
-              You can talk with one of our volunteers for free for 15 minutes!
-            </Text>
-            <Text style={styles.secondaryText}>
-              If you are a subscribed member, you get unlimited talk time for
-              just BDT 200/month!
-            </Text>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => props.navigation.navigate("CallScreen")}
-            >
-              <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScreenTemplate>
-    );
+        </ScreenTemplate>
+      );
+    }
   } else {
     return (
       <ScreenTemplate>
