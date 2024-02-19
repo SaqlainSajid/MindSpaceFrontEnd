@@ -9,11 +9,18 @@ import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { io } from "socket.io-client";
 
 subscribe = false;
 const ChatScreen = () => {
   const [minutes, setMinutes] = useState(15);
   const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const socket = io.connect(
+      "https://mindspace-backend-4bec1331aedc.herokuapp.com/"
+    );
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
