@@ -54,7 +54,14 @@ const CustomCalendar = ({ daysOfWeek }) => {
 
   //this makes the pressed date background to dark purple and font to white
   const onDayPress = (day) => {
-    setSelectedDate(day.dateString);
+    const Day = new Date(day.dateString).getDay();
+    if (isDayEnabled(day)) {
+      setSelectedDate(day.dateString);
+      setDisabledDate(null);
+    } else {
+      setDisabledDate(day.dateString);
+      setSelectedDate(null);
+    }
   };
 
   if (selectedDate) {
@@ -65,20 +72,6 @@ const CustomCalendar = ({ daysOfWeek }) => {
         },
         text: {
           color: "white",
-          fontWeight: "bold",
-        },
-      },
-    };
-  }
-
-  if (disabledDate) {
-    disabledDates[disabledDate] = {
-      customStyles: {
-        container: {
-          backgroundColor: "#292c52",
-        },
-        text: {
-          color: "grey",
           fontWeight: "bold",
         },
       },
@@ -108,7 +101,7 @@ const CustomCalendar = ({ daysOfWeek }) => {
       hideExtraDays={true}
       showSixWeeks={true}
       onDayPress={onDayPress}
-      disabledDates={(date) => !isDayEnabled(date)}
+      disabledDates={disabledDate ? { [disabledDate]: {} } : {}}
     />
   );
 };
