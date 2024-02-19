@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 
@@ -61,6 +61,16 @@ const CustomCalendar = ({ daysOfWeek }) => {
     } else {
       setDisabledDate(day.dateString);
       setSelectedDate(null);
+      Alert.alert(
+        "No time available",
+        "There is no available time for this date",
+        [
+          {
+            text: "OK",
+            style: "cancel",
+          },
+        ]
+      );
     }
   };
 
