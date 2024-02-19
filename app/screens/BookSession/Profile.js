@@ -10,6 +10,12 @@ const Profile = (props) => {
     });
     item.institution = inst;
   });
+
+  const passingValues = {
+    docId: props.docId,
+    daysOfWeek: props.daysOfWeek,
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -52,6 +58,7 @@ const Profile = (props) => {
           onPress={() =>
             props.navigation.navigate("Booking", {
               navigation: props.navigation,
+              values: passingValues,
             })
           }
         >
