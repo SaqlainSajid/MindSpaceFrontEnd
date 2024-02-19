@@ -153,12 +153,14 @@ const BookSession = (props) => {
           renderItem={({ item }) => (
             <Profile
               key={item._id}
+              docId={item._id}
               pic={require("../../assets/mountain.jpg")}
               name={item.name}
               degrees={item.degrees}
               spec={item.spec}
               price={item.price}
               duration={item.duration}
+              daysOfWeek={item.daysOfWeek}
               navigation={props.navigation}
             />
           )}
