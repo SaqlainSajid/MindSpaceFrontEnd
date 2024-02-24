@@ -19,7 +19,11 @@ const Booking = ({ route, navigation }) => {
       <View style={styles.container}>
         <Text style={styles.header}>Date</Text>
         <View style={styles.calendarcontainer}>
-          <CustomCalendar daysOfWeek={daysOfWeek} />
+          <CustomCalendar
+            daysOfWeek={daysOfWeek}
+            nav={navigation}
+            docId={docId}
+          />
         </View>
         <View style={styles.paycontainer}>
           <TouchableOpacity

@@ -2,9 +2,13 @@ import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 
-const CustomCalendar = ({ daysOfWeek }) => {
+const CustomCalendar = (props) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [disabledDate, setDisabledDate] = useState(null);
+
+  const daysOfWeek = props.daysOfWeek;
+  const navigation = props.nav;
+  const docId = props.docId;
 
   const filteredDays = daysOfWeek
     .filter((obj) => obj.timeFrom && obj.timeTo) // Filter out objects with values for "timeFrom" and "timeTo"
@@ -58,6 +62,19 @@ const CustomCalendar = ({ daysOfWeek }) => {
     if (isDayEnabled(day)) {
       setSelectedDate(day.dateString);
       setDisabledDate(null);
+
+      //find the day from daysOfWeek which corresponds to the date that is clicked
+      const dayOfWeek = selectedDayOfWeek(day);
+
+      const passingValues = {
+        date: day.dateString,
+        docId: docId,
+        dayOfWeek: dayOfWeek,
+      };
+      navigation.navigate("DayScreen", {
+        navigation: navigation,
+        values: passingValues,
+      });
     } else {
       setDisabledDate(day.dateString);
       setSelectedDate(null);
@@ -100,7 +117,13 @@ const CustomCalendar = ({ daysOfWeek }) => {
     return filteredDayNumbers.includes(Day);
   };
 
-  //disabled dates
+  const selectedDayOfWeek = (day) => {
+    const dayIndex = new Date(day.dateString).getDay();
+    const dayAbbreviation = Object.keys(dayNumberMap).find(
+      (key) => dayNumberMap[key] === dayIndex
+    );
+    return daysOfWeek.find((dayObj) => dayObj.day === dayAbbreviation);
+  };
 
   return (
     <Calendar
