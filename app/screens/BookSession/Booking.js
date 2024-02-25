@@ -25,18 +25,6 @@ const Booking = ({ route, navigation }) => {
             docId={docId}
           />
         </View>
-        <View style={styles.paycontainer}>
-          <TouchableOpacity
-            style={styles.btnpayment}
-            onPress={() => navigation.navigate("PaymentScreen")}
-          >
-            <Text
-              style={{ color: "green", fontWeight: "bold", fontWeight: 400 }}
-            >
-              Pay Advance
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </ScreenTemplate>
   );

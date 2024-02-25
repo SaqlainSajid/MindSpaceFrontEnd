@@ -146,6 +146,16 @@ const BookSession = (props) => {
         </Modal>
         {/* MODAL */}
       </View>
+      <TouchableOpacity
+        style={styles.upcomingbutton}
+        onPress={() =>
+          props.navigation.navigate("UserUpcomingAppointments", {
+            navigation: props.navigation,
+          })
+        }
+      >
+        <Text style={{ color: "white" }}>Upcoming Appointments</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
         <FlatList
           data={filteredData}
@@ -177,6 +187,7 @@ export default BookSession;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
   },
   searchView: {
     flex: 0.2,
@@ -217,5 +228,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+  },
+  upcomingbutton: {
+    marginTop: 20,
+    backgroundColor: "#7ed957",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    alignSelf: "center",
   },
 });
