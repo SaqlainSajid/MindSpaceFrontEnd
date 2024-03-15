@@ -19,6 +19,7 @@ import ChatScreen from "../screens/Chat/ChatScreen";
 import CallScreen from "../screens/Chat/CallScreen";
 import Bookings from "../screens/BookSession/forDocs/Bookings";
 import BookingSettings from "../screens/BookSession/forDocs/BookingSettings";
+import DayScreen from "../screens/BookSession/forDocs/DayScreen";
 
 const stack = createStackNavigator();
 
@@ -84,6 +85,14 @@ const StackNavigator = () => {
         name="BookingSettings"
         component={BookingSettings}
         options={{ headerShown: true, headerTitle: "Booking Settings" }}
+      />
+      <stack.Screen
+        name="DayScreen"
+        component={DayScreen}
+        options={{
+          headerShown: true,
+          headerTitle: "Select Time of Availability",
+        }}
       />
       <stack.Screen
         name="PaymentScreen"
