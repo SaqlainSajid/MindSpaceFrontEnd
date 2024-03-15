@@ -1,8 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import { useFocusEffect } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import bookingsApi from "../../api/bookingsApi";
+import AuthContext from "../../auth/context";
 
 const DayScreen = () => {
   const route = useRoute();
@@ -12,6 +20,7 @@ const DayScreen = () => {
   const [docTimeFrom, setDocTimeFrom] = useState(values.dayOfWeek.timeFrom);
   const [docTimeTo, setDocTimeTo] = useState(values.dayOfWeek.timeTo);
   const date = values.date;
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     fetchBookings();
@@ -24,6 +33,10 @@ const DayScreen = () => {
       generateTimeSlots(docTimeFrom, docTimeTo, date);
     }
   }, [docTimeFrom, docTimeTo, date]);
+
+  useFocusEffect(() => {
+    fetchBookings(); // Fetch bookings every time the screen gains focus
+  });
 
   //convert "9:00AM" to "09:00:00"
   const parseTime = (timeString) => {
@@ -76,12 +89,26 @@ const DayScreen = () => {
     }
   };
 
+  // Function to format date in the desired format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: "2-digit", month: "long", year: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  // Function to format time in the desired format
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    const options = { hour: "2-digit", minute: "2-digit" };
+    return date.toLocaleTimeString("en-US", options);
+  };
+
   return (
     <ScreenTemplate>
-      <Text>{date}</Text>
-      <Text>{docTimeFrom}</Text>
+      <Text>{formatDate(date)}</Text>
+      <Text>{values.dayOfWeek.timeFrom}</Text>
       <Text>{docTimeTo}</Text>
-      <View>
+      <ScrollView>
         {timeSlots.map((timeSlot, index) => {
           // Check if there are any bookings for this time slot
           const hasBooking = bookings.some(
@@ -95,18 +122,35 @@ const DayScreen = () => {
             return (
               <TouchableOpacity
                 key={index}
-                style={{ backgroundColor: "lightblue", marginBottom: 10 }}
+                style={{
+                  backgroundColor: "lightblue",
+                  margin: 10,
+                  padding: 10,
+                  borderRadius: 10,
+                }}
+                onPress={() =>
+                  navigation.navigate("PaymentScreen", {
+                    navigation: navigation,
+                    values: {
+                      userId: authContext.user._id,
+                      docId: values.docId,
+                      date: date,
+                      timeFrom: timeSlot.timeFrom,
+                      timeTo: timeSlot.timeTo,
+                    },
+                  })
+                }
               >
                 <Text>Slot {index + 1}</Text>
                 {/* Format timeFrom using toISOString() */}
-                <Text>{timeSlot.timeFrom.toISOString()}</Text>
+                <Text>{formatTime(timeSlot.timeFrom.toISOString())}</Text>
               </TouchableOpacity>
             );
           }
 
           return null; // Skip rendering if there are bookings
         })}
-      </View>
+      </ScrollView>
     </ScreenTemplate>
   );
 };

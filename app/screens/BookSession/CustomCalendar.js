@@ -36,16 +36,6 @@ const CustomCalendar = (props) => {
   const markedDates = {};
   const disabledDates = {};
 
-  //this makes the current date's font color to purple
-  markedDates[yesterday.toISOString().split("T")[0]] = {
-    customStyles: {
-      text: {
-        color: "#8772a3",
-        fontWeight: "bold",
-      },
-    },
-  };
-
   //this makes the tomorrow's date's font color to black
   markedDates[today.toISOString().split("T")[0]] = {
     customStyles: {
@@ -79,7 +69,7 @@ const CustomCalendar = (props) => {
       setDisabledDate(day.dateString);
       setSelectedDate(null);
       Alert.alert(
-        "No time available",
+        "Doctor is not available on this date",
         "There is no available time for this date",
         [
           {
@@ -128,7 +118,7 @@ const CustomCalendar = (props) => {
   return (
     <Calendar
       markingType={"custom"}
-      minDate={yesterday.toISOString().split("T")[0]}
+      minDate={today.toISOString().split("T")[0]}
       markedDates={markedDates}
       theme={theme}
       hideExtraDays={true}
