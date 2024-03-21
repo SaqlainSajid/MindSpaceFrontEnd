@@ -80,6 +80,14 @@ const Booking = ({ navigation, route }) => {
     }
   };
 
+  const handleConfirm = (item) => {
+    navigation.navigate("PaymentScreen", {
+      navigation: navigation,
+      docId: docId,
+      date: item,
+    });
+  };
+
   return (
     <ScreenTemplate>
       <View style={styles.container}>
@@ -102,7 +110,11 @@ const Booking = ({ navigation, route }) => {
             <View style={styles.slotsView}>
               {selectedDate && availabilitySlots.length > 0 ? (
                 availabilitySlots.map((item, index) => (
-                  <TouchableOpacity style={styles.slot} key={index}>
+                  <TouchableOpacity
+                    style={styles.slot}
+                    key={index}
+                    onPress={() => handleConfirm(item)}
+                  >
                     <Text style={{ color: "white", alignSelf: "center" }}>
                       {item.toLocaleTimeString([], {
                         hour: "2-digit",
