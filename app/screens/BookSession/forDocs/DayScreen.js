@@ -18,17 +18,24 @@ const DayScreen = (props) => {
   const [alreadyBookedSlots, setAlreadyBookedSlots] = useState([]);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [slots, setSlots] = useState([]);
 
   const route = useRoute();
   const { selectedDateString } = route.params;
 
-  useEffect(() => {
-    const date = new Date(selectedDateString);
-    date.setUTCHours(0, 0, 0, 0);
+  const date = new Date(selectedDateString);
 
-    getDocAvailability(docId, date.toISOString());
-    getDocDateBookings(docId, selectedDateString);
+  useEffect(() => {
+    generateDateSlots(date);
   }, []);
+
+  useEffect(() => {
+    date.setUTCHours(0, 0, 0, 0);
+    if (slots.length > 0) {
+      getDocAvailability(docId, date.toISOString());
+    }
+    getDocDateBookings(docId, selectedDateString);
+  }, [slots]);
 
   const getDocAvailability = async (docId, date) => {
     try {
@@ -38,7 +45,20 @@ const DayScreen = (props) => {
         const selectedSlotDate = new Date(item);
         selectedAvailabilitySlots[index] = selectedSlotDate;
       });
+      console.log("slots", slots);
       console.log("availability:", selectedAvailabilitySlots);
+      const matchingIndexes = [];
+
+      slots.forEach((slotDate, index) => {
+        selectedAvailabilitySlots.forEach((availDate) => {
+          if (slotDate.toISOString() === availDate.toISOString()) {
+            matchingIndexes.push(index);
+          }
+        });
+      });
+
+      console.log("Matching indexes:", matchingIndexes);
+      setSelectedSlots(matchingIndexes);
     } catch (error) {
       console.error("Error fetching availability:", error);
       throw error; // Re-throw the error to handle it in the calling code
@@ -55,26 +75,25 @@ const DayScreen = (props) => {
     }
   };
 
-  const date = new Date(selectedDateString);
   // date.setUTCHours(2, 0, 0, 0);
   //UTC+2 gives Bangladesh time
 
-  const slots = [];
+  const generateDateSlots = (date) => {
+    // Set the start and end hours for the time slots (8:00 AM to 8:00 PM)
+    const startHour = 0;
+    const endHour = 22;
+    const genSlots = [];
+    // Iterate over each hour to create time slots
+    for (let hour = startHour; hour <= endHour; hour++) {
+      // Create a new Date object for the current hour
+      const slotDate = new Date(date);
+      slotDate.setUTCHours(hour, 0, 0, 0); // Set the hour for the slot
 
-  // Set the start and end hours for the time slots (8:00 AM to 8:00 PM)
-  const startHour = 0;
-  const endHour = 24;
-
-  // Iterate over each hour to create time slots
-  for (let hour = startHour; hour <= endHour; hour++) {
-    // Create a new Date object for the current hour
-    const slotDate = new Date(date);
-    slotDate.setUTCHours(hour, 0, 0, 0); // Set the hour for the slot
-
-    // Push the slotDate object to the slots array
-    slots.push(slotDate);
-  }
-
+      // Push the slotDate object to the slots array
+      genSlots.push(slotDate);
+    }
+    setSlots(genSlots);
+  };
   const handleSlotPress = (index) => {
     const slotIndex = selectedSlots.indexOf(index);
     if (slotIndex === -1) {
@@ -85,10 +104,9 @@ const DayScreen = (props) => {
       const updatedSlots = [...selectedSlots];
       updatedSlots.splice(slotIndex, 1);
       setSelectedSlots(updatedSlots);
+      console.log(selectedSlots);
     }
   };
-
-  console.log("selected slots:", selectedSlots);
 
   const handleEdit = () => {
     if (edit) {
@@ -129,11 +147,11 @@ const DayScreen = (props) => {
               : "white";
 
             if (bookingForSlotDate) {
-              backgroundColor = "#add8e6";
+              backgroundColor = "#80C8F6";
             }
 
             // Check if background color is light blue
-            const disabled = backgroundColor === "#add8e6";
+            const disabled = backgroundColor === "#80C8F6";
             const color = selectedSlots.includes(index) ? "white" : "black";
             return (
               <TouchableOpacity
