@@ -11,9 +11,9 @@ import AuthContext from "../../../auth/context";
 import Button from "../../../components/Button";
 import BookingForm from "./BookingsForm";
 import doctorsApi from "../../../api/doctorsApi";
-import { useFocusEffect } from "@react-navigation/native";
+// import { useFocusEffect } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import { disableExpoCliLogging } from "expo/build/logs/Logs";
+// import { disableExpoCliLogging } from "expo/build/logs/Logs";
 import DoctorCalendar from "./DoctorCalendar";
 
 const BookingSettings = (props) => {
