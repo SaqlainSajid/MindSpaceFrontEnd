@@ -52,7 +52,7 @@ const CustomCalendar = ({ daysOfWeek }) => {
     },
   };
 
-  // this makes the pressed date background to dark purple and font to white
+  //this makes the pressed date background to dark purple and font to white
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
   };

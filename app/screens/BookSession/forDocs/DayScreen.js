@@ -45,7 +45,8 @@ const DayScreen = (props) => {
         const selectedSlotDate = new Date(item);
         selectedAvailabilitySlots[index] = selectedSlotDate;
       });
-
+      console.log("slots", slots);
+      console.log("availability:", selectedAvailabilitySlots);
       const matchingIndexes = [];
 
       slots.forEach((slotDate, index) => {
@@ -56,6 +57,7 @@ const DayScreen = (props) => {
         });
       });
 
+      console.log("Matching indexes:", matchingIndexes);
       setSelectedSlots(matchingIndexes);
     } catch (error) {
       console.error("Error fetching availability:", error);

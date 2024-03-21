@@ -162,7 +162,6 @@ const BookSession = (props) => {
               duration={item.duration}
               daysOfWeek={item.daysOfWeek}
               navigation={props.navigation}
-              availability={item.availability}
             />
           )}
           ItemSeparatorComponent={<View style={{ height: 10 }} />}
