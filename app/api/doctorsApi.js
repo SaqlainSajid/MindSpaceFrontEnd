@@ -10,4 +10,18 @@ const endpoint3 = "/doctors/settings";
 const changeBookingSettings = (id, data) =>
   apiClient.patch(`${endpoint2}/${id}`, data);
 
-export default { getDoctors, getDoctor, changeBookingSettings };
+const endpoint4 = "/doctors/addAvailability";
+const setDocAvailability = (docId, date, availability) =>
+  apiClient.patch(`${endpoint4}/${docId}/${date}`, availability);
+
+const endpoint5 = "/doctors/availability";
+const getDocAvailability = (docId, date) =>
+  apiClient.get(`${endpoint5}/${docId}/${date}`);
+
+export default {
+  getDoctors,
+  getDoctor,
+  changeBookingSettings,
+  setDocAvailability,
+  getDocAvailability,
+};

@@ -6,7 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 const DoctorCalendar = () => {
   const navigation = useNavigation();
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const todayInUTC = new Date(
+    Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate())
+  );
+  today.setUTCHours(0, 0, 0, 0);
 
   const onDayPress = (day) => {
     const dateString = day.dateString;
@@ -16,7 +19,7 @@ const DoctorCalendar = () => {
   return (
     <View>
       <Calendar
-        minDate={today.toISOString().split("T")[0]}
+        minDate={todayInUTC.toISOString().split("T")[0]}
         onDayPress={onDayPress}
       />
     </View>
