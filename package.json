@@ -21,6 +21,7 @@
     "@types/jwt-decode": "^3.1.0",
     "apisauce": "^3.0.1",
     "base-64": "^1.0.0",
+    "eas-cli": "^7.6.0",
     "expo": "~49.0.8",
     "expo-app-loading": "^2.1.1",
     "expo-av": "~13.4.1",
