@@ -97,6 +97,7 @@ const Booking = ({ navigation, route }) => {
             <Calendar
               minDate={today.toISOString().split("T")[0]}
               onDayPress={handleDayPress}
+              showSixWeeks={true}
             />
           </View>
           <View style={styles.slotsContainer}>

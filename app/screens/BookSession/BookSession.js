@@ -147,6 +147,16 @@ const BookSession = (props) => {
         {/* MODAL */}
       </View>
       <View style={styles.container}>
+        <View style={{ padding: 10 }}>
+          <TouchableOpacity
+            style={styles.upcomingBtn}
+            onPress={() => handleUpcoming}
+          >
+            <Text style={{ color: "white", fontWeight: 600 }}>
+              Upcoming Appointments
+            </Text>
+          </TouchableOpacity>
+        </View>
         <FlatList
           data={filteredData}
           keyExtractor={(item) => item._id}
@@ -218,5 +228,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+  },
+  upcomingBtn: {
+    alignSelf: "center",
+    backgroundColor: "#0a1145",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
 });
