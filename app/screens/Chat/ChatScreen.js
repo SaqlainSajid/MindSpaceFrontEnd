@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { io } from "socket.io-client";
 import AuthContext from "../../auth/context";
 
@@ -18,7 +18,7 @@ const ChatScreen = () => {
   const authContext = useContext(AuthContext);
   const [minutes, setMinutes] = useState(15);
   const [seconds, setSeconds] = useState(0);
-
+  const chatScrollViewRef = useRef();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
@@ -26,7 +26,6 @@ const ChatScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const newSocket = io.connect(
       "https://mindspace-backend-4bec1331aedc.herokuapp.com/"
     );
@@ -42,6 +41,9 @@ const ChatScreen = () => {
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
+      setTimeout(() => {
+        chatScrollViewRef.current.scrollToEnd({ animated: true });
+      }, 100);
     });
 
     return () => {
@@ -49,6 +51,12 @@ const ChatScreen = () => {
       newSocket.disconnect();
     };
   }, []);
+
+  // useEffect(() => {
+  //   if (messages.length > 0) {
+
+  //   }
+  // }, [messages]);
 
   const sendMessage = () => {
     if (message.trim() !== "") {
@@ -89,14 +97,10 @@ const ChatScreen = () => {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScreenTemplate>
         <View style={styles.main}>
-          <View style={styles.chatdisplay}>
+          <ScrollView ref={chatScrollViewRef} style={styles.chatdisplay}>
             {messages.map((msg, index) => (
               <View
                 key={index}
@@ -115,7 +119,7 @@ const ChatScreen = () => {
                 </Text>
               </View>
             ))}
-          </View>
+          </ScrollView>
           <View style={styles.inputview}>
             <TouchableOpacity>
               <Ionicons
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   chatdisplay: {
-    flex: 1,
+    marginBottom: 10,
   },
   timer: {
     borderRadius: 25,
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   inputview: {
-    flex: 0.1,
+    height: 40,
     flexDirection: "row",
     backgroundColor: "white",
     alignItems: "center",
