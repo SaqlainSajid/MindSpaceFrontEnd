@@ -16,6 +16,7 @@ import AuthContext from "../../auth/context";
 subscribe = false;
 const ChatScreen = () => {
   const authContext = useContext(AuthContext);
+  const userId = authContext.user._id;
   const [minutes, setMinutes] = useState(15);
   const [seconds, setSeconds] = useState(0);
   const chatScrollViewRef = useRef();
@@ -31,9 +32,9 @@ const ChatScreen = () => {
     );
     setSocket(newSocket);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 10000);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 10000);
 
     // Join a room
     newSocket.emit("joinRoom", { roomId: 2 });
@@ -51,12 +52,6 @@ const ChatScreen = () => {
       newSocket.disconnect();
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (messages.length > 0) {
-
-  //   }
-  // }, [messages]);
 
   const sendMessage = () => {
     if (message.trim() !== "") {

@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import AuthContext from "../../auth/context";
@@ -58,8 +64,11 @@ const Chat = (props) => {
     } else {
       return (
         <ScreenTemplate>
-          <View style={styles.main}>
-            <View style={styles.headerview}>
+          <View style={styles.volunteerMain}>
+            <Text style={styles.headerText}>Chat list</Text>
+            <ScrollView style={styles.chatList}></ScrollView>
+
+            {/* <View style={styles.headerview}>
               <Text style={styles.headerText}>Hey! How's it going? </Text>
               <Text style={styles.secondaryText}>
                 Click on Chat/Call and we will connect you to a user
@@ -91,7 +100,7 @@ const Chat = (props) => {
               >
                 <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </ScreenTemplate>
       );
@@ -141,6 +150,17 @@ export default Chat;
 
 const styles = StyleSheet.create({
   main: {
+    flex: 1,
+  },
+  volunteerMain: {
+    flex: 1,
+    borderRadius: 25,
+    padding: 20,
+    backgroundColor: "white",
+    margin: 20,
+    justifyContent: "center",
+  },
+  chatList: {
     flex: 1,
   },
   headerview: {
