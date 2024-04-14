@@ -88,7 +88,8 @@ const NavBar = (props) => {
           },
         }}
       />
-      {authContext.user.role == "user" ? (
+      {authContext.user.role == "user" ||
+      authContext.user.role == "volunteer" ? (
         <Tab.Screen
           name="Book Session"
           component={BookSession}

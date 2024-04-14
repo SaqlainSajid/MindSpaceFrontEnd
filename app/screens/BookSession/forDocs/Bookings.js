@@ -10,28 +10,6 @@ import ScreenTemplate from "../../../components/ScreenTemplate";
 import Button from "../../../components/Button";
 
 const Bookings = (props) => {
-  const texts = [
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-    "t1",
-  ];
-
   const handlePress = () => {
     props.navigation.navigate("BookingSettings");
   };

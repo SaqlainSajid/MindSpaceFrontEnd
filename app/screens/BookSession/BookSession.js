@@ -148,10 +148,7 @@ const BookSession = (props) => {
       </View>
       <View style={styles.container}>
         <View style={{ padding: 10 }}>
-          <TouchableOpacity
-            style={styles.upcomingBtn}
-            onPress={() => handleUpcoming}
-          >
+          <TouchableOpacity style={styles.upcomingBtn}>
             <Text style={{ color: "white", fontWeight: 600 }}>
               Upcoming Appointments
             </Text>
