@@ -88,6 +88,10 @@ const Chat = (props) => {
         <ScreenTemplate>
           <View style={styles.volunteerMain}>
             <Text style={styles.headerText}>Chat list</Text>
+            <Text style={styles.secondaryText}>
+              All volunteers see the same chat list, all volunteers can chat
+              with anyone from the list
+            </Text>
             <ScrollView style={styles.chatList}>
               {rooms
                 ? rooms.map((room) => (
