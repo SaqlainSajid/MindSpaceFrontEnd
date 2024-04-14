@@ -5,14 +5,36 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import AuthContext from "../../auth/context";
-
+import { io } from "socket.io-client";
 subscribed = false;
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
+  const [socket, setSocket] = useState(null);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    // Connect to the socket.io server
+    const newSocket = io.connect(
+      "https://mindspace-backend-4bec1331aedc.herokuapp.com/"
+    );
+    setSocket(newSocket);
+
+    // Event listener for receiving new rooms
+    newSocket.on("newRoom", (room) => {
+      setRooms((prevRooms) => [...prevRooms, room]);
+    });
+
+    // Clean-up function to disconnect socket when component unmounts
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, []);
 
   if (subscribed === false) {
     if (authContext.user.role === "user") {
@@ -66,7 +88,18 @@ const Chat = (props) => {
         <ScreenTemplate>
           <View style={styles.volunteerMain}>
             <Text style={styles.headerText}>Chat list</Text>
-            <ScrollView style={styles.chatList}></ScrollView>
+            <ScrollView style={styles.chatList}>
+              {rooms
+                ? rooms.map((room) => (
+                    <TouchableOpacity
+                      key={room}
+                      style={{ backgroundColor: "yellow", padding: 10 }}
+                    >
+                      <Text>{room}</Text>
+                    </TouchableOpacity>
+                  ))
+                : null}
+            </ScrollView>
 
             {/* <View style={styles.headerview}>
               <Text style={styles.headerText}>Hey! How's it going? </Text>
