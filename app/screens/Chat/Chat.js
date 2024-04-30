@@ -4,17 +4,46 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import { useFocusEffect } from "@react-navigation/native";
+import roomsApi from "../../api/roomsApi";
 import AuthContext from "../../auth/context";
 import { io } from "socket.io-client";
+import ChatProfile from "./ChatProfile";
 subscribed = false;
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
   const [socket, setSocket] = useState(null);
   const [rooms, setRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      loadRooms();
+    }, [])
+  );
+
+  const loadRooms = async () => {
+    try {
+      const response = await roomsApi.getRooms();
+
+      if (response.data) {
+        const temp = response.data.map((room) => room.roomId);
+        setRooms(temp);
+      } else {
+        console.log("No data found in response"); // Log if no data found
+      }
+    } catch (error) {
+      console.error("Error fetching rooms:", error); // Log any errors
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Connect to the socket.io server
@@ -25,7 +54,7 @@ const Chat = (props) => {
 
     // Event listener for receiving new rooms
     newSocket.on("newRoom", (room) => {
-      setRooms((prevRooms) => [...prevRooms, room]);
+      setRooms((prevRooms) => [room, ...prevRooms]);
     });
 
     // Clean-up function to disconnect socket when component unmounts
@@ -35,6 +64,15 @@ const Chat = (props) => {
       }
     };
   }, []);
+
+  //if we're fetching data, we show the loading screen
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#5500dc" />
+      </View>
+    );
+  }
 
   if (subscribed === false) {
     if (authContext.user.role === "user") {
@@ -87,57 +125,24 @@ const Chat = (props) => {
       return (
         <ScreenTemplate>
           <View style={styles.volunteerMain}>
-            <Text style={styles.headerText}>Chat list</Text>
-            <Text style={styles.secondaryText}>
-              All volunteers see the same chat list, all volunteers can chat
-              with anyone from the list
-            </Text>
+            <View style={styles.volunteerText}>
+              <Text style={styles.headerText}>Chat list</Text>
+              <Text style={styles.secondaryText}>
+                All volunteers see the same chat list, all volunteers can chat
+                with anyone from the list
+              </Text>
+            </View>
             <ScrollView style={styles.chatList}>
               {rooms
                 ? rooms.map((room) => (
-                    <TouchableOpacity
+                    <ChatProfile
                       key={room}
-                      style={{ backgroundColor: "yellow", padding: 10 }}
-                    >
-                      <Text>{room}</Text>
-                    </TouchableOpacity>
+                      nav={props.navigation}
+                      room={room}
+                    />
                   ))
                 : null}
             </ScrollView>
-
-            {/* <View style={styles.headerview}>
-              <Text style={styles.headerText}>Hey! How's it going? </Text>
-              <Text style={styles.secondaryText}>
-                Click on Chat/Call and we will connect you to a user
-              </Text>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.headerText}>Chat with a user</Text>
-              <Text style={styles.secondaryText}>
-                If a user is not subscribed, chat closes automatically after 15
-                minutes, other wise it stays open for as long as the user wants
-              </Text>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => props.navigation.navigate("ChatScreen")}
-              >
-                <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.headerText}>Take a call</Text>
-              <Text style={styles.secondaryText}>
-                If a user is not subscribed, call is disconnected automatically
-                after 15 minutes, other wise it stays connected for as long as
-                the user wants
-              </Text>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => props.navigation.navigate("CallScreen")}
-              >
-                <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
-              </TouchableOpacity>
-            </View> */}
           </View>
         </ScreenTemplate>
       );
@@ -192,13 +197,18 @@ const styles = StyleSheet.create({
   volunteerMain: {
     flex: 1,
     borderRadius: 25,
-    padding: 20,
-    backgroundColor: "white",
-    margin: 20,
+    padding: 10,
+    margin: 10,
     justifyContent: "center",
+  },
+  volunteerText: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
   },
   chatList: {
     flex: 1,
+    padding: 10,
   },
   headerview: {
     flex: 0.5,
