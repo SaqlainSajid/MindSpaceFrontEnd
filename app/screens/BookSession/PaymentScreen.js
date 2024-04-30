@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
+import AuthContext from "../../auth/context";
 
-const PaymentScreen = () => {
-  return (
-    <ScreenTemplate>
-      <Text>PaymentScreen</Text>
-    </ScreenTemplate>
-  );
+const PaymentScreen = ({ navigation, route }) => {
+  const authContext = useContext(AuthContext);
+  const userId = authContext.user._id;
+  const { docId, date } = route.params;
+  return <ScreenTemplate></ScreenTemplate>;
 };
 
 export default PaymentScreen;

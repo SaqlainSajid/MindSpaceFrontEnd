@@ -10,21 +10,20 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native";
-import messagesApi from "../../api/messagesApi";
 import { io } from "socket.io-client";
 import AuthContext from "../../auth/context";
+import messagesApi from "../../api/messagesApi";
+import { useRoute } from "@react-navigation/native";
 
-subscribe = false;
-const ChatScreen = () => {
+const VolunteerChatScreen = () => {
+  const route = useRoute();
+  const { roomId } = route.params;
   const authContext = useContext(AuthContext);
-  const userId = authContext.user._id;
-  const [minutes, setMinutes] = useState(15);
-  const [seconds, setSeconds] = useState(0);
   const chatScrollViewRef = useRef();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
-
+  const [messagesDB, setMessagesDB] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const ChatScreen = () => {
 
   const loadMessages = async () => {
     try {
-      const response = await messagesApi.getMessages(userId);
+      const response = await messagesApi.getMessages(roomId);
       if (response.data) {
         const temp = response.data.map((msg) => msg);
         setMessages(temp);
@@ -51,7 +50,7 @@ const ChatScreen = () => {
     setSocket(newSocket);
 
     // Join a room
-    newSocket.emit("joinRoom", { roomId: userId });
+    newSocket.emit("joinRoom", { roomId: roomId });
 
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
@@ -71,36 +70,18 @@ const ChatScreen = () => {
     if (message.trim() !== "") {
       // Send the message to the server
       socket.emit("sendMessage", {
-        roomId: userId,
+        roomId: roomId,
         message: { content: message, senderId: authContext.user._id },
       });
       setMessage("");
     }
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(timer);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-        }
-      } else {
-        setSeconds(seconds - 1);
-      }
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, [seconds, minutes]);
-
+  //if we're fetching data, we show the loading screen
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="#5500dc" />
-        <Text>Finding Volunteers...</Text>
       </View>
     );
   }
@@ -147,18 +128,13 @@ const ChatScreen = () => {
               <Ionicons name="send-sharp" size={24} style={{ marginLeft: 5 }} />
             </TouchableOpacity>
           </View>
-          <View style={styles.timer}>
-            <Text style={{ fontSize: 15, fontWeight: "bold", color: "white" }}>
-              {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
-            </Text>
-          </View>
         </View>
       </ScreenTemplate>
     </KeyboardAvoidingView>
   );
 };
 
-export default ChatScreen;
+export default VolunteerChatScreen;
 
 const styles = StyleSheet.create({
   main: {
@@ -168,18 +144,10 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 20,
     backgroundColor: "white",
+    marginBottom: 80,
   },
   chatdisplay: {
     marginBottom: 10,
-  },
-  timer: {
-    borderRadius: 25,
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#8772a3",
-    height: 50,
-    marginTop: 5,
   },
   input: {
     flex: 1,

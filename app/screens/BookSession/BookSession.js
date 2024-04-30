@@ -147,19 +147,29 @@ const BookSession = (props) => {
         {/* MODAL */}
       </View>
       <View style={styles.container}>
+        <View style={{ padding: 10 }}>
+          <TouchableOpacity style={styles.upcomingBtn}>
+            <Text style={{ color: "white", fontWeight: 600 }}>
+              Upcoming Appointments
+            </Text>
+          </TouchableOpacity>
+        </View>
         <FlatList
           data={filteredData}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <Profile
               key={item._id}
+              docId={item._id}
               pic={require("../../assets/mountain.jpg")}
               name={item.name}
               degrees={item.degrees}
               spec={item.spec}
               price={item.price}
               duration={item.duration}
+              daysOfWeek={item.daysOfWeek}
               navigation={props.navigation}
+              availability={item.availability}
             />
           )}
           ItemSeparatorComponent={<View style={{ height: 10 }} />}
@@ -215,5 +225,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+  },
+  upcomingBtn: {
+    alignSelf: "center",
+    backgroundColor: "#0a1145",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
 });

@@ -10,6 +10,12 @@ const Profile = (props) => {
     });
     item.institution = inst;
   });
+
+  // const passingValues = {
+  //   docId: props.docId,
+  //   daysOfWeek: props.daysOfWeek,
+  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -28,9 +34,9 @@ const Profile = (props) => {
         </View>
       </View>
       <View style={styles.main}>
-        {props.spec.map((item) => (
+        {props.spec.map((item, index) => (
           <View
-            key={item._id}
+            key={index}
             style={{ flexDirection: "row", alignItems: "flex-start" }}
           >
             <Text
@@ -52,6 +58,9 @@ const Profile = (props) => {
           onPress={() =>
             props.navigation.navigate("Booking", {
               navigation: props.navigation,
+              docId: props.docId,
+              daysOfWeek: props.daysOfWeek,
+              availability: props.availability,
             })
           }
         >

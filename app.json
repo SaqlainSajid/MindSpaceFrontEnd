@@ -11,12 +11,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "This app requires access to your photo library to share posts."
-      }
+      },
+      "bundleIdentifier": "com.ssajid.MindSpace"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,10 +29,22 @@
       "permissions": [
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
-      ]
+      ],
+      "package": "com.ssajid.MindSpace"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f2a24a1b-0deb-4b83-a975-c6d72901e8bd"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f2a24a1b-0deb-4b83-a975-c6d72901e8bd"
     }
   }
 }

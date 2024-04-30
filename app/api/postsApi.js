@@ -5,7 +5,7 @@ const endpoint1 = "/posts/topics";
 const getTopics = () => apiClient.get(endpoint1);
 
 //gets all posts for a given topic
-const endpoint2 = "/posts/topics/";
+const endpoint2 = "/posts/topics";
 const getPosts = (topicName) => apiClient.get(`${endpoint2}/${topicName}`);
 
 //adds a like to a given post and adds the current user to the list of users who liked the post
@@ -43,7 +43,6 @@ const endpoint10 = "/posts/delete-comment";
 const deleteCommentFromPost = (id, commentId) =>
   apiClient.patch(`${endpoint10}/${id}/${commentId}`);
 
-
 //for liking a comment
 const endpoint11 = "/posts/like-comment";
 const likeComment = (id, commentId, userId) =>
@@ -53,7 +52,6 @@ const likeComment = (id, commentId, userId) =>
 const endpoint12 = "/posts/unlike-comment";
 const unlikeComment = (id, commentId, userId) =>
   apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
-
 
 export default {
   getTopics,
@@ -69,4 +67,3 @@ export default {
   likeComment,
   unlikeComment,
 };
-

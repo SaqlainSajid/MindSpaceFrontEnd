@@ -54,13 +54,13 @@ const BookingForm = (props) => {
         price: "",
         selectedDays: [],
         timeByDay: {
-          M: { from: "", to: "" },
-          T: { from: "", to: "" },
-          W: { from: "", to: "" },
-          TH: { from: "", to: "" },
-          F: { from: "", to: "" },
-          ST: { from: "", to: "" },
-          S: { from: "", to: "" },
+          MON: { from: "", to: "" },
+          TUE: { from: "", to: "" },
+          WED: { from: "", to: "" },
+          THU: { from: "", to: "" },
+          FRI: { from: "", to: "" },
+          SAT: { from: "", to: "" },
+          SUN: { from: "", to: "" },
         },
       }}
       onSubmit={handleSubmit}
@@ -82,7 +82,7 @@ const BookingForm = (props) => {
           />
 
           <Text>Which days will you be taking bookings on?</Text>
-          {["M", "T", "W", "TH", "F", "ST", "S"].map((day) => (
+          {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((day) => (
             <View key={day}>
               <TouchableOpacity
                 onPress={() =>
