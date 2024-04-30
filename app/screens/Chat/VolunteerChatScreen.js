@@ -50,7 +50,7 @@ const VolunteerChatScreen = () => {
     setSocket(newSocket);
 
     // Join a room
-    newSocket.emit("joinRoom", { roomId: roomId });
+    newSocket.emit("joinRoom", { roomId: roomId, role: authContext.user.role });
 
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
@@ -72,6 +72,7 @@ const VolunteerChatScreen = () => {
       socket.emit("sendMessage", {
         roomId: roomId,
         message: { content: message, senderId: authContext.user._id },
+        role: authContext.user.role,
       });
       setMessage("");
     }
