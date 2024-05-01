@@ -5,15 +5,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import CustomCalendar from "./CustomCalendar";
 import { Calendar } from "react-native-calendars";
 import doctorsApi from "../../api/doctorsApi";
 import bookingsApi from "../../api/bookingsApi";
+import bKashApi from "../../api/bKashApi";
+import AuthContext from "../../auth/context";
 
 const Booking = ({ navigation, route }) => {
-  const { docId, daysOfWeek, availability } = route.params;
+  const authContext = useContext(AuthContext);
+  const { docId, price } = route.params;
   const [selectedDate, setSelectedDate] = useState(null);
   const [availabilitySlots, setAvailabilitySlots] = useState([]);
   const [alreadyBookedSlots, setAlreadyBookedSlots] = useState([]);
@@ -80,7 +83,26 @@ const Booking = ({ navigation, route }) => {
     }
   };
 
-  const handleConfirm = (item) => {
+  const generateRandomOrderId = (length) => {
+    const possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let text = "";
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  };
+
+  const handleConfirm = async (item) => {
+    // try {
+    //   const orderId = authContext.user._id + generateRandomOrderId(5);
+    //   const response = await bKashApi.getURL(price, orderId);
+    //   console.log(response.data);
+
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
     navigation.navigate("PaymentScreen", {
       navigation: navigation,
       docId: docId,
