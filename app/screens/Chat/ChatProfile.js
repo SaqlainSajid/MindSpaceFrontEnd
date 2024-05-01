@@ -1,14 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import usersApi from "../../api/usersApi";
+import roomsApi from "../../api/roomsApi";
 
 const ChatProfile = (props) => {
   const [user, setUser] = useState(null);
+  const [room, setRoom] = useState(null);
   const navigation = props.nav;
   useEffect(() => {
     loadUser();
+    loadRoom();
   }, []);
-
+  const loadRoom = async () => {
+    try {
+      const response = await roomsApi.getRoom(props.room);
+      setRoom(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching rooms:", error); // Log any errors
+    }
+  };
   const loadUser = async () => {
     try {
       const response = await usersApi.getUser(props.room);
@@ -31,11 +41,23 @@ const ChatProfile = (props) => {
       }
     >
       <View style={styles.container}>
-        <Image
-          style={styles.pic}
-          source={require("../../assets/mountain.jpg")}
-        />
-        <Text style={styles.name}>{user?.name}</Text>
+        <View style={styles.imageName}>
+          <Image
+            style={styles.pic}
+            source={require("../../assets/mountain.jpg")}
+          />
+          <Text style={styles.name}>{user?.name}</Text>
+        </View>
+
+        {room?.UnreadVolunteer > 0 ? (
+          <View style={styles.unread}>
+            <Text style={styles.num}>{room.UnreadVolunteer}</Text>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.num}></Text>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -47,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
     backgroundColor: "white",
@@ -58,5 +80,22 @@ const styles = StyleSheet.create({
     marginStart: 15,
     fontWeight: 300,
     fontSize: 20,
+  },
+  imageName: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  unread: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "red",
+    padding: 2,
+    margin: 2,
+    alignItems: "center",
+  },
+  num: {
+    color: "white",
+    fontWeight: "500",
   },
 });

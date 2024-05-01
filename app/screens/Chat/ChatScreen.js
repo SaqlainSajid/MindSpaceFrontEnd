@@ -51,7 +51,7 @@ const ChatScreen = () => {
     setSocket(newSocket);
 
     // Join a room
-    newSocket.emit("joinRoom", { roomId: userId });
+    newSocket.emit("joinRoom", { roomId: userId, role: authContext.user.role });
 
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
@@ -73,6 +73,7 @@ const ChatScreen = () => {
       socket.emit("sendMessage", {
         roomId: userId,
         message: { content: message, senderId: authContext.user._id },
+        role: authContext.user.role,
       });
       setMessage("");
     }

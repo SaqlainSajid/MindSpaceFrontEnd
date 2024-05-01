@@ -54,7 +54,9 @@ const Chat = (props) => {
 
     // Event listener for receiving new rooms
     newSocket.on("newRoom", (room) => {
-      setRooms((prevRooms) => [room, ...prevRooms]);
+      if (!rooms.includes(room)) {
+        setRooms((prevRooms) => [room, ...prevRooms]);
+      }
     });
 
     // Clean-up function to disconnect socket when component unmounts
