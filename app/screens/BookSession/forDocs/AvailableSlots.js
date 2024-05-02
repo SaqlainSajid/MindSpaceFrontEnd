@@ -73,7 +73,6 @@ const AvailableSlots = ({ route }) => {
 
   const handleConfirm = (item) => {
     navigation.navigate("PaymentScreen", {
-      navigation: navigation,
       docId: docId,
       price: price,
       date: item.toISOString(),
