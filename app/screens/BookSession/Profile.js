@@ -57,10 +57,10 @@ const Profile = (props) => {
           style={styles.button}
           onPress={() =>
             props.navigation.navigate("Booking", {
-              navigation: props.navigation,
               docId: props.docId,
               daysOfWeek: props.daysOfWeek,
               availability: props.availability,
+              price: props.price,
             })
           }
         >
