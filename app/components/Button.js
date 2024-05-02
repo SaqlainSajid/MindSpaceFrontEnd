@@ -6,6 +6,7 @@ export default function Button(props) {
     <TouchableOpacity
       style={[styles[props.class], props.Style]}
       onPress={props.onPress}
+      disabled={props.disabled}
     >
       <Text style={styles.buttonText}>{props.text}</Text>
     </TouchableOpacity>
@@ -15,7 +16,7 @@ export default function Button(props) {
 const styles = StyleSheet.create({
   primary: {
     alignSelf: "center",
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: "#0a1145",
     borderRadius: 25,
     padding: 20,

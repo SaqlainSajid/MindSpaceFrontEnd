@@ -25,13 +25,16 @@ const validationSchema = Yup.object().shape({
 const Login2 = (props) => {
   const authContext = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async ({ email, password }) => {
+    setIsLoading(true);
     const result = await authApi.login(email, password);
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
     const user = JSON.parse(atob(result.data.split(".")[1]));
     authContext.setUser(user);
     authStorage.storeToken(result.data);
+    setIsLoading(false);
   };
   return (
     <ScreenTemplate>
@@ -94,6 +97,7 @@ const Login2 = (props) => {
                   class="primary"
                   Style={{ width: 300 }}
                   onPress={handleSubmit}
+                  disabled={isLoading}
                 />
               </View>
             </>
