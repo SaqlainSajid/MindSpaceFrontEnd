@@ -90,6 +90,8 @@ const BookSession = (props) => {
     setFilteredData(sortedData);
   };
 
+  const handleUpcoming = () => {};
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -148,7 +150,7 @@ const BookSession = (props) => {
       </View>
       <View style={styles.container}>
         <View style={{ padding: 10 }}>
-          <TouchableOpacity style={styles.upcomingBtn}>
+          <TouchableOpacity style={styles.upcomingBtn} onPress={handleUpcoming}>
             <Text style={{ color: "white", fontWeight: 600 }}>
               Upcoming Appointments
             </Text>

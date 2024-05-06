@@ -113,6 +113,9 @@ const PaymentScreen = ({ navigation, route }) => {
       >
         <ScrollView>
           <View style={styles.main}>
+            <Text style={styles.payText}>
+              Pay {price}BDT to 01730722969 via Bkash and fill up this form
+            </Text>
             <Formik
               initialValues={{
                 age: userAge ? userAge.toString() : "",
@@ -255,6 +258,12 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     backgroundColor: "white",
+  },
+  payText: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 10,
   },
   avoid: {
     flex: 1,
