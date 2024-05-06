@@ -25,7 +25,8 @@ const PaymentScreen = ({ navigation, route }) => {
   const userAge = authContext.user.age;
   const userPhoneNum = authContext.user.phoneNum;
   const patientName = authContext.user.name;
-  const user = authContext.user;
+  const userEmail = authContext.user.email;
+  const userGender = authContext.user.gender;
   const { docId, date, price } = route.params;
   const [docName, setDocName] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -42,15 +43,28 @@ const PaymentScreen = ({ navigation, route }) => {
   };
 
   const validationSchema = yup.object().shape({
+    name: yup.string().required("Name is required"),
     age: yup
       .number()
       .required("Age is required")
       .positive("Age must be a positive number"),
+    gender: yup.string().required("Gender is required"),
+    email: yup.string().required("Email is required"),
     phoneNumber: yup
       .number()
       .required("Phone number is required")
-      .integer("Phone number must be an integer")
+      .integer("Phone number must be a number")
       .positive("Phone number must be a positive number")
+      .test(
+        "len",
+        "Phone number must be exactly 11 digits",
+        (val) => val && val.toString().length === 11
+      ),
+    emergencyContact: yup
+      .number()
+      .required("Emergency contact is required")
+      .integer("Emergency contact must be a number")
+      .positive("Emergency number must be a positive number")
       .test(
         "len",
         "Phone number must be exactly 11 digits",
@@ -77,6 +91,9 @@ const PaymentScreen = ({ navigation, route }) => {
         userId: userId,
         docName: docName,
         patientName: patientName,
+        patientGender: values.gender,
+        emergencyContact: values.emergencyContact,
+        email: values.email,
         patientAge: values.age,
         phoneNumber: values.phoneNumber,
         concern: values.concern,
@@ -113,13 +130,15 @@ const PaymentScreen = ({ navigation, route }) => {
       >
         <ScrollView>
           <View style={styles.main}>
-            <Text style={styles.payText}>
-              Pay {price}BDT to 01730722969 via Bkash and fill up this form
-            </Text>
+            <Text style={styles.payText}>Client Details</Text>
             <Formik
               initialValues={{
+                name: patientName ? patientName : "",
                 age: userAge ? userAge.toString() : "",
+                gender: userGender ? userGender : "Female",
+                email: userEmail ? userEmail : "",
                 phoneNumber: userPhoneNum ? userPhoneNum.toString() : "",
+                emergencyContact: "",
                 concern: "",
                 paymentNumber: "",
                 transactionId: "",
@@ -130,14 +149,33 @@ const PaymentScreen = ({ navigation, route }) => {
               {(formikProps) => (
                 <View style={styles.formContainer}>
                   <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Name:</Text>
+                    <TextInput
+                      style={[
+                        styles.input,
+                        patientName ? styles.disabled : null,
+                      ]}
+                      placeholder="Name"
+                      keyboardType="numeric"
+                      onChangeText={formikProps.handleChange("name")}
+                      onBlur={formikProps.handleBlur("name")}
+                      value={formikProps.values.name}
+                      editable={!patientName}
+                    />
+                    <Text style={styles.error}>
+                      {formikProps.touched.name && formikProps.errors.name}
+                    </Text>
+                  </View>
+
+                  <View style={styles.inputContainer}>
                     <Text style={styles.label}>Age:</Text>
                     <TextInput
-                      style={styles.input}
+                      style={[styles.input, userAge ? styles.disabled : null]}
                       placeholder="Age"
-                      keyboardType="numeric"
                       onChangeText={formikProps.handleChange("age")}
                       onBlur={formikProps.handleBlur("age")}
                       value={formikProps.values.age}
+                      editable={!userAge}
                     />
                     <Text style={styles.error}>
                       {formikProps.touched.age && formikProps.errors.age}
@@ -145,14 +183,75 @@ const PaymentScreen = ({ navigation, route }) => {
                   </View>
 
                   <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Gender:</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <TouchableOpacity
+                        style={styles.radioButton}
+                        onPress={() =>
+                          formikProps.setFieldValue("gender", "Male")
+                        }
+                      >
+                        <Text>Male</Text>
+                        {formikProps.values.gender === "Male" && (
+                          <View style={styles.radioButtonIndicator} />
+                        )}
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.radioButton}
+                        onPress={() =>
+                          formikProps.setFieldValue("gender", "Female")
+                        }
+                      >
+                        <Text>Female</Text>
+                        {formikProps.values.gender === "Female" && (
+                          <View style={styles.radioButtonIndicator} />
+                        )}
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.radioButton}
+                        onPress={() =>
+                          formikProps.setFieldValue("gender", "Other")
+                        }
+                      >
+                        <Text>Other</Text>
+                        {formikProps.values.gender === "Other" && (
+                          <View style={styles.radioButtonIndicator} />
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.error}>
+                      {formikProps.touched.gender && formikProps.errors.gender}
+                    </Text>
+                  </View>
+
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Email:</Text>
+                    <TextInput
+                      style={[styles.input, userEmail ? styles.disabled : null]}
+                      placeholder="Email"
+                      onChangeText={formikProps.handleChange("email")}
+                      onBlur={formikProps.handleBlur("email")}
+                      value={formikProps.values.email}
+                      editable={!userEmail}
+                    />
+                    <Text style={styles.error}>
+                      {formikProps.touched.email && formikProps.errors.email}
+                    </Text>
+                  </View>
+
+                  <View style={styles.inputContainer}>
                     <Text style={styles.label}>Phone Number:</Text>
                     <TextInput
-                      style={styles.input}
+                      style={[
+                        styles.input,
+                        userPhoneNum ? styles.disabled : null,
+                      ]}
                       placeholder="Phone Number"
                       keyboardType="numeric"
                       onChangeText={formikProps.handleChange("phoneNumber")}
                       onBlur={formikProps.handleBlur("phoneNumber")}
                       value={formikProps.values.phoneNumber}
+                      editable={!userPhoneNum}
                     />
                     <Text style={styles.error}>
                       {formikProps.touched.phoneNumber &&
@@ -161,10 +260,30 @@ const PaymentScreen = ({ navigation, route }) => {
                   </View>
 
                   <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Concern:</Text>
+                    <Text style={styles.label}>Emergency Contact Number:</Text>
                     <TextInput
                       style={styles.input}
-                      placeholder="Concern"
+                      placeholder="Emergency Contact Number"
+                      keyboardType="numeric"
+                      onChangeText={formikProps.handleChange(
+                        "emergencyContact"
+                      )}
+                      onBlur={formikProps.handleBlur("emergencyContact")}
+                      value={formikProps.values.emergencyContact}
+                    />
+                    <Text style={styles.error}>
+                      {formikProps.touched.emergencyContact &&
+                        formikProps.errors.emergencyContact}
+                    </Text>
+                  </View>
+
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>
+                      What brings you to seek help?:
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="What brings you to seek help?"
                       onChangeText={formikProps.handleChange("concern")}
                       onBlur={formikProps.handleBlur("concern")}
                       value={formikProps.values.concern}
@@ -177,7 +296,8 @@ const PaymentScreen = ({ navigation, route }) => {
 
                   <View style={styles.inputContainer}>
                     <Text style={styles.label}>
-                      Last 4 digits of Payment Number:
+                      Please send {price}BDT to 01730722969 via Bkash Last 4
+                      digits of Payment Number:
                     </Text>
                     <TextInput
                       style={styles.input}
@@ -287,6 +407,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
   },
+  disabled: {
+    backgroundColor: "lightgray",
+  },
   error: {
     color: "red",
     marginTop: 5,
@@ -320,5 +443,22 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 20,
+  },
+  radioButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 20,
+    marginTop: 10,
+    padding: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "grey",
+  },
+  radioButtonIndicator: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "purple",
+    marginLeft: 5,
   },
 });
