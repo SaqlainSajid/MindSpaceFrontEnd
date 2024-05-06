@@ -8,6 +8,8 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  Modal,
+  Image,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -26,6 +28,7 @@ const PaymentScreen = ({ navigation, route }) => {
   const user = authContext.user;
   const { docId, date, price } = route.params;
   const [docName, setDocName] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     loadDoctor();
@@ -85,6 +88,7 @@ const PaymentScreen = ({ navigation, route }) => {
       const response = await bookingsApi.setBooking(booking);
       if (response.status === 201) {
         console.log("Booking created:", response.data);
+        setShowConfirmation(true);
       } else if (response.status == 400) {
         console.error("Booking already exists:", response.data.message);
       } else {
@@ -93,6 +97,11 @@ const PaymentScreen = ({ navigation, route }) => {
     } catch (error) {
       console.error("Error creating booking:", error.message);
     }
+  };
+
+  const handleConfirmationClose = () => {
+    setShowConfirmation(false); // Hide confirmation modal
+    navigation.navigate("My Space"); // Navigate back to the home screen
   };
 
   return (
@@ -218,6 +227,21 @@ const PaymentScreen = ({ navigation, route }) => {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      <Modal visible={showConfirmation} transparent animationType="fade">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Image
+              style={{ height: 150, width: 150 }}
+              source={require("../../assets/confirmIcon.png")}
+            />
+            <Text style={styles.modalText}>
+              Your booking request has been received!
+            </Text>
+            <Text style={styles.modalText}>Thank You!</Text>
+            <Button title="Close" onPress={handleConfirmationClose} />
+          </View>
+        </View>
+      </Modal>
     </ScreenTemplate>
   );
 };
@@ -271,5 +295,21 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
   },
 });
