@@ -15,12 +15,14 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 import Profile from "./Profile";
 import doctorsApi from "../../api/doctorsApi";
 import filter from "lodash.filter";
+import { useNavigation } from "@react-navigation/native";
 
 const BookSession = (props) => {
   const [doctorsData, setDoctorsData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -90,6 +92,10 @@ const BookSession = (props) => {
     setFilteredData(sortedData);
   };
 
+  const handleUpcoming = () => {
+    navigation.navigate("UpcomingAppointments");
+  };
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -148,7 +154,7 @@ const BookSession = (props) => {
       </View>
       <View style={styles.container}>
         <View style={{ padding: 10 }}>
-          <TouchableOpacity style={styles.upcomingBtn}>
+          <TouchableOpacity style={styles.upcomingBtn} onPress={handleUpcoming}>
             <Text style={{ color: "white", fontWeight: 600 }}>
               Upcoming Appointments
             </Text>

@@ -21,6 +21,8 @@ import Bookings from "../screens/BookSession/forDocs/Bookings";
 import BookingSettings from "../screens/BookSession/forDocs/BookingSettings";
 import DayScreen from "../screens/BookSession/forDocs/DayScreen";
 import VolunteerChatScreen from "../screens/Chat/VolunteerChatScreen";
+import AvailableSlots from "../screens/BookSession/forDocs/AvailableSlots";
+import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
 
 const stack = createStackNavigator();
 
@@ -50,6 +52,11 @@ const StackNavigator = () => {
         name="Book Session"
         component={BookSession}
         options={{ headerShown: true, headerTitle: "Book a Session" }}
+      />
+      <stack.Screen
+        name="UpcomingAppointments"
+        component={UpcomingAppointments}
+        options={{ headerShown: true, headerTitle: "All Bookings" }}
       />
       <stack.Screen
         name="Bookings"
@@ -87,6 +94,11 @@ const StackNavigator = () => {
         component={BookingSettings}
         options={{ headerShown: true, headerTitle: "Booking Settings" }}
       />
+      <stack.Screen
+        name="AvailableSlots"
+        component={AvailableSlots}
+        options={{ headerShown: true, headerTitle: "Pick a Time" }}
+      ></stack.Screen>
       <stack.Screen
         name="DayScreen"
         component={DayScreen}
