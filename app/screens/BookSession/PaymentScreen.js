@@ -100,6 +100,7 @@ const PaymentScreen = ({ navigation, route }) => {
         paymentNumber4digits: values.paymentNumber,
         transactionId: values.transactionId,
         price: price,
+        confirmed: false,
       };
       console.log("Form submitted with values:", booking);
       const response = await bookingsApi.setBooking(booking);
