@@ -5,6 +5,8 @@ const endpoint1 = "/bookings";
 const getDocDateBookings = (docId, date) =>
   apiClient.get(`${endpoint1}/doc/${docId}/date/${date}`);
 
-export default { getDocDateBookings };
+const setBooking = (booking) => apiClient.post(endpoint1, booking);
+
+export default { getDocDateBookings, setBooking };
 
 //adds times to availabilities of a doctor
