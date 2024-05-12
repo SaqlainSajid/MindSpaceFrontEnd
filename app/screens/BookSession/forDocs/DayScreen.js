@@ -73,13 +73,13 @@ const DayScreen = (props) => {
     }
   };
 
-  // date.setUTCHours(2, 0, 0, 0);
-  //UTC+2 gives Bangladesh time
+  //Universal time start hour 0 is 6am in Bangladesh
+  //Universal time end hour 16 is 10pm in Bangladesh
 
   const generateDateSlots = (date) => {
     // Set the start and end hours for the time slots (8:00 AM to 8:00 PM)
     const startHour = 0;
-    const endHour = 22;
+    const endHour = 16;
     const genSlots = [];
     // Iterate over each hour to create time slots
     for (let hour = startHour; hour <= endHour; hour++) {
@@ -160,6 +160,9 @@ const DayScreen = (props) => {
               >
                 <Text style={[styles.timeText, { color }]}>
                   {item.toLocaleTimeString([], {
+                    timeZone: "Asia/Dhaka",
+                    month: "long",
+                    day: "numeric",
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
