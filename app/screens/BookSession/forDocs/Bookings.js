@@ -5,14 +5,29 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScreenTemplate from "../../../components/ScreenTemplate";
 import Button from "../../../components/Button";
+import bookingsApi from "../../../api/bookingsApi";
 
 const Bookings = (props) => {
-  const handlePress = () => {
-    props.navigation.navigate("BookingSettings");
-  };
+  // const [docBookings, setDocBookings] = useState([])
+  // useEffect(()=>{
+  //   getUpcomingDocBookings()
+  // },[])
+  // const handlePress = () => {
+  //   props.navigation.navigate("BookingSettings");
+  // };
+
+  // const getUpcomingDocBookings = async (docId) => {
+  //   try {
+  //     const response = await bookingsApi.getUpcomingDocBookings(docId, date);
+  //     setAlreadyBookedSlots(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching bookings:", error);
+  //     throw error; // Re-throw the error to handle it in the calling code
+  //   }
+  // };
   return (
     <ScreenTemplate>
       <View style={styles.container}>

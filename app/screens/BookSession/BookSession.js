@@ -162,7 +162,7 @@ const BookSession = (props) => {
         </View>
         <FlatList
           data={filteredData}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item, index) => index}
           renderItem={({ item }) => (
             <Profile
               key={item._id}

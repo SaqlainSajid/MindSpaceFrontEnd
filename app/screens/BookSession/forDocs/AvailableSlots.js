@@ -91,7 +91,12 @@ const AvailableSlots = ({ route }) => {
           }}
         >
           <Text style={styles.header}>
-            Choose a Time for: {selectedDate.split("T")[0]}
+            Choose a Time for:{" "}
+            {new Date(selectedDate).toLocaleDateString([], {
+              timeZone: "Asia/Dhaka",
+              month: "long",
+              day: "numeric",
+            })}
           </Text>
         </View>
         <ScrollView style={{ marginBottom: 50 }}>
@@ -106,8 +111,11 @@ const AvailableSlots = ({ route }) => {
                   >
                     <Text style={{ color: "white", alignSelf: "center" }}>
                       {item.toLocaleTimeString([], {
+                        timeZone: "Asia/Dhaka",
                         hour: "2-digit",
                         minute: "2-digit",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </Text>
                   </TouchableOpacity>
