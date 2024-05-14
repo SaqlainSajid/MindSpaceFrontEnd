@@ -8,15 +8,30 @@ import BookingComponent from "../../components/BookingComponent";
 const PendingBookings = () => {
   const authContext = useContext(AuthContext);
   const userId = authContext.user._id;
+  const role = authContext.user.role;
   const [Pending, setPending] = useState([]);
 
   useEffect(() => {
-    getPending(userId);
+    if (role == "user") {
+      getPending(userId);
+    } else {
+      getDocPending(userId);
+    }
   }, []);
 
   const getPending = async (userId) => {
     try {
       const response = await bookingsApi.getUserPendingBookings(userId);
+      setPending(response.data);
+    } catch (error) {
+      console.error("Error fetching pending bookings:", error);
+      throw error; // Re-throw the error to handle it in the calling code
+    }
+  };
+
+  const getDocPending = async (userId) => {
+    try {
+      const response = await bookingsApi.getDocPendingBookings(userId);
       setPending(response.data);
     } catch (error) {
       console.error("Error fetching pending bookings:", error);
@@ -34,7 +49,7 @@ const PendingBookings = () => {
             ))
           ) : (
             <Text style={styles.noBookings}>
-              Sorry you have no pending Bookings at the moment
+              You have no pending Bookings at the moment
             </Text>
           )}
         </ScrollView>
