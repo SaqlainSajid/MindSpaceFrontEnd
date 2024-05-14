@@ -10,13 +10,19 @@ const getUserPendingBookings = (userId) =>
   apiClient.get(`${endpoint1}/pending/${userId}`);
 const getUserConfirmedBookings = (userId) =>
   apiClient.get(`${endpoint1}/confirmed/${userId}`);
+const getDocConfirmedBookings = (docId) =>
+  apiClient.get(`${endpoint1}/confirmed/doc/${docId}`);
 const getUserPastBookings = (userId) =>
   apiClient.get(`${endpoint1}/previous/${userId}`);
+const getDocPendingBookings = (docId) =>
+  apiClient.get(`${endpoint1}/pending/doc/${docId}`);
 
 export default {
   getDocDateBookings,
   setBooking,
   getUserPendingBookings,
+  getDocConfirmedBookings,
+  getDocPendingBookings,
   getUserConfirmedBookings,
   getUserPastBookings,
 };
