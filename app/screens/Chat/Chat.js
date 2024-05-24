@@ -13,7 +13,7 @@ import roomsApi from "../../api/roomsApi";
 import AuthContext from "../../auth/context";
 import { io } from "socket.io-client";
 import ChatProfile from "./ChatProfile";
-subscribed = true;
+subscribed = false;
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
