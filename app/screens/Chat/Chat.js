@@ -13,7 +13,7 @@ import roomsApi from "../../api/roomsApi";
 import AuthContext from "../../auth/context";
 import { io } from "socket.io-client";
 import ChatProfile from "./ChatProfile";
-subscribed = false;
+subscribed = true;
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
@@ -112,7 +112,24 @@ const Chat = (props) => {
                 style={styles.btn}
                 onPress={() => props.navigation.navigate("ChatScreen")}
               >
-                <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ color: "white", fontWeight: "bold" }}>
+                    Chat
+                  </Text>
+                  {room?.UnreadUser > 0 ? (
+                    <View style={styles.unread}>
+                      <Text style={styles.num}>{room.UnreadUser}</Text>
+                    </View>
+                  ) : (
+                    <Text></Text>
+                  )}
+                </View>
               </TouchableOpacity>
             </View>
             <View style={styles.card}>
@@ -130,11 +147,6 @@ const Chat = (props) => {
               >
                 <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
               </TouchableOpacity>
-              {room?.UnreadUser > 0 ? (
-                <Text>{room.UnreadUser}</Text>
-              ) : (
-                <Text></Text>
-              )}
             </View>
           </View>
         </ScreenTemplate>
@@ -181,11 +193,27 @@ const Chat = (props) => {
             <Text style={styles.secondaryText}>
               As a premium member you have unlimited chat time!
             </Text>
+
             <TouchableOpacity
               style={styles.prmbtn}
               onPress={() => props.navigation.navigate("ChatScreen")}
             >
-              <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+                {room?.UnreadUser > 0 ? (
+                  <View style={styles.unread}>
+                    <Text style={styles.num}>{room.UnreadUser}</Text>
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+              </View>
             </TouchableOpacity>
           </View>
           <View style={styles.card}>
@@ -276,5 +304,19 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: "#7ed957",
     backgroundColor: "#7ed957",
+  },
+  unread: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "red",
+    padding: 2,
+    margin: 2,
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  num: {
+    color: "white",
+    fontWeight: "500",
   },
 });
