@@ -8,15 +8,30 @@ import BookingComponent from "../../components/BookingComponent";
 const ConfirmedBookings = () => {
   const authContext = useContext(AuthContext);
   const userId = authContext.user._id;
+  const role = authContext.user.role;
   const [Confirmed, setConfirmed] = useState([]);
 
   useEffect(() => {
-    getConfirmed(userId);
+    if (role == "user") {
+      getConfirmed(userId);
+    } else {
+      getDocConfirmed(userId);
+    }
   }, []);
 
   const getConfirmed = async (userId) => {
     try {
       const response = await bookingsApi.getUserConfirmedBookings(userId);
+      setConfirmed(response.data);
+    } catch (error) {
+      console.error("Error fetching confirmed bookings:", error);
+      throw error; // Re-throw the error to handle it in the calling code
+    }
+  };
+
+  const getDocConfirmed = async (userId) => {
+    try {
+      const response = await bookingsApi.getDocConfirmedBookings(userId);
       setConfirmed(response.data);
     } catch (error) {
       console.error("Error fetching confirmed bookings:", error);
@@ -34,7 +49,7 @@ const ConfirmedBookings = () => {
             ))
           ) : (
             <Text style={styles.noBookings}>
-              Sorry you have no pending Bookings at the moment
+              You have no upcoming Bookings at the moment
             </Text>
           )}
         </ScrollView>
