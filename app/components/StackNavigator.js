@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
+import notificationsApi from "../api/notificationsApi";
 
 import NavBar from "./NavBar";
 import Discussion from "../screens/Discussion/Discussion";
@@ -23,10 +26,42 @@ import DayScreen from "../screens/BookSession/forDocs/DayScreen";
 import VolunteerChatScreen from "../screens/Chat/VolunteerChatScreen";
 import AvailableSlots from "../screens/BookSession/forDocs/AvailableSlots";
 import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
+import AuthContext from "../auth/context";
 
 const stack = createStackNavigator();
 
 const StackNavigator = () => {
+  const authContext = useContext(AuthContext);
+  useEffect(() => {
+    registerForPushNotifications();
+  }, []);
+  const registerForPushNotifications = async () => {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+
+      try {
+        const res = await Notifications.getExpoPushTokenAsync();
+        token = res.data;
+        notificationsApi.register(token, authContext.user._id);
+        console.log(token);
+      } catch (e) {
+        token = `${e}`;
+      }
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+  };
   return (
     <stack.Navigator
       initialRouteName="My Space"

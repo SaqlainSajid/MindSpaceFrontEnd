@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import AuthContext from "../../auth/context";
 import postsApi from "../../api/postsApi";
