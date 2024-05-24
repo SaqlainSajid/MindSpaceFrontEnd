@@ -20,13 +20,24 @@ const Chat = (props) => {
   const [socket, setSocket] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [room, setRoom] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
       setIsLoading(true);
       loadRooms();
+      loadRoom();
     }, [])
   );
+
+  const loadRoom = async () => {
+    try {
+      const response = await roomsApi.getRoom(authContext.user._id);
+      setRoom(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching rooms:", error); // Log any errors
+    }
+  };
 
   const loadRooms = async () => {
     try {
@@ -119,6 +130,11 @@ const Chat = (props) => {
               >
                 <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
               </TouchableOpacity>
+              {room?.UnreadUser > 0 ? (
+                <Text>{room.UnreadUser}</Text>
+              ) : (
+                <Text></Text>
+              )}
             </View>
           </View>
         </ScreenTemplate>
