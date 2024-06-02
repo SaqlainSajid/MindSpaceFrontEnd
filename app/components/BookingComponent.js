@@ -20,7 +20,7 @@ const BookingComponent = (props) => {
           </Text>
         </View>
         <View style={styles.date}>
-          <Text style={{ fontSize: 16, fontWeight: 500 }}>
+          <Text style={{ fontSize: 16, fontWeight: "500" }}>
             {new Date(booking.date).toLocaleTimeString([], {
               timeZone: "Asia/Dhaka",
               hour: "2-digit",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   pic: { alignSelf: "center", width: 50, height: 50, borderRadius: 100 },
   name: {
     marginStart: 15,
-    fontWeight: 300,
+    fontWeight: "300",
     fontSize: 20,
   },
   imageName: {

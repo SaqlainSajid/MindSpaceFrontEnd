@@ -87,97 +87,8 @@ const Chat = (props) => {
     );
   }
 
-  if (subscribed === false) {
-    if (authContext.user.role === "user") {
-      return (
-        <ScreenTemplate>
-          <View style={styles.main}>
-            <View style={styles.headerview}>
-              <Text style={styles.headerText}>Hey! How's it going? </Text>
-              <Text style={styles.secondaryText}>
-                no matter how you're feeling our dedicated volunteers are always
-                here to guide you through it! give us a call or text!
-              </Text>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.headerText}>Chat with a volunteer</Text>
-              <Text style={styles.secondaryText}>
-                You can chat with one of our volunteers for free for 15 minutes!
-              </Text>
-              <Text style={styles.secondaryText}>
-                If you are a subscribed member, you get unlimited chat time for
-                just BDT 200/month!
-              </Text>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => props.navigation.navigate("ChatScreen")}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ color: "white", fontWeight: "bold" }}>
-                    Chat
-                  </Text>
-                  {room?.UnreadUser > 0 ? (
-                    <View style={styles.unread}>
-                      <Text style={styles.num}>{room.UnreadUser}</Text>
-                    </View>
-                  ) : (
-                    <Text></Text>
-                  )}
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.headerText}>Call a volunteer</Text>
-              <Text style={styles.secondaryText}>
-                You can talk with one of our volunteers for free for 15 minutes!
-              </Text>
-              <Text style={styles.secondaryText}>
-                If you are a subscribed member, you get unlimited talk time for
-                just BDT 200/month!
-              </Text>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => props.navigation.navigate("CallScreen")}
-              >
-                <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScreenTemplate>
-      );
-    } else {
-      return (
-        <ScreenTemplate>
-          <View style={styles.volunteerMain}>
-            <View style={styles.volunteerText}>
-              <Text style={styles.headerText}>Chat list</Text>
-              <Text style={styles.secondaryText}>
-                All volunteers see the same chat list, all volunteers can chat
-                with anyone from the list
-              </Text>
-            </View>
-            <ScrollView style={styles.chatList}>
-              {rooms
-                ? rooms.map((room) => (
-                    <ChatProfile
-                      key={room}
-                      nav={props.navigation}
-                      room={room}
-                    />
-                  ))
-                : null}
-            </ScrollView>
-          </View>
-        </ScreenTemplate>
-      );
-    }
-  } else {
+  // if (subscribed === false) {
+  if (authContext.user.role === "user") {
     return (
       <ScreenTemplate>
         <View style={styles.main}>
@@ -191,11 +102,14 @@ const Chat = (props) => {
           <View style={styles.card}>
             <Text style={styles.headerText}>Chat with a volunteer</Text>
             <Text style={styles.secondaryText}>
-              As a premium member you have unlimited chat time!
+              You can chat with one of our volunteers for free for 15 minutes!
             </Text>
-
+            <Text style={styles.secondaryText}>
+              If you are a subscribed member, you get unlimited chat time for
+              just BDT 200/month!
+            </Text>
             <TouchableOpacity
-              style={styles.prmbtn}
+              style={styles.btn}
               onPress={() => props.navigation.navigate("ChatScreen")}
             >
               <View
@@ -219,10 +133,14 @@ const Chat = (props) => {
           <View style={styles.card}>
             <Text style={styles.headerText}>Call a volunteer</Text>
             <Text style={styles.secondaryText}>
-              As a premium member you have unlimited Call time!
+              You can talk with one of our volunteers for free for 15 minutes!
+            </Text>
+            <Text style={styles.secondaryText}>
+              If you are a subscribed member, you get unlimited talk time for
+              just BDT 200/month!
             </Text>
             <TouchableOpacity
-              style={styles.prmbtn}
+              style={styles.btn}
               onPress={() => props.navigation.navigate("CallScreen")}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
@@ -231,7 +149,83 @@ const Chat = (props) => {
         </View>
       </ScreenTemplate>
     );
+  } else {
+    return (
+      <ScreenTemplate>
+        <View style={styles.volunteerMain}>
+          <View style={styles.volunteerText}>
+            <Text style={styles.headerText}>Chat list</Text>
+            <Text style={styles.secondaryText}>
+              All volunteers see the same chat list, all volunteers can chat
+              with anyone from the list
+            </Text>
+          </View>
+          <ScrollView style={styles.chatList}>
+            {rooms
+              ? rooms.map((room) => (
+                  <ChatProfile key={room} nav={props.navigation} room={room} />
+                ))
+              : null}
+          </ScrollView>
+        </View>
+      </ScreenTemplate>
+    );
   }
+  // } else {
+  //   return (
+  //     <ScreenTemplate>
+  //       <View style={styles.main}>
+  //         <View style={styles.headerview}>
+  //           <Text style={styles.headerText}>Hey! How's it going? </Text>
+  //           <Text style={styles.secondaryText}>
+  //             no matter how you're feeling our dedicated volunteers are always
+  //             here to guide you through it! give us a call or text!
+  //           </Text>
+  //         </View>
+  //         <View style={styles.card}>
+  //           <Text style={styles.headerText}>Chat with a volunteer</Text>
+  //           <Text style={styles.secondaryText}>
+  //             As a premium member you have unlimited chat time!
+  //           </Text>
+
+  //           <TouchableOpacity
+  //             style={styles.prmbtn}
+  //             onPress={() => props.navigation.navigate("ChatScreen")}
+  //           >
+  //             <View
+  //               style={{
+  //                 flexDirection: "row",
+  //                 justifyContent: "center",
+  //                 alignItems: "center",
+  //               }}
+  //             >
+  //               <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
+  //               {room?.UnreadUser > 0 ? (
+  //                 <View style={styles.unread}>
+  //                   <Text style={styles.num}>{room.UnreadUser}</Text>
+  //                 </View>
+  //               ) : (
+  //                 <Text></Text>
+  //               )}
+  //             </View>
+  //           </TouchableOpacity>
+  //         </View>
+  //         <View style={styles.card}>
+  //           <Text style={styles.headerText}>Call a volunteer</Text>
+  //           <Text style={styles.secondaryText}>
+  //             As a premium member you have unlimited Call time!
+  //           </Text>
+  //           <TouchableOpacity
+  //             style={styles.prmbtn}
+  //             onPress={() => props.navigation.navigate("CallScreen")}
+  //           >
+  //             <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
+  //           </TouchableOpacity>
+  //         </View>
+  //       </View>
+  //     </ScreenTemplate>
+  //   );
+  // }
 };
 
 export default Chat;

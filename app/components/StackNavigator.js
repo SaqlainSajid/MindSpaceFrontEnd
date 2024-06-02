@@ -31,6 +31,10 @@ import AuthContext from "../auth/context";
 const stack = createStackNavigator();
 
 const StackNavigator = () => {
+  //at the start of the app, when people login, a push token is saved in the database
+  //for the specific user that logged in, in their user model
+  //this is used to send notifications to them
+
   const authContext = useContext(AuthContext);
   useEffect(() => {
     registerForPushNotifications();
@@ -62,6 +66,7 @@ const StackNavigator = () => {
       alert("Must use physical device for Push Notifications");
     }
   };
+
   return (
     <stack.Navigator
       initialRouteName="My Space"

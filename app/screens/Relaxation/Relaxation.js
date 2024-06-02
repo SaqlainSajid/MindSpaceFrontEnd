@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   showText: {
     color: "white",
     paddingBottom: 10,
-    fontWeight: 400,
+    fontWeight: "400",
     fontSize: 16,
   },
   flatlist: {

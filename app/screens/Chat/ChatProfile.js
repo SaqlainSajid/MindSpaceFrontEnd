@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   pic: { alignSelf: "center", width: 50, height: 50, borderRadius: 100 },
   name: {
     marginStart: 15,
-    fontWeight: 300,
+    fontWeight: "300",
     fontSize: 20,
   },
   imageName: {

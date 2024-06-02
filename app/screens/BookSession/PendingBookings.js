@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
   noBookings: {
     alignSelf: "center",
     fontSize: 25,
-    fontWeight: 500,
+    fontWeight: "500",
   },
 });
