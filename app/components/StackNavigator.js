@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect } from "react";
+import { StyleSheet, Text, View, Alert } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
@@ -36,8 +36,14 @@ const StackNavigator = () => {
   //this is used to send notifications to them
 
   const authContext = useContext(AuthContext);
+  const [notification, setNotification] = useState(null);
+
   useEffect(() => {
     registerForPushNotifications();
+    Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+      Alert.alert("Notification", notification.request.content.body);
+    });
   }, []);
   const registerForPushNotifications = async () => {
     let token;
