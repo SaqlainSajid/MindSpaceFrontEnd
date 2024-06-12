@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
 import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -13,6 +13,7 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { Octicons } from "react-native-vector-icons";
 import { Entypo } from "react-native-vector-icons";
 import { Ionicons } from "react-native-vector-icons";
+import { Feather } from "react-native-vector-icons";
 import AuthContext from "../auth/context";
 
 const Tab = createBottomTabNavigator();
@@ -24,15 +25,22 @@ const NavBar = (props) => {
       initialRouteName="MySpace"
       screenOptions={{
         headerRight: () => (
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("Settings")}
-          >
-            <Ionicons
-              name="settings-outline"
-              size={30}
-              style={styles.settings}
-            />
-          </TouchableOpacity>
+          <View style={styles.headerIcons}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("NotificationsScreen")} // Navigate to Notifications screen
+            >
+              <Feather name="bell" size={30} style={styles.notifications} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Settings")}
+            >
+              <Ionicons
+                name="settings-outline"
+                size={30}
+                style={styles.settings}
+              />
+            </TouchableOpacity>
+          </View>
         ),
         headerLeft: () => (
           <TouchableOpacity
@@ -145,5 +153,12 @@ const styles = StyleSheet.create({
   settings: {
     marginBottom: 10,
     marginRight: 10,
+    marginLeft: 10,
+  },
+  headerIcons: {
+    flexDirection: "row",
+  },
+  notifications: {
+    marginTop: 1,
   },
 });

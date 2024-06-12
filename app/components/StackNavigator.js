@@ -26,6 +26,7 @@ import DayScreen from "../screens/BookSession/forDocs/DayScreen";
 import VolunteerChatScreen from "../screens/Chat/VolunteerChatScreen";
 import AvailableSlots from "../screens/BookSession/forDocs/AvailableSlots";
 import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
+import NotificationsScreen from "../notifications/NotificationsScreen";
 import AuthContext from "../auth/context";
 
 const stack = createStackNavigator();
@@ -172,6 +173,11 @@ const StackNavigator = () => {
         name="CallScreen"
         component={CallScreen}
         options={{ headerShown: true, headerTitle: "Call" }}
+      />
+      <stack.Screen
+        name="NotificationsScreen"
+        component={NotificationsScreen}
+        options={{ headerShown: true, headerTitle: "Notifications" }}
       />
     </stack.Navigator>
   );
