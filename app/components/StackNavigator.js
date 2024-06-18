@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Audio } from "expo-av";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import notificationsApi from "../api/notificationsApi";
@@ -38,14 +39,23 @@ const StackNavigator = () => {
 
   const authContext = useContext(AuthContext);
   const [notification, setNotification] = useState(null);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     registerForPushNotifications();
-    Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-      Alert.alert("Notification", notification.request.content.body);
-    });
+    const subscription = Notifications.addNotificationReceivedListener(
+      async (notification) => {
+        setNotification(notification);
+        const { data } = notification.request.content;
+        const notif = { data: data };
+        await notificationsApi.store(notif, authContext.user._id);
+        Alert.alert("Notification", notification.request.content.body);
+        playNotificationSound();
+      }
+    );
+    return () => subscription.remove();
   }, []);
+
   const registerForPushNotifications = async () => {
     let token;
     if (Device.isDevice) {
@@ -72,6 +82,13 @@ const StackNavigator = () => {
     } else {
       alert("Must use physical device for Push Notifications");
     }
+  };
+
+  const playNotificationSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/message.mp3") // Ensure you have a notification sound file
+    );
+    await sound.playAsync();
   };
 
   return (
