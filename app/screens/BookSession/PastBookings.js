@@ -28,7 +28,7 @@ const PastBookings = () => {
     <ScreenTemplate>
       <View style={styles.main}>
         <ScrollView style={{ flex: 1, margin: 10 }}>
-          {Past.length > 0 ? (
+          {Past?.length > 0 ? (
             Past.map((booking, index) => (
               <BookingComponent key={index} booking={booking} />
             ))
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
   noBookings: {
     alignSelf: "center",
     fontSize: 25,
-    fontWeight: 500,
+    fontWeight: "500",
   },
 });

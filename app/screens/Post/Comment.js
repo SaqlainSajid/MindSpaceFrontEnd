@@ -9,7 +9,7 @@ const Comment = (props) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(props.heart);
 
-  const [userName, setUserName] = useState(props.username);
+  const [userName, setUserName] = useState();
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
