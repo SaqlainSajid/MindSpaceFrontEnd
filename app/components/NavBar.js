@@ -33,6 +33,7 @@ const NavBar = (props) => {
               style={{
                 flexDirection: "row",
                 justifyContent: "center",
+                marginRight: 5,
               }}
             >
               {unreadNotifCount > 0 ? (
