@@ -30,8 +30,18 @@ const NavBar = (props) => {
           <View style={styles.headerIcons}>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("NotificationsScreen")} // Navigate to Notifications screen
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
             >
-              <Text>{unreadNotifCount}</Text>
+              {unreadNotifCount > 0 ? (
+                <View style={styles.unread}>
+                  <Text style={styles.num}>
+                    {unreadNotifCount > 5 ? "5+" : unreadNotifCount}
+                  </Text>
+                </View>
+              ) : null}
               <Feather name="bell" size={30} style={styles.notifications} />
             </TouchableOpacity>
             <TouchableOpacity
@@ -163,5 +173,21 @@ const styles = StyleSheet.create({
   },
   notifications: {
     marginTop: 1,
+  },
+  unread: {
+    width: 25,
+    height: 25,
+    borderRadius: 13,
+    backgroundColor: "red",
+    padding: 2,
+    margin: 2,
+    alignItems: "center",
+    marginLeft: 10,
+    marginTop: 15,
+  },
+  num: {
+    color: "white",
+    fontWeight: "500",
+    padding: 2,
   },
 });
