@@ -12,6 +12,6 @@ const endpoint2 = "/incrementUnreadNotifs";
 const increment = (userId) => apiClient.patch(`users/${userId}${endpoint2}`);
 
 const endpoint3 = "/resetUnreadNotifs";
-const reset = (userId) => apiClient.patch(`users/${userId}${endpoint2}`);
+const reset = (userId) => apiClient.patch(`users/${userId}${endpoint3}`);
 
 export default { register, store, increment, reset };

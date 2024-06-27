@@ -29,6 +29,7 @@ import AvailableSlots from "../screens/BookSession/forDocs/AvailableSlots";
 import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
 import NotificationsScreen from "../notifications/NotificationsScreen";
 import AuthContext from "../auth/context";
+import NotificationContext from "../notifications/NotificationContext";
 
 const stack = createStackNavigator();
 
@@ -39,8 +40,9 @@ const StackNavigator = () => {
 
   const authContext = useContext(AuthContext);
   const [notification, setNotification] = useState(null);
-  const [unreadCount, setUnreadCount] = useState(0);
-
+  const { unreadNotifCount, setUnreadNotifCount } =
+    useContext(NotificationContext);
+  console.log(authContext.user.unreadNotifs, "unread notifs");
   useEffect(() => {
     registerForPushNotifications();
     const subscription = Notifications.addNotificationReceivedListener(
@@ -50,7 +52,7 @@ const StackNavigator = () => {
         const notif = { data: data };
         await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
-        setUnreadCount(res.data.unreadNotifs);
+        setUnreadNotifCount(res.data.unreadNotifs);
         Alert.alert("Notification", notification.request.content.body);
         playNotificationSound();
       }

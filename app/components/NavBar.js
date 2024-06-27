@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Image, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Image, View, Text } from "react-native";
 import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -15,11 +15,13 @@ import { Entypo } from "react-native-vector-icons";
 import { Ionicons } from "react-native-vector-icons";
 import { Feather } from "react-native-vector-icons";
 import AuthContext from "../auth/context";
+import NotificationContext from "../notifications/NotificationContext";
 
 const Tab = createBottomTabNavigator();
 
 const NavBar = (props) => {
   const authContext = useContext(AuthContext);
+  const { unreadNotifCount } = useContext(NotificationContext);
   return (
     <Tab.Navigator
       initialRouteName="MySpace"
@@ -29,6 +31,7 @@ const NavBar = (props) => {
             <TouchableOpacity
               onPress={() => props.navigation.navigate("NotificationsScreen")} // Navigate to Notifications screen
             >
+              <Text>{unreadNotifCount}</Text>
               <Feather name="bell" size={30} style={styles.notifications} />
             </TouchableOpacity>
             <TouchableOpacity
