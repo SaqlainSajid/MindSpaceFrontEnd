@@ -49,6 +49,8 @@ const StackNavigator = () => {
         const { data } = notification.request.content;
         const notif = { data: data };
         await notificationsApi.store(notif, authContext.user._id);
+        const res = await notificationsApi.increment(authContext.user._id);
+        setUnreadCount(res.data.unreadNotifs);
         Alert.alert("Notification", notification.request.content.body);
         playNotificationSound();
       }
