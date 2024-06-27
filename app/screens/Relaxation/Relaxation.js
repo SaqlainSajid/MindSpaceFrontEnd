@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   mainText: {
-    fontSize: 18,
+    fontSize: "18px",
     fontWeight: "bold",
   },
   secondaryText: {
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   showText: {
     color: "white",
     paddingBottom: 10,
-    fontWeight: 400,
-    fontSize: 16,
+    fontWeight: "400",
+    fontSize: "16px",
   },
   flatlist: {
     borderRadius: 20,

@@ -113,7 +113,7 @@ const AudioPlayer = (props) => {
           <Text
             style={{
               fontWeight: "500",
-              fontSize: 20,
+              fontSize: "20",
               marginBottom: 20,
             }}
           >
