@@ -33,17 +33,17 @@ const Profile = () => {
 
           <Text style={styles.detailTitle}>Profession</Text>
           <Text style={styles.detailText}>{authContext.user.role}</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button style={styles.button} text="Edit Profile" class="primary" />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            style={styles.logout}
-            text="Logout"
-            class="danger"
-            onPress={HandleLogOut}
-          />
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} text="Edit Profile" class="primary" />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              style={styles.logout}
+              text="Logout"
+              class="danger"
+              onPress={HandleLogOut}
+            />
+          </View>
         </View>
       </View>
     </ScreenTemplate>

@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   resumeView: {
-    flex: 0.3,
+    flex: 0.4,//changed 0.3 to 0.4
     backgroundColor: "white",
     borderRadius: 20,
     margin: 20,

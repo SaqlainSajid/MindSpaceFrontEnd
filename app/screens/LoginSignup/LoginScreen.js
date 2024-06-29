@@ -58,7 +58,7 @@ const Login2 = (props) => {
               <View style={styles.inputContainer}>
                 {loginFailed ? (
                   <Text style={{ color: "red", alignSelf: "center" }}>
-                    Ivalid Email or Password
+                    Invalid Email or Password
                   </Text>
                 ) : (
                   <Text></Text>
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   form: {
-    flex: 0.5,
+    flex: 0.8,
     alignItems: "center",
     justifyContent: "space-evenly",
-    paddingTop: 20,
+    paddingTop: 50,
     marginHorizontal: 50,
   },
   inputContainer: {
@@ -161,16 +161,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   input: {
+    flex: 0.5,
     width: 300,
     height: 60,
     backgroundColor: "#c5c6e6",
-    borderRadius: 20,
-    fontSize: 18,
-    paddingHorizontal: 16,
+    borderRadius: 10,
+    fontSize: 16,
+    paddingHorizontal: 10,
   },
   buttonContainer: {
     flex: 1,
     justifyContent: "space-evenly",
+    width:"100%"
   },
   button: {
     alignSelf: "center",
@@ -185,7 +187,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   text: {
-    color: "white",
+    color: "black",
     fontSize: 16,
+    padding: 1,
+    marginBottom: 1,
   },
 });
