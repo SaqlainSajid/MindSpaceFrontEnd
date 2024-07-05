@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Platform,
-  StatusBar,
-  useColorScheme,
-} from "react-native";
+import { StyleSheet, StatusBar, useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
@@ -13,6 +7,7 @@ import AuthNavigator from "./app/components/AuthNavigator";
 import { useCallback, useEffect, useState } from "react";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import { NotificationProvider } from "./app/notifications/NotificationContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,7 +38,13 @@ export default function App() {
     <SafeAreaProvider onLayout={onLayout}>
       <AuthContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
-          {user ? <StackNavigator /> : <AuthNavigator />}
+          {user ? (
+            <NotificationProvider>
+              <StackNavigator />
+            </NotificationProvider>
+          ) : (
+            <AuthNavigator />
+          )}
         </NavigationContainer>
         <StatusBar
           barStyle={theme === "dark" ? "dark-content" : "light-content"}

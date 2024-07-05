@@ -122,7 +122,9 @@ const Chat = (props) => {
                 <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
                 {room?.UnreadUser > 0 ? (
                   <View style={styles.unread}>
-                    <Text style={styles.num}>{room.UnreadUser}</Text>
+                    <Text style={styles.num}>
+                      {room.UnreadUser > 5 ? "5+" : room.UnreadUser}
+                    </Text>
                   </View>
                 ) : (
                   <Text></Text>

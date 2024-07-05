@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { createContext, useState, useContext } from "react";
+import AuthContext from "../auth/context";
 
-const NotificationsContext = React.createContext();
+const NotificationContext = createContext();
 
-export const NotificationsProvider = ({ children }) => {
-  const [hasNewNotifications, setHasNewNotifications] = useState(false);
+export const NotificationProvider = ({ children }) => {
+  const authContext = useContext(AuthContext);
+  const [unreadNotifCount, setUnreadNotifCount] = useState(
+    authContext.user.unreadNotifs
+  );
 
   return (
-    <NotificationsContext.Provider
-      value={{ hasNewNotifications, setHasNewNotifications }}
+    <NotificationContext.Provider
+      value={{ unreadNotifCount, setUnreadNotifCount }}
     >
       {children}
-    </NotificationsContext.Provider>
+    </NotificationContext.Provider>
   );
 };
 
-export default NotificationsContext;
+export default NotificationContext;
