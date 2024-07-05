@@ -48,7 +48,9 @@ const NotificationsScreen = (props) => {
             <NotificationComponent key={index} notification={notif} />
           ))
         ) : (
-          <Text>Sorry, you have no notifications</Text>
+          <Text style={{ fontSize: 16, alignSelf: "center" }}>
+            Sorry, you have no notifications
+          </Text>
         )}
       </ScrollView>
     </ScreenTemplate>
