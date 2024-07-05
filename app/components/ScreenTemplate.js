@@ -15,7 +15,7 @@ const ScreenTemplate = (props) => {
   return (
     <>
       <StatusBar
-        barStyle={theme === "light" ? "dark-content" : "light-content"}
+        barStyle="default"//{theme === "light" ? "dark-content" : "light-content"}
       />
       <SafeAreaView edges={["right", "left"]} style={styles.container}>
         <LinearGradient
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A1145",
     width: Dimensions.get("screen").width,
     justifyContent: "space-between",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    //paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   gradient: {
     flex: 1,
