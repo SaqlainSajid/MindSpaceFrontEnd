@@ -30,6 +30,10 @@ import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
 import NotificationsScreen from "../notifications/NotificationsScreen";
 import AuthContext from "../auth/context";
 import NotificationContext from "../notifications/NotificationContext";
+import AdminBooking from "../screens/BookSession/forAdmin/AdminBooking";
+import AdminConfirmed from "../screens/BookSession/forAdmin/AdminConfirmed";
+import AdminPending from "../screens/BookSession/forAdmin/AdminPending";
+import AdminPrev from "../screens/BookSession/forAdmin/AdminPrev";
 
 const stack = createStackNavigator();
 
@@ -131,6 +135,7 @@ const StackNavigator = () => {
         component={Bookings}
         options={{ headerShown: true, headerTitle: "Bookings" }}
       />
+      <stack.Screen name="Admin Booking infos" component={AdminBooking}/>
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
         name="AudioPlayer"

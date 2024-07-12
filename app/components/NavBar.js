@@ -16,12 +16,14 @@ import { Ionicons } from "react-native-vector-icons";
 import { Feather } from "react-native-vector-icons";
 import AuthContext from "../auth/context";
 import NotificationContext from "../notifications/NotificationContext";
+import AdminBooking from "../screens/BookSession/forAdmin/AdminBooking";
 
 const Tab = createBottomTabNavigator();
 
 const NavBar = (props) => {
   const authContext = useContext(AuthContext);
   const { unreadNotifCount } = useContext(NotificationContext);
+
   return (
     <Tab.Navigator
       initialRouteName="MySpace"
@@ -102,7 +104,7 @@ const NavBar = (props) => {
         name="MySpace"
         component={MySpace}
         listeners={({ navigation }) => ({
-          tabPress: () => navigation.navigate("My Space"),
+          tabPress: () => navigation.navigate("MySpace"),
         })}
         options={{
           tabBarIcon: () => {
@@ -110,8 +112,21 @@ const NavBar = (props) => {
           },
         }}
       />
-      {authContext.user.role == "user" ||
-      authContext.user.role == "volunteer" ? (
+      {authContext.user.role === "admin" ? (
+        <Tab.Screen
+          name="Bookings"
+          component={AdminBooking}
+          listeners={({ navigation }) => ({
+            tabPress: () => navigation.navigate("Admin Booking infos"),
+          })}
+          options={{
+            tabBarIcon: () => {
+              return <Ionicons name="calendar-outline" size={30} />;
+            },
+          }}
+        />
+      ) : authContext.user.role === "user" ||
+        authContext.user.role === "volunteer" ? (
         <Tab.Screen
           name="Book Session"
           component={BookSession}
