@@ -135,7 +135,7 @@ const StackNavigator = () => {
         component={Bookings}
         options={{ headerShown: true, headerTitle: "Bookings" }}
       />
-      <stack.Screen name="Admin Booking infos" component={AdminBooking}/>
+      <stack.Screen name="AdminBooking" component={AdminBooking}/>
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
         name="AudioPlayer"

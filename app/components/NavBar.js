@@ -117,7 +117,7 @@ const NavBar = (props) => {
           name="Bookings"
           component={AdminBooking}
           listeners={({ navigation }) => ({
-            tabPress: () => navigation.navigate("Admin Booking infos"),
+            tabPress: () => navigation.navigate("AdminBooking"),
           })}
           options={{
             tabBarIcon: () => {
