@@ -53,11 +53,15 @@ const StackNavigator = () => {
       async (notification) => {
         setNotification(notification);
         const { data } = notification.request.content;
-        const notif = { data: data };
+        let notif = { data: data };
+        console.log(data);
+        if (data.message === "You have a new message") {
+          notif = { ...notif, notifType: "chat" };
+        }
+        console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
         setUnreadNotifCount(res.data.unreadNotifs);
-        Alert.alert("Notification", notification.request.content.body);
         playNotificationSound();
       }
     );
