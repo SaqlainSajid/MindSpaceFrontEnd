@@ -46,7 +46,7 @@ const StackNavigator = () => {
   const [notification, setNotification] = useState(null);
   const { unreadNotifCount, setUnreadNotifCount } =
     useContext(NotificationContext);
-  console.log(authContext.user.unreadNotifs, "unread notifs");
+
   useEffect(() => {
     registerForPushNotifications();
     const subscription = Notifications.addNotificationReceivedListener(
@@ -83,7 +83,6 @@ const StackNavigator = () => {
         const res = await Notifications.getExpoPushTokenAsync();
         token = res.data;
         notificationsApi.register(token, authContext.user._id);
-        console.log(token);
       } catch (e) {
         token = `${e}`;
       }
@@ -135,7 +134,7 @@ const StackNavigator = () => {
         component={Bookings}
         options={{ headerShown: true, headerTitle: "Bookings" }}
       />
-      <stack.Screen name="AdminBooking" component={AdminBooking}/>
+      <stack.Screen name="AdminBooking" component={AdminBooking} />
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
         name="AudioPlayer"
