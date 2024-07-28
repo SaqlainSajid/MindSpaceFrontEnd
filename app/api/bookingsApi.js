@@ -17,6 +17,13 @@ const getUserPastBookings = (userId) =>
 const getDocPendingBookings = (docId) =>
   apiClient.get(`${endpoint1}/pending/doc/${docId}`);
 
+const getAdminConfirmedBookings = () => 
+  apiClient.get(`${endpoint1}/confirmed`);
+const getAdminPreviousBookings=()=> 
+  apiClient.get(`${endpoint1}/previous`);
+const getAdminPendingBookings=()=>
+  apiClient.get(`${endpoint1}/pending`);
+
 export default {
   getDocDateBookings,
   setBooking,
@@ -25,6 +32,9 @@ export default {
   getDocPendingBookings,
   getUserConfirmedBookings,
   getUserPastBookings,
+  getAdminConfirmedBookings,
+  getAdminPreviousBookings,
+  getAdminPendingBookings
 };
 
 //adds times to availabilities of a doctor
