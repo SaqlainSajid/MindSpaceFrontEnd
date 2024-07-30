@@ -18,12 +18,23 @@ const BookingComponent = (props) => {
       <View style={styles.main}>
         {role === "admin" ? (
           <View>
+            <View style={styles.date_topRight}>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                {new Date(booking.date).toLocaleTimeString([], {
+                  timeZone: "Asia/Dhaka",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+            </View>
             <Text style={styles.name}>
               <Text style={styles.boldText}>
                 Patient: {booking.patientName}
               </Text>
               {"\n"}
-              Doctor: {booking.docName}
+              <Text style={styles.boldText}>Doctor: {booking.docName}</Text>
               {"\n"}
               Patient Age: {booking.patientAge}
               {"\n"}
@@ -33,7 +44,9 @@ const BookingComponent = (props) => {
               {"\n"}
               Concern: {booking.concern}
               {"\n"}
-              Payment Last 4 Digits: {booking.paymentNumber4digits}
+              <Text style={styles.boldText}>
+                Payment Last 4 Digits: {booking.paymentNumber4digits}
+              </Text>
               {"\n"}
               <Text style={styles.boldText}>
                 Transaction ID: {booking.transactionId}
@@ -72,19 +85,19 @@ const BookingComponent = (props) => {
             <Text style={styles.name}>
               {role == "user" ? booking.docName : booking.patientName}
             </Text>
+            <View style={styles.date}>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                {new Date(booking.date).toLocaleTimeString([], {
+                  timeZone: "Asia/Dhaka",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+            </View>
           </View>
         )}
-        <View style={styles.date}>
-          <Text style={{ fontSize: 16, fontWeight: "500" }}>
-            {new Date(booking.date).toLocaleTimeString([], {
-              timeZone: "Asia/Dhaka",
-              hour: "2-digit",
-              minute: "2-digit",
-              month: "long",
-              day: "numeric",
-            })}
-          </Text>
-        </View>
       </View>
     </TouchableOpacity>
   );
@@ -120,10 +133,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignbookings: "center",
   },
+  date_topRight:{
+    alignSelf:'flex-end'
+  },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 15,
+    marginTop:50,
   },
   acceptButton: {
     backgroundColor: "#4CAF50",
