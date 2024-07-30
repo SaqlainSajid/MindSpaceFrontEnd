@@ -82,19 +82,21 @@ const BookingComponent = (props) => {
               style={styles.pic}
               source={require("../assets/mountain.jpg")}
             />
-            <Text style={styles.name}>
-              {role == "user" ? booking.docName : booking.patientName}
-            </Text>
-            <View style={styles.date}>
-              <Text style={{ fontSize: 16, fontWeight: "500" }}>
-                {new Date(booking.date).toLocaleTimeString([], {
-                  timeZone: "Asia/Dhaka",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  month: "long",
-                  day: "numeric",
-                })}
+            <View style>
+              <Text style={styles.name}>
+                {role == "user" ? booking.docName : booking.patientName}
               </Text>
+              <View style={styles.date}>
+                <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                  {new Date(booking.date).toLocaleTimeString([], {
+                    timeZone: "Asia/Dhaka",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </Text>
+              </View>
             </View>
           </View>
         )}
@@ -132,14 +134,15 @@ const styles = StyleSheet.create({
   date: {
     flexDirection: "row",
     alignbookings: "center",
+    padding:10,
   },
-  date_topRight:{
-    alignSelf:'flex-end'
+  date_topRight: {
+    alignSelf: "flex-end",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:50,
+    marginTop: 50,
   },
   acceptButton: {
     backgroundColor: "#4CAF50",
