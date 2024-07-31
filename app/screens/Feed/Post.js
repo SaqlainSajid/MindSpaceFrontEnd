@@ -8,7 +8,7 @@ import {
   Share,
   Platform,
 } from "react-native";
-import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
+import { Ionicons, Fontisto, Feather, FontAwesome } from "react-native-vector-icons";
 import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
@@ -26,6 +26,7 @@ const formatDate = (dateString) => {
 const Post = (props) => {
   const authContext = useContext(AuthContext);
   const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [likes, setLikes] = useState(props.likeNum);
   const [liked, setLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,8 +44,10 @@ const Post = (props) => {
     const res = await usersApi.getUser(props.username);
     if (res.data.name) {
       setUserName(res.data.name);
+      setUserRole(res.data.role);
     } else {
       setUserName("user deleted");
+      setUserRole("user deleted");
     }
   };
 
@@ -58,8 +61,7 @@ const Post = (props) => {
       setLiked(true);
       const res = await postsApi.addLike(props.postId, authContext.user._id);
       setLikes(res.data.likes);
-    }
-    if (liked) {
+    } else {
       setLiked(false);
       const res = await postsApi.removeLike(props.postId, authContext.user._id);
       setLikes(res.data.likes);
@@ -91,6 +93,34 @@ const Post = (props) => {
       props.navigation.goBack();
     } catch (error) {
       console.error("Error deleting Post:", error);
+    }
+  };
+
+  const getRoleBadge = (role) => {
+    switch (role) {
+      case "admin":
+        return (
+          <View style={styles.roleBadge}>
+            <Text style={styles.roleText}>(Admin)</Text>
+            <Ionicons name="shield-checkmark" size={15} color="#6A1B9A" />
+          </View>
+        );
+      case "doctor":
+        return (
+          <View style={styles.roleBadge}>
+            <Text style={styles.roleText}>(Doctor)</Text>
+            <Fontisto name="doctor" size={15} color="#4A90E2" />
+          </View>
+        );
+      case "volunteer":
+        return (
+          <View style={styles.roleBadge}>
+            <Text style={styles.roleText}>(Volunteer)</Text>
+            <FontAwesome name="user" size={15} color="#43A047" />
+          </View>
+        );
+      default:
+        return null;
     }
   };
 
@@ -130,8 +160,10 @@ const Post = (props) => {
             source={props.image}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
           />
-
-          <Text style={{ fontSize: 20 }}>{userName}</Text>
+          <View style={styles.userInfo}>
+            <Text style={styles.userName}>{userName}</Text>
+            {getRoleBadge(userRole)}
+          </View>
         </TouchableOpacity>
         <Text>{formattedTime}</Text>
       </View>
@@ -144,9 +176,9 @@ const Post = (props) => {
           }
         >
           {props.content.length < 300 ? (
-            <Text style={{ fontSize: 16 }}>{props.content}</Text>
+            <Text style={styles.postContent}>{props.content}</Text>
           ) : (
-            <Text style={{ fontSize: 16 }}>
+            <Text style={styles.postContent}>
               {props.content.slice(0, 300)}...
             </Text>
           )}
@@ -159,7 +191,7 @@ const Post = (props) => {
           ) : (
             <Ionicons name="heart-circle" color="lightgrey" size={24} />
           )}
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
+          <Text style={styles.likeCount}>{likes}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.comment}
@@ -170,7 +202,7 @@ const Post = (props) => {
           }
         >
           <Fontisto name="comment" size={18} />
-          <Text style={{ marginLeft: 5, fontSize: 12 }}>
+          <Text style={styles.commentCount}>
             {props.commentNum}
           </Text>
         </TouchableOpacity>
@@ -209,11 +241,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  userInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  userName: {
+    fontSize: 20,
+    marginRight: 8,
+  },
+  roleBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  roleText: {
+    marginRight: 5,
+    fontSize: 16,
+    color: "#000080",
+  },
   content: {
     flex: 2,
     marginTop: 10,
     marginBottom: 20,
     paddingHorizontal: 5,
+  },
+  postContent: {
+    fontSize: 16,
   },
   footer: {
     flex: 1,
@@ -230,5 +282,16 @@ const styles = StyleSheet.create({
   comment: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  likeCount: {
+    marginLeft: 5,
+    fontSize: 12,
+  },
+  commentCount: {
+    marginLeft: 5,
+    fontSize: 12,
+  },
+  trash: {
+    marginLeft: "auto",
   },
 });
