@@ -14,7 +14,12 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
+import {
+  Ionicons,
+  Fontisto,
+  Feather,
+  FontAwesome,
+} from "react-native-vector-icons";
 import Comment from "./Comment";
 import usersApi from "../../api/usersApi";
 import postsApi from "../../api/postsApi";
@@ -138,6 +143,40 @@ const PostScreen = ({ route }) => {
     );
   }
 
+  const getRoleBadge = (role) => {
+    switch (role) {
+      case "admin":
+        return (
+          <View style={styles.roleBadge}>
+            <View style={styles.AdminBadge}>
+              <Text style={styles.roleText}>Admin</Text>
+            </View>
+            <Ionicons name="shield-checkmark" size={15} color="#6A1B9A" />
+          </View>
+        );
+      case "doctor":
+        return (
+          <View style={styles.roleBadge}>
+            <View style={styles.DoctorBadge}>
+              <Text style={styles.roleText}>Doctor</Text>
+            </View>
+            <Fontisto name="doctor" size={15} color="#4A90E2" />
+          </View>
+        );
+      case "volunteer":
+        return (
+          <View style={styles.roleBadge}>
+            <View style={styles.VolunteerBadge}>
+              <Text style={styles.roleText}>Volunteer</Text>
+            </View>
+            <FontAwesome name="user" size={15} color="#43A047" />
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <ScreenTemplate>
       <KeyboardAvoidingView
@@ -151,6 +190,7 @@ const PostScreen = ({ route }) => {
               <View style={styles.profile}>
                 <Image style={styles.image} source={passingValues.userpic} />
                 <Text style={styles.username}>{userName}</Text>
+                {getRoleBadge(passingValues.userRole)}
               </View>
               <Text style={{ fontSize: 14, fontWeight: "300" }}>
                 {formattedTime}
@@ -253,6 +293,36 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "300",
     marginLeft: 10,
+    marginRight: 5,
+  },
+  roleBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  DoctorBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#4ADCE2",
+    marginRight: 3,
+  },
+  AdminBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#b261e3",
+    marginRight: 3,
+  },
+  VolunteerBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#64be67",
+    marginRight: 3,
+  },
+  roleText: {
+    fontSize: 16,
+    color: "#000080",
   },
   content: {
     height: "auto",

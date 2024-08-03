@@ -8,7 +8,12 @@ import {
   Share,
   Platform,
 } from "react-native";
-import { Ionicons, Fontisto, Feather, FontAwesome } from "react-native-vector-icons";
+import {
+  Ionicons,
+  Fontisto,
+  Feather,
+  FontAwesome,
+} from "react-native-vector-icons";
 import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
@@ -101,21 +106,27 @@ const Post = (props) => {
       case "admin":
         return (
           <View style={styles.roleBadge}>
-            <Text style={styles.roleText}>(Admin)</Text>
+            <View style={styles.AdminBadge}>
+              <Text style={styles.roleText}>Admin</Text>
+            </View>
             <Ionicons name="shield-checkmark" size={15} color="#6A1B9A" />
           </View>
         );
       case "doctor":
         return (
           <View style={styles.roleBadge}>
-            <Text style={styles.roleText}>(Doctor)</Text>
+            <View style={styles.DoctorBadge}>
+              <Text style={styles.roleText}>Doctor</Text>
+            </View>
             <Fontisto name="doctor" size={15} color="#4A90E2" />
           </View>
         );
       case "volunteer":
         return (
           <View style={styles.roleBadge}>
-            <Text style={styles.roleText}>(Volunteer)</Text>
+            <View style={styles.VolunteerBadge}>
+              <Text style={styles.roleText}>Volunteer</Text>
+            </View>
             <FontAwesome name="user" size={15} color="#43A047" />
           </View>
         );
@@ -135,6 +146,7 @@ const Post = (props) => {
     comments: props.comments,
     liked: liked,
     feedTitle: props.feedTitle,
+    userRole: userRole,
   };
 
   if (isLoading) {
@@ -202,9 +214,7 @@ const Post = (props) => {
           }
         >
           <Fontisto name="comment" size={18} />
-          <Text style={styles.commentCount}>
-            {props.commentNum}
-          </Text>
+          <Text style={styles.commentCount}>{props.commentNum}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleShare}>
           <Feather name="send" size={18} />
@@ -253,8 +263,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  DoctorBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#4ADCE2",
+    marginRight: 3,
+  },
+  AdminBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#b261e3",
+    marginRight: 3,
+  },
+  VolunteerBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: "#64be67",
+    marginRight: 3,
+  },
   roleText: {
-    marginRight: 5,
     fontSize: 16,
     color: "#000080",
   },
