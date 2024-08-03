@@ -1,10 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const NotificationComponent = (props) => {
+  const nav = useNavigation();
   const { notification } = props.notification;
+  const navigate = (type) => {
+    if (type === "chat") {
+      nav.navigate("ChatScreen");
+    }
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigate(notification.notifType)}>
       <View style={styles.notifContainer}>
         <Text>{notification.data.message}</Text>
       </View>

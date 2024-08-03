@@ -98,7 +98,8 @@ const Comment = (props) => {
           <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
         </TouchableOpacity>
 
-        {authContext.user._id === props.username && (
+        {(authContext.user._id === props.username || authContext.user.role ==='admin') && 
+        (
           <TouchableOpacity style={styles.trash} onPress={handleDelete}>
             <Ionicons name="trash" size={24} color="red" />
           </TouchableOpacity>

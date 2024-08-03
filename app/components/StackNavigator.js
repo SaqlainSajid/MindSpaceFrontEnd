@@ -30,6 +30,10 @@ import UpcomingAppointments from "../screens/BookSession/UpcomingAppointments";
 import NotificationsScreen from "../notifications/NotificationsScreen";
 import AuthContext from "../auth/context";
 import NotificationContext from "../notifications/NotificationContext";
+import AdminBooking from "../screens/BookSession/forAdmin/AdminBooking";
+import AdminConfirmed from "../screens/BookSession/forAdmin/AdminConfirmed";
+import AdminPending from "../screens/BookSession/forAdmin/AdminPending";
+import AdminPrev from "../screens/BookSession/forAdmin/AdminPrev";
 
 const stack = createStackNavigator();
 
@@ -42,18 +46,22 @@ const StackNavigator = () => {
   const [notification, setNotification] = useState(null);
   const { unreadNotifCount, setUnreadNotifCount } =
     useContext(NotificationContext);
-  console.log(authContext.user.unreadNotifs, "unread notifs");
+
   useEffect(() => {
     registerForPushNotifications();
     const subscription = Notifications.addNotificationReceivedListener(
       async (notification) => {
         setNotification(notification);
         const { data } = notification.request.content;
-        const notif = { data: data };
+        let notif = { data: data };
+        console.log(data);
+        if (data.message === "You have a new message") {
+          notif = { ...notif, notifType: "chat" };
+        }
+        console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
         setUnreadNotifCount(res.data.unreadNotifs);
-        Alert.alert("Notification", notification.request.content.body);
         playNotificationSound();
       }
     );
@@ -79,7 +87,6 @@ const StackNavigator = () => {
         const res = await Notifications.getExpoPushTokenAsync();
         token = res.data;
         notificationsApi.register(token, authContext.user._id);
-        console.log(token);
       } catch (e) {
         token = `${e}`;
       }
@@ -131,6 +138,7 @@ const StackNavigator = () => {
         component={Bookings}
         options={{ headerShown: true, headerTitle: "Bookings" }}
       />
+      <stack.Screen name="AdminBooking" component={AdminBooking} />
       <stack.Screen name="Relaxation" component={Relaxation} />
       <stack.Screen
         name="AudioPlayer"

@@ -219,11 +219,13 @@ const Post = (props) => {
         <TouchableOpacity onPress={handleShare}>
           <Feather name="send" size={18} />
         </TouchableOpacity>
-        {authContext.user._id === passingValues.username && (
-          <TouchableOpacity style={styles.trash} onPress={handleDelete}>
-            <Feather name="trash" size={24} color="red" />
-          </TouchableOpacity>
+        {(authContext.user._id === passingValues.username || authContext.user.role === 'admin') && 
+        (
+            <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+              <Feather name="trash" size={24} color="red" />
+            </TouchableOpacity>
         )}
+
       </View>
     </View>
   );
