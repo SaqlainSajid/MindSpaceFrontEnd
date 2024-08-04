@@ -7,6 +7,7 @@ const BookingComponent = (props) => {
   const authContext = useContext(AuthContext);
   const role = authContext.user.role;
   const handleAccept = () => {
+    booking.confirmed=true
     console.log("Accepted booking:", booking._id);
   };
 
@@ -60,6 +61,7 @@ const BookingComponent = (props) => {
               {"\n"}
               Confirmed: {booking.confirmed ? "Yes" : "No"}
               {"\n"}
+              {!booking.confirmed?(
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.acceptButton}
@@ -74,6 +76,7 @@ const BookingComponent = (props) => {
                   <Text style={styles.buttonText}>Deny</Text>
                 </TouchableOpacity>
               </View>
+):("")}
             </Text>
           </View>
         ) : (

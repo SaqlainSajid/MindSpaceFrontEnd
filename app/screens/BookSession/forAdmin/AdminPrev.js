@@ -18,9 +18,6 @@ const AdminPrev=()=> {
   useEffect(() => {
     getPrevious();
   }, []);
-  const renderBookingItem = ({ item }) => (
-    <BookingComponent booking={item}/>
-  );
   return (
     <ScreenTemplate>
         <View style={styles.main}>

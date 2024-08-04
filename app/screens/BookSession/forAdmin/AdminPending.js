@@ -1,14 +1,36 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import ScreenTemplate from "../../../components/ScreenTemplate";
-
+import bookingsApi from "../../../api/bookingsApi";
+import BookingComponent from "../../../components/BookingComponent";
 const AdminPending = () => {
+  const [Pending,setPending]=useState([]);
+  const getPending = async () => {
+    try {
+      const response = await bookingsApi.getAdminPendingBookings();
+      setPending(response.data);
+    } catch (error) {
+      console.error("Error fetching pending bookings:", error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+    getPending();
+  }, []);
   return (
     <ScreenTemplate>
       <View style={styles.main}>
-        <Text style={styles.noBookings}>
-          Pending Bookings will be shown here
-        </Text>
+      <ScrollView style={{ flex: 1, margin: 10 }}>
+          {Pending?.length > 0 ? (
+            Pending.map((booking, index) => (
+              <BookingComponent key={index} booking={booking} />
+            ))
+          ) : (
+            <Text style={styles.noBookings}>
+              Pending Bookings will be shown here
+            </Text>
+          )}
+        </ScrollView>
       </View>
     </ScreenTemplate>
   );
