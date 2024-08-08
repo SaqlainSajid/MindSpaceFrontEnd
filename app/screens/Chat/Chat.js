@@ -35,7 +35,7 @@ const Chat = (props) => {
       const response = await roomsApi.getRoom(authContext.user._id);
       setRoom(response.data[0]);
     } catch (error) {
-      console.error("Error fetching rooms:", error); // Log any errors
+      console.error("Error fetching rooms:", error);
     }
   };
 
@@ -47,30 +47,27 @@ const Chat = (props) => {
         const temp = response.data.map((room) => room.roomId);
         setRooms(temp);
       } else {
-        console.log("No data found in response"); // Log if no data found
+        console.log("No data found in response");
       }
     } catch (error) {
-      console.error("Error fetching rooms:", error); // Log any errors
+      console.error("Error fetching rooms:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    // Connect to the socket.io server
     const newSocket = io.connect(
       "https://mindspace-backend-4bec1331aedc.herokuapp.com/"
     );
     setSocket(newSocket);
 
-    // Event listener for receiving new rooms
     newSocket.on("newRoom", (room) => {
       if (!rooms.includes(room)) {
         setRooms((prevRooms) => [room, ...prevRooms]);
       }
     });
 
-    // Clean-up function to disconnect socket when component unmounts
     return () => {
       if (socket) {
         socket.disconnect();
@@ -78,7 +75,6 @@ const Chat = (props) => {
     };
   }, []);
 
-  //if we're fetching data, we show the loading screen
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -87,7 +83,6 @@ const Chat = (props) => {
     );
   }
 
-  // if (subscribed === false) {
   if (authContext.user.role === "user") {
     return (
       <ScreenTemplate>
@@ -95,8 +90,8 @@ const Chat = (props) => {
           <View style={styles.headerview}>
             <Text style={styles.headerText}>Hey! How's it going? </Text>
             <Text style={styles.secondaryText}>
-              no matter how you're feeling our dedicated volunteers are always
-              here to guide you through it! give us a call or text!
+              No matter how you're feeling, our dedicated volunteers are always
+              here to guide you through it! Give us a call or text!
             </Text>
           </View>
           <View style={styles.card}>
@@ -151,15 +146,15 @@ const Chat = (props) => {
         </View>
       </ScreenTemplate>
     );
-  } else {
+  } else if (authContext.user.role === "volunteer") {
     return (
       <ScreenTemplate>
         <View style={styles.volunteerMain}>
           <View style={styles.volunteerText}>
             <Text style={styles.headerText}>Chat list</Text>
             <Text style={styles.secondaryText}>
-              All volunteers see the same chat list, all volunteers can chat
-              with anyone from the list
+              All volunteers see the same chat list, and all volunteers can chat
+              with anyone from the list.
             </Text>
           </View>
           <ScrollView style={styles.chatList}>
@@ -172,62 +167,29 @@ const Chat = (props) => {
         </View>
       </ScreenTemplate>
     );
+  } else if (authContext.user.role === "doctor") {
+    return (
+      <ScreenTemplate>
+        <View style={styles.main}>
+          <View style={styles.headerview}>
+            <Text style={styles.headerText}>Welcome, Doctor!</Text>
+            <Text style={styles.secondaryText}>
+              The chat feature is not available for doctors. Please use the
+              designated sections for doctors.
+            </Text>
+          </View>
+        </View>
+      </ScreenTemplate>
+    );
+  } else {
+    return (
+      <ScreenTemplate>
+        <View style={styles.main}>
+          <Text style={styles.headerText}>Invalid role</Text>
+        </View>
+      </ScreenTemplate>
+    );
   }
-  // } else {
-  //   return (
-  //     <ScreenTemplate>
-  //       <View style={styles.main}>
-  //         <View style={styles.headerview}>
-  //           <Text style={styles.headerText}>Hey! How's it going? </Text>
-  //           <Text style={styles.secondaryText}>
-  //             no matter how you're feeling our dedicated volunteers are always
-  //             here to guide you through it! give us a call or text!
-  //           </Text>
-  //         </View>
-  //         <View style={styles.card}>
-  //           <Text style={styles.headerText}>Chat with a volunteer</Text>
-  //           <Text style={styles.secondaryText}>
-  //             As a premium member you have unlimited chat time!
-  //           </Text>
-
-  //           <TouchableOpacity
-  //             style={styles.prmbtn}
-  //             onPress={() => props.navigation.navigate("ChatScreen")}
-  //           >
-  //             <View
-  //               style={{
-  //                 flexDirection: "row",
-  //                 justifyContent: "center",
-  //                 alignItems: "center",
-  //               }}
-  //             >
-  //               <Text style={{ color: "white", fontWeight: "bold" }}>Chat</Text>
-  //               {room?.UnreadUser > 0 ? (
-  //                 <View style={styles.unread}>
-  //                   <Text style={styles.num}>{room.UnreadUser}</Text>
-  //                 </View>
-  //               ) : (
-  //                 <Text></Text>
-  //               )}
-  //             </View>
-  //           </TouchableOpacity>
-  //         </View>
-  //         <View style={styles.card}>
-  //           <Text style={styles.headerText}>Call a volunteer</Text>
-  //           <Text style={styles.secondaryText}>
-  //             As a premium member you have unlimited Call time!
-  //           </Text>
-  //           <TouchableOpacity
-  //             style={styles.prmbtn}
-  //             onPress={() => props.navigation.navigate("CallScreen")}
-  //           >
-  //             <Text style={{ color: "white", fontWeight: "bold" }}>Call</Text>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     </ScreenTemplate>
-  //   );
-  // }
 };
 
 export default Chat;
