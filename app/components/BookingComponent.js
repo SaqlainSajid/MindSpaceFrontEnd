@@ -1,18 +1,31 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../auth/context";
-
+import bookingsApi from "../api/bookingsApi";
 const BookingComponent = (props) => {
   const booking = props.booking;
   const authContext = useContext(AuthContext);
   const role = authContext.user.role;
-  const handleAccept = () => {
-    booking.confirmed=true
-    console.log("Accepted booking:", booking._id);
+
+  const handleAccept = async () => {
+    try {
+      const response = await bookingsApi.confirmBooking(booking._id);
+      const updatedBooking = response.data;
+      props.onBookingUpdate(updatedBooking);
+      console.log("Accepted Booking: ", booking._id);
+    } catch (error) {
+      console.error("Error Accepting Booking", error);
+    }
   };
 
-  const handleDeny = () => {
-    console.log("Denied booking:", booking._id);
+  const handleDeny = async () => {
+    try {
+      const response_denied=await bookingsApi.DenyBooking(booking._id);
+      props.onBookingUpdate(booking._id);
+      console.log("Denied booking:", booking._id);
+    } catch (error) {
+      console.error("Error While Rejecting Booking",error)
+    }
   };
   return (
     <TouchableOpacity>
@@ -61,22 +74,24 @@ const BookingComponent = (props) => {
               {"\n"}
               Confirmed: {booking.confirmed ? "Yes" : "No"}
               {"\n"}
-              {!booking.confirmed?(
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.acceptButton}
-                  onPress={handleAccept}
-                >
-                  <Text style={styles.buttonText}>Accept</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.denyButton}
-                  onPress={handleDeny}
-                >
-                  <Text style={styles.buttonText}>Deny</Text>
-                </TouchableOpacity>
-              </View>
-):("")}
+              {!booking.confirmed ? (
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.acceptButton}
+                    onPress={handleAccept}
+                  >
+                    <Text style={styles.buttonText}>Accept</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.denyButton}
+                    onPress={handleDeny}
+                  >
+                    <Text style={styles.buttonText}>Deny</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                ""
+              )}
             </Text>
           </View>
         ) : (
@@ -137,7 +152,7 @@ const styles = StyleSheet.create({
   date: {
     flexDirection: "row",
     alignbookings: "center",
-    padding:10,
+    padding: 10,
   },
   date_topRight: {
     alignSelf: "flex-end",
@@ -145,18 +160,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 50,
   },
   acceptButton: {
     backgroundColor: "#4CAF50",
     padding: 10,
     borderRadius: 5,
     marginRight: 10,
+    marginTop: 10,
   },
   denyButton: {
     backgroundColor: "#F44336",
     padding: 10,
     borderRadius: 5,
+    marginTop: 10,
   },
   buttonText: {
     color: "white",
