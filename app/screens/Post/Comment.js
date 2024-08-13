@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Ionicons, Feather } from "react-native-vector-icons";
+import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from "react-native";
+import { Ionicons } from "react-native-vector-icons";
 import postsApi from "../../api/postsApi";
 import usersApi from "../../api/usersApi";
 import AuthContext from "../../auth/context";
@@ -8,8 +8,10 @@ import AuthContext from "../../auth/context";
 const Comment = (props) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(props.heart);
-
+  
   const [userName, setUserName] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -55,6 +57,8 @@ const Comment = (props) => {
       props.setComments(updatedComments);
     } catch (error) {
       console.error("Error deleting comment:", error);
+    } finally {
+      setModalVisible(false);
     }
   };
 
@@ -98,13 +102,41 @@ const Comment = (props) => {
           <Text style={{ marginLeft: 5, fontSize: 12 }}>{likes}</Text>
         </TouchableOpacity>
 
-        {(authContext.user._id === props.username || authContext.user.role ==='admin') && 
-        (
-          <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+        {(authContext.user._id === props.username || authContext.user.role === 'admin') && (
+          <TouchableOpacity style={styles.trash} onPress={() => setModalVisible(true)}>
             <Ionicons name="trash" size={24} color="red" />
           </TouchableOpacity>
         )}
       </View>
+
+      {/* Modal for confirm deletion */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Confirm deletion</Text>
+            <Text style={styles.modalText}>Are you sure you want to delete this comment?</Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.buttonClose]}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.modalButtonTextClose}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.buttonDelete]}
+                onPress={handleDelete}
+              >
+                <Text style={styles.modalButtonTextDelete}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -133,5 +165,68 @@ const styles = StyleSheet.create({
   footer: {
     marginLeft: 8,
     flexDirection: "row",
+  },
+  trash: {
+    marginLeft: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    width: "85%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  modalButton: {
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "white",
+  },
+  buttonDelete: {
+    backgroundColor: "white",
+  },
+  modalButtonTextClose: {
+    color: "#87CEEB",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalButtonTextDelete: {
+    color: "red",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Share,
   Platform,
+  Modal,
 } from "react-native";
 import {
   Ionicons,
@@ -21,22 +22,30 @@ import AuthContext from "../../auth/context";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
-  const formattedDate = new Date(dateString).toLocaleDateString(
-    "en-US",
-    options
-  );
-  return formattedDate;
+  return new Date(dateString).toLocaleDateString("en-US", options);
 };
 
 const Post = (props) => {
+  const {
+    postId,
+    username,
+    likeNum,
+    commentNum,
+    time,
+    content,
+    image,
+    navigation,
+  } = props;
+
   const authContext = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
-  const [likes, setLikes] = useState(props.likeNum);
+  const [likes, setLikes] = useState(likeNum);
   const [liked, setLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const formattedTime = formatDate(props.time);
+  const formattedTime = formatDate(time);
 
   useEffect(() => {
     setIsLoading(true);
@@ -46,46 +55,57 @@ const Post = (props) => {
   }, []);
 
   const getUserName = async () => {
-    const res = await usersApi.getUser(props.username);
-    if (res.data.name) {
-      setUserName(res.data.name);
-      setUserRole(res.data.role);
-    } else {
-      setUserName("user deleted");
-      setUserRole("user deleted");
+    try {
+      const res = await usersApi.getUser(username);
+      if (res.data.name) {
+        setUserName(res.data.name);
+        setUserRole(res.data.role);
+      } else {
+        setUserName("user deleted");
+        setUserRole("user deleted");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error.message);
     }
   };
 
   const checkIfLiked = async () => {
-    const res = await postsApi.checkLike(props.postId, authContext.user._id);
-    setLiked(res.data.isLikedByUser);
+    try {
+      const res = await postsApi.checkLike(postId, authContext.user._id);
+      setLiked(res.data.isLikedByUser);
+    } catch (error) {
+      console.error("Error checking like status:", error.message);
+    }
   };
 
   const handleLike = async () => {
-    if (!liked) {
-      setLiked(true);
-      const res = await postsApi.addLike(props.postId, authContext.user._id);
-      setLikes(res.data.likes);
-    } else {
-      setLiked(false);
-      const res = await postsApi.removeLike(props.postId, authContext.user._id);
-      setLikes(res.data.likes);
+    try {
+      if (!liked) {
+        setLiked(true);
+        const res = await postsApi.addLike(postId, authContext.user._id);
+        setLikes(res.data.likes);
+      } else {
+        setLiked(false);
+        const res = await postsApi.removeLike(postId, authContext.user._id);
+        setLikes(res.data.likes);
+      }
+    } catch (error) {
+      console.error("Error handling like:", error.message);
     }
   };
 
   const handleShare = async () => {
     try {
-      const postLink = `https://mindspace-backend-4bec1331aedc.herokuapp.com/posts/${passingValues.postId}`;
+      const postLink = `https://mindspace-backend-4bec1331aedc.herokuapp.com/posts/${postId}`;
       const shareOptions = {
-        message: `Check out this post by ${userName}:\n\n${passingValues.content}\n\n${postLink}`,
+        message: `Check out this post by ${userName}:\n\n${content}\n\n${postLink}`,
         url: postLink, // URL to open when tapping the shared message (not supported on Android)
       };
 
       if (Platform.OS === "ios") {
-        // For iOS, use Share.share instead of Share.shareSingle
         await Share.share(shareOptions);
       } else {
-        await Share.shareSingle(shareOptions);
+        await Share.share(shareOptions);
       }
     } catch (error) {
       console.error("Error sharing post:", error.message);
@@ -94,10 +114,12 @@ const Post = (props) => {
 
   const handleDelete = async () => {
     try {
-      await postsApi.DeletePost(passingValues.postId);
-      props.navigation.goBack();
+      await postsApi.DeletePost(postId);
+      navigation.goBack();
     } catch (error) {
       console.error("Error deleting Post:", error);
+    } finally {
+      setModalVisible(false);
     }
   };
 
@@ -135,23 +157,9 @@ const Post = (props) => {
     }
   };
 
-  const passingValues = {
-    postId: props.postId,
-    username: props.username,
-    content: props.content,
-    userpic: props.image,
-    time: props.time,
-    likeNum: likes,
-    commentNum: props.commentNum,
-    comments: props.comments,
-    liked: liked,
-    feedTitle: props.feedTitle,
-    userRole: userRole,
-  };
-
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#5500dc" />
       </View>
     );
@@ -163,14 +171,12 @@ const Post = (props) => {
         <TouchableOpacity
           style={styles.profile}
           onPress={() =>
-            props.navigation.navigate("PostScreen", {
-              passingValues: passingValues,
-            })
+            navigation.navigate("PostScreen", { postId })
           }
         >
           <Image
-            source={props.image}
-            style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
+            source={image}
+            style={styles.profileImage}
           />
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{userName}</Text>
@@ -182,52 +188,71 @@ const Post = (props) => {
       <View style={styles.content}>
         <TouchableOpacity
           onPress={() =>
-            props.navigation.navigate("PostScreen", {
-              passingValues: passingValues,
-            })
+            navigation.navigate("PostScreen", { postId })
           }
         >
-          {props.content.length < 300 ? (
-            <Text style={styles.postContent}>{props.content}</Text>
-          ) : (
-            <Text style={styles.postContent}>
-              {props.content.slice(0, 300)}...
-            </Text>
-          )}
+          <Text style={styles.postContent}>
+            {content.length < 300 ? content : `${content.slice(0, 300)}...`}
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.heart} onPress={handleLike}>
-          {liked ? (
-            <Ionicons name="heart-circle" color="#fe251b" size={24} />
-          ) : (
-            <Ionicons name="heart-circle" color="lightgrey" size={24} />
-          )}
+          <Ionicons
+            name="heart-circle"
+            color={liked ? "#fe251b" : "lightgrey"}
+            size={24}
+          />
           <Text style={styles.likeCount}>{likes}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.comment}
           onPress={() =>
-            props.navigation.navigate("PostScreen", {
-              passingValues: passingValues,
-            })
+            navigation.navigate("PostScreen", { postId })
           }
         >
           <Fontisto name="comment" size={18} />
-          <Text style={styles.commentCount}>{props.commentNum}</Text>
+          <Text style={styles.commentCount}>{commentNum}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleShare}>
           <Feather name="send" size={18} />
         </TouchableOpacity>
-        {(authContext.user._id === passingValues.username || authContext.user.role === 'admin') && 
+        {(authContext.user._id === username || authContext.user.role === 'admin') && 
         (
-            <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+            <TouchableOpacity style={styles.trash} onPress={() => setModalVisible(true)}>
               <Feather name="trash" size={24} color="red" />
             </TouchableOpacity>
         )}
+      </View>
 
+      <Modal
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={() => setModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalView}>
+      <Text style={styles.modalTitle}>Confirm deletion</Text>
+      <Text style={styles.modalText}>Are you sure you want to delete this post?</Text>
+      <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.buttonClose]}
+          onPress={() => setModalVisible(false)}
+        >
+          <Text style={styles.modalButtonTextClose}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.buttonDelete]}
+          onPress={handleDelete}
+        >
+          <Text style={styles.modalButtonTextDelete}>Delete</Text>
+        </TouchableOpacity>
       </View>
     </View>
+  </View>
+</Modal>
+</View>
   );
 };
 
@@ -238,10 +263,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 10,
-    overflow: "scroll",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -249,9 +277,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   profile: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  profileImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 10,
   },
   userInfo: {
     flexDirection: "row",
@@ -291,7 +324,6 @@ const styles = StyleSheet.create({
     color: "#000080",
   },
   content: {
-    flex: 2,
     marginTop: 10,
     marginBottom: 20,
     paddingHorizontal: 5,
@@ -300,11 +332,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    marginHorizontal: 50,
+    marginHorizontal: 10,
     marginBottom: 20,
   },
   heart: {
@@ -312,6 +343,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   comment: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  share: {
     flexDirection: "row",
     alignItems: "center",
   },
@@ -324,6 +359,66 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   trash: {
-    marginLeft: "auto",
+    marginLeft: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    width: "85%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 18, // Single line text
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  modalButton: {
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "white",
+  },
+  buttonDelete: {
+    backgroundColor: "white",
+  },
+  modalButtonTextClose: {
+    color: "#87CEEB", // Sky blue for Cancel button
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalButtonTextDelete: {
+    color: "red", // Red for Delete button
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
