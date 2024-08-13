@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   buttonsContainer: {
-    flex: 1,
+    flex:1,
     flexDirection: "column",
+    justifyContent:"space-evenly",
   },
   buttonContainer: {
     flex: 1,
