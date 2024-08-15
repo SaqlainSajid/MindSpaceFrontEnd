@@ -18,7 +18,7 @@ const AdminPending = () => {
   useFocusEffect(
     useCallback(() => {
       getPending();
-    }, [])
+    }, [Pending])
   );
   const handleBookingUpdate = (updatedBooking) => {
     setPending((prevPending) =>

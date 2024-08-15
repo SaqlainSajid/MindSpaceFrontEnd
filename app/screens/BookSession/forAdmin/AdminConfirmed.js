@@ -1,8 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useCallback } from "react";
 import ScreenTemplate from "../../../components/ScreenTemplate";
 import bookingsApi from "../../../api/bookingsApi";
 import BookingComponent from "../../../components/BookingComponent";
+import { useFocusEffect } from "@react-navigation/native";
 const AdminConfirmed = () => {
   const [Confirmed, setConfirmed] = useState([]);
   const getConfirmed = async () => {
@@ -14,9 +15,11 @@ const AdminConfirmed = () => {
       throw error; 
     }
   };
-  useEffect(() => {
-    getConfirmed();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getConfirmed();
+    }, [Confirmed])
+  );
   return (
     <ScreenTemplate>
       <View style={styles.main}>
