@@ -2,6 +2,7 @@ import apiClient from "./apiClient";
 
 //gets all bookings of a doctor on a specific date
 const endpoint1 = "/bookings";
+const endpoint2='http://localhost:3000/'
 const getDocDateBookings = (docId, date) =>
   apiClient.get(`${endpoint1}/doc/${docId}/date/${date}`);
 
@@ -17,6 +18,17 @@ const getUserPastBookings = (userId) =>
 const getDocPendingBookings = (docId) =>
   apiClient.get(`${endpoint1}/pending/doc/${docId}`);
 
+const getAdminConfirmedBookings = () => 
+  apiClient.get(`${endpoint1}/confirmed`);
+const getAdminPreviousBookings=()=> 
+  apiClient.get(`${endpoint1}/previous`);
+const getAdminPendingBookings=()=>
+  apiClient.get(`${endpoint1}/pending`);
+const DenyBooking=(id)=>
+  apiClient.post(`${endpoint1}/deny/${id}`)
+const confirmBooking=(id)=>
+  apiClient.put(`${endpoint1}/confirm/${id}`)
+
 export default {
   getDocDateBookings,
   setBooking,
@@ -25,6 +37,11 @@ export default {
   getDocPendingBookings,
   getUserConfirmedBookings,
   getUserPastBookings,
+  getAdminConfirmedBookings,
+  getAdminPreviousBookings,
+  getAdminPendingBookings,
+  confirmBooking,
+  DenyBooking
 };
 
 //adds times to availabilities of a doctor
