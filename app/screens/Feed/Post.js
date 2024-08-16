@@ -32,6 +32,7 @@ const formatDate = (dateString) => {
 const Post = (props) => {
 
 
+
   const authContext = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
@@ -52,6 +53,7 @@ const Post = (props) => {
   const getUserName = async () => {
     try {
       const res = await usersApi.getUser(props.username);
+
       if (res.data.name) {
         setUserName(res.data.name);
         setUserRole(res.data.role);
@@ -283,7 +285,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 10,
-    overflow: "scroll",
   },
   header: {
     flex: 1,
@@ -351,7 +352,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
