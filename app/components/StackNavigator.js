@@ -5,7 +5,7 @@ import { Audio } from "expo-av";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import notificationsApi from "../api/notificationsApi";
-
+import { Platform } from "react-native";
 import NavBar from "./NavBar";
 import Discussion from "../screens/Discussion/Discussion";
 import Chat from "../screens/Chat/Chat";
@@ -67,7 +67,6 @@ const StackNavigator = () => {
     );
     return () => subscription.remove();
   }, []);
-
   const registerForPushNotifications = async () => {
     let token;
     if (Device.isDevice) {
