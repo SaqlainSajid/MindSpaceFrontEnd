@@ -57,6 +57,8 @@ const StackNavigator = () => {
         console.log(data);
         if (data.message === "You have a new message") {
           notif = { ...notif, notifType: "chat" };
+        } else if (data.message === "Your booking has been accepted!") {
+          notif = { ...notif, notifType: "bookingAccepted" };
         }
         console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
