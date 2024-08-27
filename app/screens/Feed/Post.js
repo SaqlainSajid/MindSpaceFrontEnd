@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Share,
   Platform,
+  Modal,
 } from "react-native";
 import {
   Ionicons,
@@ -29,12 +30,16 @@ const formatDate = (dateString) => {
 };
 
 const Post = (props) => {
+
+
+
   const authContext = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
   const [likes, setLikes] = useState(props.likeNum);
   const [liked, setLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const formattedTime = formatDate(props.time);
 
@@ -46,30 +51,43 @@ const Post = (props) => {
   }, []);
 
   const getUserName = async () => {
-    const res = await usersApi.getUser(props.username);
-    if (res.data.name) {
-      setUserName(res.data.name);
-      setUserRole(res.data.role);
-    } else {
-      setUserName("user deleted");
-      setUserRole("user deleted");
+    try {
+      const res = await usersApi.getUser(props.username);
+
+      if (res.data.name) {
+        setUserName(res.data.name);
+        setUserRole(res.data.role);
+      } else {
+        setUserName("user deleted");
+        setUserRole("user deleted");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error.message);
     }
   };
 
   const checkIfLiked = async () => {
-    const res = await postsApi.checkLike(props.postId, authContext.user._id);
-    setLiked(res.data.isLikedByUser);
+    try {
+      const res = await postsApi.checkLike(props.postId, authContext.user._id);
+      setLiked(res.data.isLikedByUser);
+    } catch (error) {
+      console.error("Error checking like status:", error.message);
+    }
   };
 
   const handleLike = async () => {
-    if (!liked) {
-      setLiked(true);
-      const res = await postsApi.addLike(props.postId, authContext.user._id);
-      setLikes(res.data.likes);
-    } else {
-      setLiked(false);
-      const res = await postsApi.removeLike(props.postId, authContext.user._id);
-      setLikes(res.data.likes);
+    try {
+      if (!liked) {
+        setLiked(true);
+        const res = await postsApi.addLike(props.postId, authContext.user._id);
+        setLikes(res.data.likes);
+      } else {
+        setLiked(false);
+        const res = await postsApi.removeLike(props.postId, authContext.user._id);
+        setLikes(res.data.likes);
+      }
+    } catch (error) {
+      console.error("Error handling like:", error.message);
     }
   };
 
@@ -98,6 +116,8 @@ const Post = (props) => {
       props.navigation.goBack();
     } catch (error) {
       console.error("Error deleting Post:", error);
+    } finally {
+      setModalVisible(false);
     }
   };
 
@@ -169,8 +189,8 @@ const Post = (props) => {
           }
         >
           <Image
-            source={props.image}
-            style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
+             source={props.image}
+             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
           />
           <View style={styles.userInfo}>
             <Text style={styles.userName}>{userName}</Text>
@@ -180,7 +200,7 @@ const Post = (props) => {
         <Text>{formattedTime}</Text>
       </View>
       <View style={styles.content}>
-        <TouchableOpacity
+      <TouchableOpacity
           onPress={() =>
             props.navigation.navigate("PostScreen", {
               passingValues: passingValues,
@@ -197,7 +217,7 @@ const Post = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.heart} onPress={handleLike}>
+      <TouchableOpacity style={styles.heart} onPress={handleLike}>
           {liked ? (
             <Ionicons name="heart-circle" color="#fe251b" size={24} />
           ) : (
@@ -221,13 +241,40 @@ const Post = (props) => {
         </TouchableOpacity>
         {(authContext.user._id === passingValues.username || authContext.user.role === 'admin') && 
         (
-            <TouchableOpacity style={styles.trash} onPress={handleDelete}>
+            <TouchableOpacity style={styles.trash} onPress={() => setModalVisible(true)}>
               <Feather name="trash" size={24} color="red" />
             </TouchableOpacity>
         )}
+      </View>
 
+      <Modal
+  animationType="slide"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={() => setModalVisible(false)}
+>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalView}>
+      <Text style={styles.modalTitle}>Confirm deletion</Text>
+      <Text style={styles.modalText}>Are you sure you want to delete this post?</Text>
+      <View style={styles.modalButtons}>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.buttonClose]}
+          onPress={() => setModalVisible(false)}
+        >
+          <Text style={styles.modalButtonTextClose}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.modalButton, styles.buttonDelete]}
+          onPress={handleDelete}
+        >
+          <Text style={styles.modalButtonTextDelete}>Delete</Text>
+        </TouchableOpacity>
       </View>
     </View>
+  </View>
+</Modal>
+</View>
   );
 };
 
@@ -238,7 +285,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingHorizontal: 10,
-    overflow: "scroll",
   },
   header: {
     flex: 1,
@@ -252,6 +298,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  profileImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 10,
   },
   userInfo: {
     flexDirection: "row",
@@ -300,7 +352,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
@@ -315,6 +366,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  share: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   likeCount: {
     marginLeft: 5,
     fontSize: 12,
@@ -324,6 +379,66 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   trash: {
-    marginLeft: "auto",
+    marginLeft: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    width: "85%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalText: {
+    fontSize: 18, // Single line text
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  modalButton: {
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "white",
+  },
+  buttonDelete: {
+    backgroundColor: "white",
+  },
+  modalButtonTextClose: {
+    color: "#87CEEB", // Sky blue for Cancel button
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalButtonTextDelete: {
+    color: "red", // Red for Delete button
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
