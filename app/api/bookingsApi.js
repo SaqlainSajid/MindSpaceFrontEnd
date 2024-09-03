@@ -2,7 +2,6 @@ import apiClient from "./apiClient";
 
 //gets all bookings of a doctor on a specific date
 const endpoint1 = "/bookings";
-const endpoint2='http://localhost:3000/'
 const getDocDateBookings = (docId, date) =>
   apiClient.get(`${endpoint1}/doc/${docId}/date/${date}`);
 
@@ -27,7 +26,7 @@ const getAdminPendingBookings=()=>
 const DenyBooking=(id)=>
   apiClient.post(`${endpoint1}/deny/${id}`)
 const confirmBooking=(id)=>
-  apiClient.put(`${endpoint1}/confirm/${id}`)
+  apiClient.put(`${endpoint1}/confirm/${id}`)//used post instead of put to ensure notifications--Arqam
 
 export default {
   getDocDateBookings,

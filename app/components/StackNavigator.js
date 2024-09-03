@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Platform } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Audio } from "expo-av";
@@ -59,6 +59,11 @@ const StackNavigator = () => {
           notif = { ...notif, notifType: "chat" };
         } else if (data.message === "Your booking has been accepted!") {
           notif = { ...notif, notifType: "bookingAccepted" };
+        } else if (
+          data.message ===
+          "Take a good look at your transaction ID and other information, then try making a new booking request. Call this number for support: +8801xxxxxxxxx"
+        ) {
+          notif = { ...notif, notifType: "bookingDenied" };
         }
         console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
@@ -69,6 +74,41 @@ const StackNavigator = () => {
     );
     return () => subscription.remove();
   }, []);
+
+  // const registerForPushNotifications = async () => {
+  //   let token;
+  //   if (Platform.OS === 'android') {
+  //     await Notifications.setNotificationChannelAsync('default', {
+  //       name: 'default',
+  //       importance: Notifications.AndroidImportance.MAX,
+  //       vibrationPattern: [0, 250, 250, 250],
+  //       lightColor: '#FF231F7C',
+  //     });
+  //   }
+  //   if (Device.isDevice) {
+  //     const { status: existingStatus } =
+  //       await Notifications.getPermissionsAsync();
+  //     let finalStatus = existingStatus;
+  //     if (existingStatus !== "granted") {
+  //       const { status } = await Notifications.requestPermissionsAsync();
+  //       finalStatus = status;
+  //     }
+  //     if (finalStatus !== "granted") {
+  //       alert("Failed to get push token for push notification!");
+  //       return;
+  //     }
+
+  //     try {
+  //       const res = await Notifications.getExpoPushTokenAsync();
+  //       token = res.data;
+  //       notificationsApi.register(token, authContext.user._id);
+  //     } catch (e) {
+  //       token = `${e}`;
+  //     }
+  //   } else {
+  //     alert("Must use physical device for Push Notifications");
+  //   }
+  // };
 
   const registerForPushNotifications = async () => {
     let token;
@@ -86,14 +126,25 @@ const StackNavigator = () => {
       }
 
       try {
-        const res = await Notifications.getExpoPushTokenAsync();
-        token = res.data;
-        notificationsApi.register(token, authContext.user._id);
+        const { data } = await Notifications.getExpoPushTokenAsync();
+        token = data;
+        console.log("Expo Push Token:", token);
+
+        await notificationsApi.register(token, authContext.user._id);
       } catch (e) {
-        token = `${e}`;
+        console.error("Error getting push token:", e);
       }
     } else {
       alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
     }
   };
 
