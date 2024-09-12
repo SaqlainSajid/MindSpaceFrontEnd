@@ -65,6 +65,9 @@ const StackNavigator = () => {
         ) {
           notif = { ...notif, notifType: "bookingDenied" };
         }
+        else if (data.message.includes("has liked your post")){
+          notif={...notif,notifType:"postLike "}
+        }
         console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
