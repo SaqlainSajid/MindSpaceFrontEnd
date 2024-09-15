@@ -64,15 +64,12 @@ const StackNavigator = () => {
           "Sorry, your booking has been denied. Take a good look at your transaction ID and other information, then try making a new booking request. Call this number for support: +8801xxxxxxxxx"
         ) {
           notif = { ...notif, notifType: "bookingDenied" };
-        }
-        else if (data.message.includes("has liked your post")){
-          notif={...notif,notifType:"postLike "}
-        }
-        else if (data.message.includes("has liked your post")){
-          notif={...notif,notifType:"commentLike"}
-        }
-        else if (data.message.includes("commented on you post")){
-          notif={...notif,notifType:"postComment"}
+        } else if (data.message.includes("liked your post")) {
+          notif = { ...notif, notifType: "postLike " };
+        } else if (data.message.includes("liked your comment")) {
+          notif = { ...notif, notifType: "commentLike" };
+        } else if (data.message.includes("commented on you post")) {
+          notif = { ...notif, notifType: "postComment" };
         }
         console.log(notif);
         await notificationsApi.store(notif, authContext.user._id);
