@@ -74,8 +74,11 @@ const StackNavigator = () => {
         else if (data.message.includes("commented on you post")){
           notif={...notif,notifType:"postComment"}
         }
+        else if(data.message === "You have a new pending booking"){
+          notif={...notif,notifType:"newPendingBooking"}
+        }
         console.log(notif);
-        await notificationsApi.store(notif, authContext.user._id);
+        // await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
         setUnreadNotifCount(res.data.unreadNotifs);
         playNotificationSound();
