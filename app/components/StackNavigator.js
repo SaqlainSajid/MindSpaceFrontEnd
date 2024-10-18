@@ -48,7 +48,7 @@ const StackNavigator = () => {
   const { unreadNotifCount, setUnreadNotifCount } =
     useContext(NotificationContext);
 
-  const navigatioin = useNavigation();
+  // const navigatioin = useNavigation();
 
   useEffect(() => {
     registerForPushNotifications();
@@ -84,42 +84,42 @@ const StackNavigator = () => {
       }
     );
     //user taps on notification
-    const responseSubscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        const { data } = notification.request.content;
-        handleNotifyTap(data);
-      }
-    );
+    // const responseSubscription = Notifications.addNotificationReceivedListener(
+    //   (notification) => {
+    //     const { data } = notification.request.content;
+    //     handleNotifyTap(data);
+    //   }
+    // );
     return () => {
       subscription.remove();
-      responseSubscription.remove();
+      //responseSubscription.remove();
     };
   }, []);
-  const handleNotifyTap = (data) => {
-    switch (data.notifType) {
-      case "chat":
-        navigation.navigate("Chat", { roomId: data.roomId });
-        break;
-      case "newPendingBooking":
-        navigation.navigate("AdminPending");
-        break;
-      case "bookingAccepted":
-        navigation.navigate("Bookings");
-        break;
-      case "postComment":
-        navigation.navigate("PostScreen", { postId: data.postId });
-        break;
-      case "commentLike":
-        navigation.navigate("PostScreen", { postId: data.postId });
-        break;
-      case "postLike":
-        navigatioin.navigate("PostScreen",{postId:data.postId})
-        break;
-      default:
-        navigation.navigate("NotificationsScreen");
-        break;
-    }
-  };
+  // const handleNotifyTap = (data) => {
+  //   switch (data.notifType) {
+  //     case "chat":
+  //       navigation.navigate("Chat", { roomId: data.roomId });
+  //       break;
+  //     case "newPendingBooking":
+  //       navigation.navigate("AdminPending");
+  //       break;
+  //     case "bookingAccepted":
+  //       navigation.navigate("Bookings");
+  //       break;
+  //     case "postComment":
+  //       navigation.navigate("PostScreen", { postId: data.postId });
+  //       break;
+  //     case "commentLike":
+  //       navigation.navigate("PostScreen", { postId: data.postId });
+  //       break;
+  //     case "postLike":
+  //       navigatioin.navigate("PostScreen",{postId:data.postId})
+  //       break;
+  //     default:
+  //       navigation.navigate("NotificationsScreen");
+  //       break;
+  //   }
+  // };
   const registerForPushNotifications = async () => {
     let token;
     if (Device.isDevice) {
@@ -271,6 +271,12 @@ const StackNavigator = () => {
         component={NotificationsScreen}
         options={{ headerShown: true, headerTitle: "Notifications" }}
       />
+      <stack.Screen
+        name="AdminPending"
+        component={AdminPending}
+        options={{ headerShown: true, headerTitle: "AdminPending" }}
+      />
+      
     </stack.Navigator>
   );
 };

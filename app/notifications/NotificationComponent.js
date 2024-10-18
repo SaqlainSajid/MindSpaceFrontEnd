@@ -4,12 +4,32 @@ import { useNavigation } from "@react-navigation/native";
 
 const NotificationComponent = (props) => {
   const nav = useNavigation();
-  const { notification } = props.notification;
+  const { notification } = props.notification || {};
   const navigate = (type) => {
     if (type === "chat") {
       nav.navigate("ChatScreen");
     }
+    if (type === "bookingAccepted") {
+      nav.navigate("Bookings");
+    }
+    if (type === "newPendingBooking") {
+      nav.navigate("AdminPending");
+    }
+    if (
+      type === "commentLike" ||
+      type === "postComment" ||
+      type === "postLike"
+    ) {
+      nav.navigate("PostScreen");
+    }
   };
+  if (!notification || !notification.data) {
+    return (
+      <View style={styles.notifContainer}>
+        <Text>No notification data available</Text>
+      </View>
+    );
+  }
   return (
     <TouchableOpacity onPress={() => navigate(notification.notifType)}>
       <View style={styles.notifContainer}>
