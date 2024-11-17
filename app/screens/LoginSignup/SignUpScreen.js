@@ -32,15 +32,16 @@ const SignUpScreen = (props) => {
     setIsLoading(true);
     console.log('sending out request', email);
     const result = await authApi.register(name, email, password);
-    if (result) console.log(result);
     if (!result.ok) {
       setSignUpFailed(true);
       setIsLoading(false);
       return;
     }
     setSignUpFailed(false);
+    console.log(result.data);
     const user = JSON.parse(atob(result.data.split('.')[1]));
     authContext.setUser(user);
+    console.log(user);
     authStorage.storeToken(result.data);
     setIsLoading(false);
   };
