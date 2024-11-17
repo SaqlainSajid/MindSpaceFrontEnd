@@ -5,6 +5,7 @@ import { Audio } from "expo-av";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import notificationsApi from "../api/notificationsApi";
+import { useNavigation } from "@react-navigation/native";
 
 import NavBar from "./NavBar";
 import Discussion from "../screens/Discussion/Discussion";
@@ -47,6 +48,8 @@ const StackNavigator = () => {
   const { unreadNotifCount, setUnreadNotifCount } =
     useContext(NotificationContext);
 
+  // const navigatioin = useNavigation();
+
   useEffect(() => {
     registerForPushNotifications();
     const subscription = Notifications.addNotificationReceivedListener(
@@ -64,17 +67,59 @@ const StackNavigator = () => {
           "Sorry, your booking has been denied. Take a good look at your transaction ID and other information, then try making a new booking request. Call this number for support: +8801xxxxxxxxx"
         ) {
           notif = { ...notif, notifType: "bookingDenied" };
+        } else if (data.message.includes("liked your post")) {
+          notif = { ...notif, notifType: "postLike " };
+        } else if (data.message.includes("liked your comment")) {
+          notif = { ...notif, notifType: "commentLike" };
+        } else if (data.message.includes("commented on you post")) {
+          notif = { ...notif, notifType: "postComment" };
+        } else if (data.message === "You have a new pending booking") {
+          notif = { ...notif, notifType: "newPendingBooking" };
         }
-        console.log(notif);
+        console.log(notif, "notif");
         await notificationsApi.store(notif, authContext.user._id);
         const res = await notificationsApi.increment(authContext.user._id);
         setUnreadNotifCount(res.data.unreadNotifs);
         playNotificationSound();
       }
     );
-    return () => subscription.remove();
+    //user taps on notification
+    // const responseSubscription = Notifications.addNotificationReceivedListener(
+    //   (notification) => {
+    //     const { data } = notification.request.content;
+    //     handleNotifyTap(data);
+    //   }
+    // );
+    return () => {
+      subscription.remove();
+      //responseSubscription.remove();
+    };
   }, []);
-
+  // const handleNotifyTap = (data) => {
+  //   switch (data.notifType) {
+  //     case "chat":
+  //       navigation.navigate("Chat", { roomId: data.roomId });
+  //       break;
+  //     case "newPendingBooking":
+  //       navigation.navigate("AdminPending");
+  //       break;
+  //     case "bookingAccepted":
+  //       navigation.navigate("Bookings");
+  //       break;
+  //     case "postComment":
+  //       navigation.navigate("PostScreen", { postId: data.postId });
+  //       break;
+  //     case "commentLike":
+  //       navigation.navigate("PostScreen", { postId: data.postId });
+  //       break;
+  //     case "postLike":
+  //       navigatioin.navigate("PostScreen",{postId:data.postId})
+  //       break;
+  //     default:
+  //       navigation.navigate("NotificationsScreen");
+  //       break;
+  //   }
+  // };
   const registerForPushNotifications = async () => {
     let token;
     if (Device.isDevice) {
@@ -226,6 +271,12 @@ const StackNavigator = () => {
         component={NotificationsScreen}
         options={{ headerShown: true, headerTitle: "Notifications" }}
       />
+      <stack.Screen
+        name="AdminPending"
+        component={AdminPending}
+        options={{ headerShown: true, headerTitle: "AdminPending" }}
+      />
+      
     </stack.Navigator>
   );
 };
