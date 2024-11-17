@@ -1,26 +1,26 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const NotificationComponent = (props) => {
   const nav = useNavigation();
   const { notification } = props.notification || {};
   const navigate = (type) => {
-    if (type === "chat") {
-      nav.navigate("ChatScreen");
+    if (type === 'chat') {
+      nav.navigate('Chat');
     }
-    if (type === "bookingAccepted") {
-      nav.navigate("Bookings");
+    if (type === 'bookingAccepted') {
+      nav.navigate('Bookings');
     }
-    if (type === "newPendingBooking") {
-      nav.navigate("AdminPending");
+    if (type === 'newPendingBooking') {
+      nav.navigate('AdminBooking');
     }
     if (
-      type === "commentLike" ||
-      type === "postComment" ||
-      type === "postLike"
+      type === 'commentLike' ||
+      type === 'postComment' ||
+      type === 'postLike'
     ) {
-      nav.navigate("PostScreen");
+      nav.navigate('Discussion');
     }
   };
   if (!notification || !notification.data) {
@@ -44,12 +44,12 @@ export default NotificationComponent;
 const styles = StyleSheet.create({
   notifContainer: {
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: 'black',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 10,
     margin: 2,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
 });
