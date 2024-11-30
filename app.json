@@ -9,7 +9,8 @@
     "splash": {
       "image": "./app/assets/icon-3.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "newArchEnabled": true
     },
     "assetBundlePatterns": [
       "**/*"
