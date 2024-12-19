@@ -29,7 +29,11 @@ const Login2 = (props) => {
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true);
     const result = await authApi.login(email, password);
-    if (!result.ok) return setLoginFailed(true);
+    if (!result.ok) {
+      setLoginFailed(true);
+      setIsLoading(false);
+      return;
+    }
     setLoginFailed(false);
     const user = JSON.parse(atob(result.data.split(".")[1]));
     authContext.setUser(user);
@@ -42,9 +46,7 @@ const Login2 = (props) => {
         <Text style={[styles.text, styles.mainText]}>Welcome</Text>
         <Text style={[styles.text, styles.mainText]}>Back</Text>
         <View style={styles.secondaryTextContainer}>
-          <Text style={[styles.text, styles.secondaryText]}>
-            Log in to continue
-          </Text>
+          <Text style={[styles.text, styles.secondaryText]}>Log in to continue</Text>
         </View>
       </View>
       <View style={styles.form}>
@@ -72,7 +74,10 @@ const Login2 = (props) => {
                   autoCorrect={false}
                   keyboardType="email-address"
                   textContentType="emailAddress"
-                  onChangeText={handleChange("email")}
+                  onChangeText={(text) => {
+                    setLoginFailed(false);
+                    handleChange("email")(text);
+                  }}
                 ></TextInput>
               </View>
               <Text style={{ color: "red" }}>{errors.email}</Text>
@@ -86,7 +91,10 @@ const Login2 = (props) => {
                   placeholder="Password"
                   autoCorrect={false}
                   textContentType="password"
-                  onChangeText={handleChange("password")}
+                  onChangeText={(text) => {
+                    setLoginFailed(false);
+                    handleChange("password")(text);
+                  }}
                 ></TextInput>
               </View>
               <Text style={{ color: "red" }}>{errors.password}</Text>
@@ -105,14 +113,10 @@ const Login2 = (props) => {
         </Formik>
         <View style={styles.FooterTextContainer}>
           <TouchableOpacity>
-            <Text style={[styles.text, styles.FooterText]}>
-              Forgot Password?
-            </Text>
+            <Text style={[styles.text, styles.FooterText]}>Forgot Password?</Text>
           </TouchableOpacity>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
-            <Text style={[styles.text, styles.secondaryText]}>
-              New user? Sign Up{" "}
-            </Text>
+            <Text style={[styles.text, styles.secondaryText]}>New user? Sign Up{" "}</Text>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("Signup Screen")}
             >
