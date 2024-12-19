@@ -11,13 +11,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "notification": {
+      "icon": "./app/assets/icon-3.png",
+      "color": "#ffffff",
+      "iosDisplayInForeground": true
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "This app requires access to your photo library to share posts."
+        "NSPhotoLibraryUsageDescription": "This app requires access to your photo library to share posts.",
+        "UIBackgroundModes": ["remote-notification"]
       },
       "bundleIdentifier": "com.ssajid.MindSpace"
     },
@@ -28,9 +34,13 @@
       },
       "permissions": [
         "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "WRITE_EXTERNAL_STORAGE",
+        "NOTIFICATIONS",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
       ],
-      "package": "com.ssajid.MindSpace"
+      "package": "com.ssajid.MindSpace",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
