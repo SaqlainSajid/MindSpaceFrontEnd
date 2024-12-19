@@ -3,41 +3,32 @@ import React, { useEffect, useState } from 'react';
 import usersApi from '../../api/usersApi';
 import roomsApi from '../../api/roomsApi';
 
-const ChatProfile = (props) => {
-  const [user, setUser] = useState(null);
+const ChatProfile = ({ room: roomId, nav: navigation, userData }) => {
   const [room, setRoom] = useState(null);
-  const navigation = props.nav;
+
   useEffect(() => {
-    loadUser();
     loadRoom();
   }, []);
+
   const loadRoom = async () => {
     try {
-      const response = await roomsApi.getRoom(props.room);
+      const response = await roomsApi.getRoom(roomId);
       setRoom(response.data[0]);
     } catch (error) {
-      console.error('Error fetching rooms:', error); // Log any errors
-    }
-  };
-  const loadUser = async () => {
-    try {
-      const response = await usersApi.getUser(props.room);
-      setUser(response.data);
-    } catch (error) {
-      console.error('Error fetching rooms:', error); // Log any errors
+      console.error('Error fetching rooms:', error);
     }
   };
 
   return (
     <TouchableOpacity
-      key={props.room}
+      key={roomId}
       style={{
         backgroundColor: 'white',
         marginTop: 10,
         borderRadius: 15,
       }}
       onPress={() =>
-        navigation.navigate('VolunteerChatScreen', { roomId: props.room })
+        navigation.navigate('VolunteerChatScreen', { roomId: roomId })
       }
     >
       <View style={styles.container}>
@@ -46,8 +37,8 @@ const ChatProfile = (props) => {
             style={styles.pic}
             source={require('../../assets/mountain.jpg')}
           />
-          {user && user.name ? (
-            <Text style={styles.name}>{user.name}</Text>
+          {userData && userData.name ? (
+            <Text style={styles.name}>{userData.name}</Text>
           ) : (
             <Text style={styles.name}>User Deleted</Text>
           )}
