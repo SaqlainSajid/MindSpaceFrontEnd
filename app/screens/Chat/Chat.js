@@ -13,7 +13,6 @@ import roomsApi from "../../api/roomsApi";
 import AuthContext from "../../auth/context";
 import { io } from "socket.io-client";
 import ChatProfile from "./ChatProfile";
-subscribed = false;
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
@@ -63,17 +62,40 @@ const Chat = (props) => {
     setSocket(newSocket);
 
     newSocket.on("newRoom", (room) => {
-      if (!rooms.includes(room)) {
-        setRooms((prevRooms) => [room, ...prevRooms]);
-      }
+      setRooms((prevRooms) => {
+        if (!prevRooms.includes(room)) {
+          return [room, ...prevRooms];
+        }
+        return prevRooms;
+      });
+    });
+
+    // Load initial rooms when socket connects
+    newSocket.on("connect", () => {
+      loadRooms();
     });
 
     return () => {
-      if (socket) {
-        socket.disconnect();
+      if (newSocket) {
+        newSocket.disconnect();
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (socket) {
+      // Re-subscribe to room updates whenever rooms change
+      socket.off("newRoom"); // Remove old listener
+      socket.on("newRoom", (room) => {
+        setRooms((prevRooms) => {
+          if (!prevRooms.includes(room)) {
+            return [room, ...prevRooms];
+          }
+          return prevRooms;
+        });
+      });
+    }
+  }, [socket, rooms]);
 
   if (isLoading) {
     return (
