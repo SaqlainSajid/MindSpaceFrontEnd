@@ -4,6 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import React, { useContext, useState } from 'react';
 import ScreenTemplate from '../../components/ScreenTemplate';
@@ -48,107 +51,118 @@ const SignUpScreen = (props) => {
 
   return (
     <ScreenTemplate>
-      <View style={styles.mainTextContainer}>
-        <Text style={[styles.text, styles.mainText]}>Create New</Text>
-        <Text style={[styles.text, styles.mainText]}>Account</Text>
-        <View style={styles.secondaryTextContainer}>
-          <Text style={[styles.text, styles.secondaryText]}>
-            Already Registered? Log in{' '}
-          </Text>
-          <TouchableOpacity
-            style={styles.link}
-            onPress={() => props.navigation.navigate('Login Screen')}
-          >
-            <Text style={[styles.text, styles.linkText]}>here</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.form}>
-        <Formik
-          initialValues={{
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-          }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
         >
-          {({ handleChange, handleSubmit, errors }) => (
-            <>
-              <View style={styles.inputContainer}>
-                {signUpFailed ? (
-                  <Text style={{ color: 'red', alignSelf: 'center' }}>
-                    Registration Failed. Please try again.
-                  </Text>
-                ) : null}
-                <Text style={styles.text}>NAME</Text>
-                <TextInput
-                  name='name'
-                  style={styles.input}
-                  autoCapitalize='words'
-                  placeholder='Name'
-                  autoCorrect={false}
-                  onChangeText={handleChange('name')}
-                />
-              </View>
-              <Text style={{ color: 'red' }}>{errors.name}</Text>
-              <View style={styles.inputContainer}>
-                <Text style={styles.text}>EMAIL</Text>
-                <TextInput
-                  name='email'
-                  style={styles.input}
-                  autoCapitalize='none'
-                  placeholder='Email'
-                  autoCorrect={false}
-                  keyboardType='email-address'
-                  textContentType='emailAddress'
-                  onChangeText={handleChange('email')}
-                />
-              </View>
-              <Text style={{ color: 'red' }}>{errors.email}</Text>
-              <View style={styles.inputContainer}>
-                <Text style={styles.text}>PASSWORD</Text>
-                <TextInput
-                  name='password'
-                  style={styles.input}
-                  secureTextEntry={true}
-                  autoCapitalize='none'
-                  placeholder='Password'
-                  autoCorrect={false}
-                  textContentType='password'
-                  onChangeText={handleChange('password')}
-                />
-              </View>
-              <Text style={{ color: 'red' }}>{errors.password}</Text>
-              <View style={styles.inputContainer}>
-                <Text style={styles.text}>CONFIRM PASSWORD</Text>
-                <TextInput
-                  name='confirmPassword'
-                  style={styles.input}
-                  secureTextEntry={true}
-                  autoCapitalize='none'
-                  placeholder='Confirm Password'
-                  autoCorrect={false}
-                  textContentType='password'
-                  onChangeText={handleChange('confirmPassword')}
-                />
-              </View>
-              <Text style={{ color: 'red' }}>{errors.confirmPassword}</Text>
-              <View style={styles.buttonContainer}>
-                <Button
-                  style={styles.button}
-                  text='Sign Up'
-                  class='primary'
-                  Style={{ width: 300 }}
-                  onPress={handleSubmit}
-                  disabled={isLoading}
-                />
-              </View>
-            </>
-          )}
-        </Formik>
-      </View>
+          <View style={styles.mainTextContainer}>
+            <Text style={[styles.text, styles.mainText]}>Create New</Text>
+            <Text style={[styles.text, styles.mainText]}>Account</Text>
+            <View style={styles.secondaryTextContainer}>
+              <Text style={[styles.text, styles.secondaryText]}>
+                Already Registered? Log in{' '}
+              </Text>
+              <TouchableOpacity
+                style={styles.link}
+                onPress={() => props.navigation.navigate('Login Screen')}
+              >
+                <Text style={[styles.text, styles.linkText]}>here</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.form}>
+            <Formik
+              initialValues={{
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+              }}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              {({ handleChange, handleSubmit, errors }) => (
+                <>
+                  <View style={styles.inputContainer}>
+                    {signUpFailed ? (
+                      <Text style={{ color: 'red', alignSelf: 'center' }}>
+                        Registration Failed. Please try again.
+                      </Text>
+                    ) : null}
+                    <Text style={styles.text}>NAME</Text>
+                    <TextInput
+                      name='name'
+                      style={styles.input}
+                      autoCapitalize='words'
+                      placeholder='Name'
+                      autoCorrect={false}
+                      onChangeText={handleChange('name')}
+                    />
+                  </View>
+                  <Text style={{ color: 'red' }}>{errors.name}</Text>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.text}>EMAIL</Text>
+                    <TextInput
+                      name='email'
+                      style={styles.input}
+                      autoCapitalize='none'
+                      placeholder='Email'
+                      autoCorrect={false}
+                      keyboardType='email-address'
+                      textContentType='emailAddress'
+                      onChangeText={handleChange('email')}
+                    />
+                  </View>
+                  <Text style={{ color: 'red' }}>{errors.email}</Text>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.text}>PASSWORD</Text>
+                    <TextInput
+                      name='password'
+                      style={styles.input}
+                      secureTextEntry={true}
+                      autoCapitalize='none'
+                      placeholder='Password'
+                      autoCorrect={false}
+                      textContentType='password'
+                      onChangeText={handleChange('password')}
+                    />
+                  </View>
+                  <Text style={{ color: 'red' }}>{errors.password}</Text>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.text}>CONFIRM PASSWORD</Text>
+                    <TextInput
+                      name='confirmPassword'
+                      style={styles.input}
+                      secureTextEntry={true}
+                      autoCapitalize='none'
+                      placeholder='Confirm Password'
+                      autoCorrect={false}
+                      textContentType='password'
+                      onChangeText={handleChange('confirmPassword')}
+                    />
+                  </View>
+                  <Text style={{ color: 'red' }}>{errors.confirmPassword}</Text>
+                  <View style={styles.buttonContainer}>
+                    <Button
+                      style={styles.button}
+                      text='Sign Up'
+                      class='primary'
+                      Style={{ width: 300 }}
+                      onPress={handleSubmit}
+                      disabled={isLoading}
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ScreenTemplate>
   );
 };
@@ -161,6 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 20,
+    marginTop: Platform.OS === "ios" ? 50 : 20,
   },
   mainText: {
     fontSize: 32,

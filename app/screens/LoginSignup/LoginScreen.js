@@ -4,6 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -42,89 +45,100 @@ const Login2 = (props) => {
   };
   return (
     <ScreenTemplate>
-      <View style={styles.mainTextContainer}>
-        <Text style={[styles.text, styles.mainText]}>Welcome</Text>
-        <Text style={[styles.text, styles.mainText]}>Back</Text>
-        <View style={styles.secondaryTextContainer}>
-          <Text style={[styles.text, styles.secondaryText]}>Log in to continue</Text>
-        </View>
-      </View>
-      <View style={styles.form}>
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
         >
-          {({ handleChange, handleSubmit, errors }) => (
-            <>
-              <View style={styles.inputContainer}>
-                {loginFailed ? (
-                  <Text style={{ color: "red", alignSelf: "center" }}>
-                    Invalid Email or Password
-                  </Text>
-                ) : (
-                  <Text></Text>
-                )}
-                <Text style={styles.text}>EMAIL/USERNAME</Text>
-                <TextInput
-                  name="email"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Email"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  textContentType="emailAddress"
-                  onChangeText={(text) => {
-                    setLoginFailed(false);
-                    handleChange("email")(text);
-                  }}
-                ></TextInput>
-              </View>
-              <Text style={{ color: "red" }}>{errors.email}</Text>
-              <View style={styles.inputContainer}>
-                <Text style={styles.text}>PASSWORD</Text>
-                <TextInput
-                  name="password"
-                  style={styles.input}
-                  secureTextEntry={true}
-                  autoCapitalize="none"
-                  placeholder="Password"
-                  autoCorrect={false}
-                  textContentType="password"
-                  onChangeText={(text) => {
-                    setLoginFailed(false);
-                    handleChange("password")(text);
-                  }}
-                ></TextInput>
-              </View>
-              <Text style={{ color: "red" }}>{errors.password}</Text>
-              <View style={styles.buttonContainer}>
-                <Button
-                  style={styles.button}
-                  text="Login"
-                  class="primary"
-                  Style={{ width: 300 }}
-                  onPress={handleSubmit}
-                  disabled={isLoading}
-                />
-              </View>
-            </>
-          )}
-        </Formik>
-        <View style={styles.FooterTextContainer}>
-          <TouchableOpacity>
-            <Text style={[styles.text, styles.FooterText]}>Forgot Password?</Text>
-          </TouchableOpacity>
-          <View style={{ flexDirection: "row", marginTop: 10 }}>
-            <Text style={[styles.text, styles.secondaryText]}>New user? Sign Up{" "}</Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Signup Screen")}
-            >
-              <Text style={[styles.text, styles.FooterText]}>here</Text>
-            </TouchableOpacity>
+          <View style={styles.mainTextContainer}>
+            <Text style={[styles.text, styles.mainText]}>Welcome</Text>
+            <Text style={[styles.text, styles.mainText]}>Back</Text>
+            <View style={styles.secondaryTextContainer}>
+              <Text style={[styles.text, styles.secondaryText]}>Log in to continue</Text>
+            </View>
           </View>
-        </View>
-      </View>
+          <View style={styles.form}>
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              {({ handleChange, handleSubmit, errors }) => (
+                <>
+                  <View style={styles.inputContainer}>
+                    {loginFailed ? (
+                      <Text style={{ color: "red", alignSelf: "center" }}>
+                        Invalid Email or Password
+                      </Text>
+                    ) : (
+                      <Text></Text>
+                    )}
+                    <Text style={styles.text}>EMAIL/USERNAME</Text>
+                    <TextInput
+                      name="email"
+                      style={styles.input}
+                      autoCapitalize="none"
+                      placeholder="Email"
+                      autoCorrect={false}
+                      keyboardType="email-address"
+                      textContentType="emailAddress"
+                      onChangeText={(text) => {
+                        setLoginFailed(false);
+                        handleChange("email")(text);
+                      }}
+                    ></TextInput>
+                  </View>
+                  <Text style={{ color: "red" }}>{errors.email}</Text>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.text}>PASSWORD</Text>
+                    <TextInput
+                      name="password"
+                      style={styles.input}
+                      secureTextEntry={true}
+                      autoCapitalize="none"
+                      placeholder="Password"
+                      autoCorrect={false}
+                      textContentType="password"
+                      onChangeText={(text) => {
+                        setLoginFailed(false);
+                        handleChange("password")(text);
+                      }}
+                    ></TextInput>
+                  </View>
+                  <Text style={{ color: "red" }}>{errors.password}</Text>
+                  <View style={styles.buttonContainer}>
+                    <Button
+                      style={styles.button}
+                      text="Login"
+                      class="primary"
+                      Style={{ width: 300 }}
+                      onPress={handleSubmit}
+                      disabled={isLoading}
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
+            <View style={styles.FooterTextContainer}>
+              <TouchableOpacity>
+                <Text style={[styles.text, styles.FooterText]}>Forgot Password?</Text>
+              </TouchableOpacity>
+              <View style={{ flexDirection: "row", marginTop: 10 }}>
+                <Text style={[styles.text, styles.secondaryText]}>New user? Sign Up{" "}</Text>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate("Signup Screen")}
+                >
+                  <Text style={[styles.text, styles.FooterText]}>here</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ScreenTemplate>
   );
 };
@@ -137,6 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     marginBottom: 20,
+    marginTop: Platform.OS === "ios" ? 50 : 20,
   },
   mainText: {
     fontSize: 32,
