@@ -46,7 +46,7 @@ const ChatProfile = (props) => {
             style={styles.pic}
             source={require('../../assets/mountain.jpg')}
           />
-          {user.name ? (
+          {user && user.name ? (
             <Text style={styles.name}>{user.name}</Text>
           ) : (
             <Text style={styles.name}>User Deleted</Text>

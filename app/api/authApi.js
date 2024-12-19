@@ -8,4 +8,8 @@ const endpoint1 = '/auth/signUp';
 const register = (name, email, password) =>
   apiClient.post(endpoint1, { name, email, password });
 
-export default { login, register };
+const endpoint2 = '/auth/changePassword';
+const changePassword = (userId, currentPassword, newPassword) =>
+  apiClient.post(endpoint2, { userId, currentPassword, newPassword });
+
+export default { login, register, changePassword };
