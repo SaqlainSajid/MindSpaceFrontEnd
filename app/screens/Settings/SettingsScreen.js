@@ -97,7 +97,6 @@ const SettingsScreen = (props) => {
             />
           </View>
         )}
-        <Text>Settings</Text>
       </View>
     </ScreenTemplate>
   );
