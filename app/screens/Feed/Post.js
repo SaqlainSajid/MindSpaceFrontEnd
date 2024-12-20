@@ -17,7 +17,7 @@ import {
 } from "react-native-vector-icons";
 import React, { useState, useEffect, useContext } from "react";
 import postsApi from "../../api/postsApi";
-import usersApi from "../../api/usersApi";
+import {getUser} from "../../api/usersApi";
 import AuthContext from "../../auth/context";
 
 const formatDate = (dateString) => {
@@ -52,7 +52,7 @@ const Post = (props) => {
 
   const getUserName = async () => {
     try {
-      const res = await usersApi.getUser(props.username);
+      const res = await getUser(props.username);
 
       if (res.data.name) {
         setUserName(res.data.name);

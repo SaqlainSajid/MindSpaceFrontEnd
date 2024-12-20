@@ -16,4 +16,9 @@ const increment = (userId) => apiClient.patch(`users/${userId}${endpoint2}`);
 const endpoint3 = "/resetUnreadNotifs";
 const reset = (userId) => apiClient.patch(`users/${userId}${endpoint3}`);
 
-export default { register, store, increment, reset, getAll };
+const endpoint4 = "/deleteNotifs";
+
+const deleteAll = (userId) => apiClient.delete(`${endpoint4}/${userId}`);
+
+export default { register, store, increment, reset, getAll, deleteAll }; 
+

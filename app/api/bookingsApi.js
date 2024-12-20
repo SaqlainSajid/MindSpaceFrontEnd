@@ -28,6 +28,11 @@ const DenyBooking=(id)=>
 const confirmBooking=(id)=>
   apiClient.put(`${endpoint1}/confirm/${id}`)//used post instead of put to ensure notifications--Arqam
 
+const endpoint2 = "/deleteBookings";
+
+const deleteAll = (userId) => apiClient.delete(`${endpoint2}/${userId}`);
+
+
 export default {
   getDocDateBookings,
   setBooking,
@@ -40,7 +45,8 @@ export default {
   getAdminPreviousBookings,
   getAdminPendingBookings,
   confirmBooking,
-  DenyBooking
+  DenyBooking,
+  deleteAll
 };
 
 //adds times to availabilities of a doctor
