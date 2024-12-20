@@ -21,7 +21,7 @@ import {
   FontAwesome,
 } from "react-native-vector-icons";
 import Comment from "./Comment";
-import usersApi from "../../api/usersApi";
+import {getUser} from "../../api/usersApi";
 import postsApi from "../../api/postsApi";
 import AuthContext from "../../auth/context";
 import { useNavigation } from "@react-navigation/native";
@@ -48,16 +48,24 @@ const PostScreen = ({ route }) => {
   const nav = useNavigation();
   const [commentLikes, setCommentLikes] = useState({});
 
+
   useEffect(() => {
     setIsLoading(true);
     getPost();
     getUserName();
   }, []);
-
   const getUserName = async () => {
-    const res = await usersApi.getUser(passingValues.username);
-    setUserName(res.data.name);
-    setIsLoading(false);
+    try {
+      const res = await getUser(passingValues.username);
+
+      if (res.data.name) {
+        setUserName(res.data.name);
+      } else {
+        setUserName("user deleted");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error.message);
+    }
   };
 
   const handleShare = async () => {

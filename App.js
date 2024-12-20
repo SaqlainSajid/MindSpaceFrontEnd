@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, useColorScheme } from "react-native";
+import { StyleSheet, StatusBar, useColorScheme, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
@@ -24,32 +24,41 @@ export default function App() {
   };
 
   useEffect(() => {
-    restoreToken();
-    setAppLoaded(true);
+    const prepareApp = async () => {
+      await restoreToken();
+      setAppLoaded(true); // Signal that the app is ready
+    };
+
+    prepareApp();
   }, []);
 
   const onLayout = useCallback(async () => {
-    if (appLoaded) await SplashScreen.hideAsync();
+    if (appLoaded) {
+      await SplashScreen.hideAsync();
+    }
   }, [appLoaded]);
 
   if (!appLoaded) return null;
 
   return (
-    <SafeAreaProvider onLayout={onLayout}>
-      <AuthContext.Provider value={{ user, setUser }}>
-        <NavigationContainer>
-          {user ? (
-            <NotificationProvider>
-              <StackNavigator />
-            </NotificationProvider>
-          ) : (
-            <AuthNavigator />
-          )}
-        </NavigationContainer>
-        <StatusBar
-          barStyle={theme === "dark" ? "dark-content" : "light-content"}
-        />
-      </AuthContext.Provider>
+    <SafeAreaProvider>
+      {/* Wrap the entire app with a parent View for layout measurement */}
+      <View style={{ flex: 1 }} onLayout={onLayout}>
+        <AuthContext.Provider value={{ user, setUser }}>
+          <NavigationContainer>
+            {user ? (
+              <NotificationProvider>
+                <StackNavigator />
+              </NotificationProvider>
+            ) : (
+              <AuthNavigator />
+            )}
+          </NavigationContainer>
+          <StatusBar
+            barStyle={theme === "dark" ? "dark-content" : "light-content"}
+          />
+        </AuthContext.Provider>
+      </View>
     </SafeAreaProvider>
   );
 }
