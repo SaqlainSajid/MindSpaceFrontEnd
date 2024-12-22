@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from "react-native";
 import { Ionicons, Feather } from "react-native-vector-icons";
 import postsApi from "../../api/postsApi";
-import usersApi from "../../api/usersApi";
+import {getUser} from "../../api/usersApi";
 import AuthContext from "../../auth/context";
+
 
 const Comment = (props) => {
   const [liked, setLiked] = useState(false);
@@ -14,16 +15,26 @@ const Comment = (props) => {
 
   const authContext = useContext(AuthContext);
 
+
+
   useEffect(() => {
     getUserName();
   }, []);
 
   const getUserName = async () => {
-    const res = await usersApi.getUser(props.username);
-    setUserName(res.data.name);
-    if (props.likedBy.includes(authContext.user._id)) setLiked(true);
-  };
+    try {
+      const res = await getUser(props.username);
 
+      if (res.data.name) {
+        setUserName(res.data.name);
+      } else {
+        setUserName("user deleted");
+      }
+      if (props.likedBy.includes(authContext.user._id)) setLiked(true);
+    } catch (error) {
+      console.error("Error fetching user data:", error.message);
+    }
+  };
   const handleLike = async () => {
     try {
       if (liked) {

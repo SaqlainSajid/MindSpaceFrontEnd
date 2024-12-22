@@ -17,6 +17,7 @@ import { Feather } from "react-native-vector-icons";
 import AuthContext from "../auth/context";
 import NotificationContext from "../notifications/NotificationContext";
 import AdminBooking from "../screens/BookSession/forAdmin/AdminBooking";
+import UserManagement from "../screens/AdminUserManagement/UserManagement";
 
 const Tab = createBottomTabNavigator();
 
@@ -153,18 +154,34 @@ const NavBar = (props) => {
           }}
         />
       )}
-      <Tab.Screen
-        name="Vent"
-        component={Chat}
-        listeners={({ navigation }) => ({
-          tabPress: () => navigation.navigate("Vent"),
-        })}
-        options={{
-          tabBarIcon: () => {
-            return <Ionicons name="chatbubble-ellipses" size={30} />;
-          },
-        }}
-      />
+     {authContext.user.role === "admin" ? (
+        <Tab.Screen
+          name="UserManagement"
+          component={UserManagement}
+          listeners={({ navigation }) => ({
+            tabPress: () => navigation.navigate("UserManagement"),
+          })}
+          options={{
+            tabBarIcon: () => {
+              return <Ionicons name="chatbubble-ellipses" size={30} />;
+            },
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="Vent"
+          component={Chat}
+          listeners={({ navigation }) => ({
+            tabPress: () => navigation.navigate("Vent"),
+          })}
+          options={{
+            tabBarIcon: () => {
+              return <Ionicons name="chatbubble-ellipses" size={30} />;
+            },
+          }}
+        />
+      )}
+
     </Tab.Navigator>
   );
 };
