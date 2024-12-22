@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native";
@@ -24,8 +25,20 @@ const ChatScreen = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const smoothScrollToBottom = (force = false) => {
+    if (!chatScrollViewRef.current || !isAutoScrolling) return;
+    
+    setTimeout(() => {
+      chatScrollViewRef.current?.scrollToEnd({ 
+        animated: true,
+        duration: 500 
+      });
+    }, 500);
+  };
 
   useEffect(() => {
     loadMessages();
@@ -37,6 +50,7 @@ const ChatScreen = () => {
       if (response.data) {
         const temp = response.data.map((msg) => msg);
         setMessages(temp);
+        smoothScrollToBottom(true);
       }
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -56,9 +70,7 @@ const ChatScreen = () => {
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
-      setTimeout(() => {
-        chatScrollViewRef.current.scrollToEnd({ animated: true });
-      }, 100);
+      smoothScrollToBottom();
     });
 
     return () => {
@@ -67,17 +79,11 @@ const ChatScreen = () => {
     };
   }, []);
 
-  const sendMessage = () => {
-    if (message.trim() !== "") {
-      // Send the message to the server
-      socket.emit("sendMessage", {
-        roomId: userId,
-        message: { content: message, senderId: authContext.user._id },
-        role: authContext.user.role,
-      });
-      setMessage("");
+  useEffect(() => {
+    if (messages.length > 0 && isAutoScrolling) {
+      smoothScrollToBottom();
     }
-  };
+  }, [messages]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -97,6 +103,26 @@ const ChatScreen = () => {
     };
   }, [seconds, minutes]);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (messages.length > 0 && isAutoScrolling) {
+        smoothScrollToBottom();
+      }
+    }, [messages])
+  );
+
+  const sendMessage = () => {
+    if (message.trim() !== "") {
+      // Send the message to the server
+      socket.emit("sendMessage", {
+        roomId: userId,
+        message: { content: message, senderId: authContext.user._id },
+        role: authContext.user.role,
+      });
+      setMessage("");
+    }
+  };
+
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -110,7 +136,29 @@ const ChatScreen = () => {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScreenTemplate>
         <View style={styles.main}>
-          <ScrollView ref={chatScrollViewRef} style={styles.chatdisplay}>
+          <ScrollView 
+            ref={chatScrollViewRef} 
+            style={styles.chatdisplay}
+            onContentSizeChange={() => {
+              if (isAutoScrolling) {
+                smoothScrollToBottom();
+              }
+            }}
+            onScroll={(event) => {
+              const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+              const paddingToBottom = 20;
+              const isCloseToBottom = layoutMeasurement.height + contentOffset.y >= 
+                contentSize.height - paddingToBottom;
+              
+              // Only update auto-scroll when user manually scrolls
+              if (isCloseToBottom) {
+                setIsAutoScrolling(true);
+              } else {
+                setIsAutoScrolling(false);
+              }
+            }}
+            scrollEventThrottle={400}
+          >
             {messages.map((msg, index) => (
               <View
                 key={index}

@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { Ionicons } from "react-native-vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native";
@@ -25,6 +26,7 @@ const VolunteerChatScreen = () => {
   const [socket, setSocket] = useState(null);
   const [messagesDB, setMessagesDB] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
   useEffect(() => {
     loadMessages();
@@ -36,11 +38,23 @@ const VolunteerChatScreen = () => {
       if (response.data) {
         const temp = response.data.map((msg) => msg);
         setMessages(temp);
+        smoothScrollToBottom(true);
       }
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
     setIsLoading(false);
+  };
+
+  const smoothScrollToBottom = (force = false) => {
+    if (!chatScrollViewRef.current || !isAutoScrolling) return;
+    
+    setTimeout(() => {
+      chatScrollViewRef.current?.scrollToEnd({ 
+        animated: true,
+        duration: 500 
+      });
+    }, 500);
   };
 
   useEffect(() => {
@@ -55,9 +69,7 @@ const VolunteerChatScreen = () => {
     // Listen for incoming messages
     newSocket.on("message", (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
-      setTimeout(() => {
-        chatScrollViewRef.current.scrollToEnd({ animated: true });
-      }, 100);
+      smoothScrollToBottom();
     });
 
     return () => {
@@ -65,6 +77,20 @@ const VolunteerChatScreen = () => {
       newSocket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (messages.length > 0 && isAutoScrolling) {
+      smoothScrollToBottom();
+    }
+  }, [messages]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (messages.length > 0 && isAutoScrolling) {
+        smoothScrollToBottom();
+      }
+    }, [messages])
+  );
 
   const sendMessage = () => {
     if (message.trim() !== "") {
@@ -91,7 +117,29 @@ const VolunteerChatScreen = () => {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScreenTemplate>
         <View style={styles.main}>
-          <ScrollView ref={chatScrollViewRef} style={styles.chatdisplay}>
+          <ScrollView 
+            ref={chatScrollViewRef} 
+            style={styles.chatdisplay}
+            onContentSizeChange={() => {
+              if (isAutoScrolling) {
+                smoothScrollToBottom();
+              }
+            }}
+            onScroll={(event) => {
+              const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+              const paddingToBottom = 20;
+              const isCloseToBottom = layoutMeasurement.height + contentOffset.y >= 
+                contentSize.height - paddingToBottom;
+              
+              // Only update auto-scroll when user manually scrolls
+              if (isCloseToBottom) {
+                setIsAutoScrolling(true);
+              } else {
+                setIsAutoScrolling(false);
+              }
+            }}
+            scrollEventThrottle={400}
+          >
             {messages.map((msg, index) => (
               <View
                 key={index}

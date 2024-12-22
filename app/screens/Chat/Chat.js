@@ -13,22 +13,16 @@ import roomsApi from "../../api/roomsApi";
 import AuthContext from "../../auth/context";
 import { io } from "socket.io-client";
 import ChatProfile from "./ChatProfile";
-subscribed = false;
+import usersApi from "../../api/usersApi";
 
 const Chat = (props) => {
   const authContext = useContext(AuthContext);
   const [socket, setSocket] = useState(null);
   const [rooms, setRooms] = useState([]);
+  const [roomsData, setRoomsData] = useState({});
+  const [usersData, setUsersData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [room, setRoom] = useState([]);
-
-  useFocusEffect(
-    useCallback(() => {
-      setIsLoading(true);
-      loadRooms();
-      loadRoom();
-    }, [])
-  );
 
   const loadRoom = async () => {
     try {
@@ -42,12 +36,27 @@ const Chat = (props) => {
   const loadRooms = async () => {
     try {
       const response = await roomsApi.getRooms();
-
       if (response.data) {
-        const temp = response.data.map((room) => room.roomId);
-        setRooms(temp);
-      } else {
-        console.log("No data found in response");
+        const roomsInfo = response.data;
+        setRooms(roomsInfo.map(room => room.roomId));
+        
+        // Create a map of room data
+        const roomDataMap = {};
+        roomsInfo.forEach(room => {
+          roomDataMap[room.roomId] = room;
+        });
+        setRoomsData(roomDataMap);
+
+        // Load user data for each room
+        const userPromises = roomsInfo.map(room => usersApi.getUser(room.roomId));
+        const userResponses = await Promise.all(userPromises);
+        
+        // Create a map of user data
+        const userDataMap = {};
+        userResponses.forEach((response, index) => {
+          userDataMap[roomsInfo[index].roomId] = response.data;
+        });
+        setUsersData(userDataMap);
       }
     } catch (error) {
       console.error("Error fetching rooms:", error);
@@ -56,21 +65,82 @@ const Chat = (props) => {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      loadRooms();
+      loadRoom();
+    }, [])
+  );
+
   useEffect(() => {
     const newSocket = io.connect(
       "https://mindspace-backend-4bec1331aedc.herokuapp.com/"
     );
     setSocket(newSocket);
 
-    newSocket.on("newRoom", (room) => {
-      if (!rooms.includes(room)) {
-        setRooms((prevRooms) => [room, ...prevRooms]);
+    newSocket.on("connect", () => {
+      loadRooms();
+    });
+
+    // Handle new messages
+    newSocket.on("message", async (msg) => {
+      const roomId = msg.roomId;
+      
+      // Update rooms order only for new messages
+      setRooms(prevRooms => {
+        if (!prevRooms.includes(roomId)) return prevRooms;
+        const otherRooms = prevRooms.filter(r => r !== roomId);
+        return [roomId, ...otherRooms];
+      });
+
+      // Reload room data
+      try {
+        const roomResponse = await roomsApi.getRoom(roomId);
+        if (roomResponse.data && roomResponse.data[0]) {
+          setRoomsData(prev => ({
+            ...prev,
+            [roomId]: roomResponse.data[0]
+          }));
+        }
+      } catch (error) {
+        console.error("Error updating room data:", error);
+      }
+    });
+
+    // Handle new rooms
+    newSocket.on("newRoom", async (roomId) => {
+      try {
+        // Load room data
+        const roomResponse = await roomsApi.getRoom(roomId);
+        const userResponse = await usersApi.getUser(roomId);
+
+        if (roomResponse.data && roomResponse.data[0]) {
+          setRoomsData(prev => ({
+            ...prev,
+            [roomId]: roomResponse.data[0]
+          }));
+
+          setUsersData(prev => ({
+            ...prev,
+            [roomId]: userResponse.data
+          }));
+
+          setRooms(prevRooms => {
+            if (!prevRooms.includes(roomId)) {
+              return [...prevRooms, roomId];
+            }
+            return prevRooms;
+          });
+        }
+      } catch (error) {
+        console.error("Error handling new room:", error);
       }
     });
 
     return () => {
-      if (socket) {
-        socket.disconnect();
+      if (newSocket) {
+        newSocket.disconnect();
       }
     };
   }, []);
@@ -158,11 +228,14 @@ const Chat = (props) => {
             </Text>
           </View>
           <ScrollView style={styles.chatList}>
-            {rooms
-              ? rooms.map((room) => (
-                  <ChatProfile key={room} nav={props.navigation} room={room} />
-                ))
-              : null}
+            {rooms.map((roomId) => (
+              <ChatProfile 
+                key={roomId} 
+                room={roomId} 
+                nav={props.navigation}
+                userData={usersData[roomId]}
+              />
+            ))}
           </ScrollView>
         </View>
       </ScreenTemplate>
