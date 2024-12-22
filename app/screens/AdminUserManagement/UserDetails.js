@@ -15,6 +15,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import { getUser, DeleteUser } from "../../api/usersApi";
 import notificationsApi from "../../api/notificationsApi";
 import bookingsApi from "../../api/bookingsApi";
+import usersApi from "../../api/usersApi";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -53,6 +54,8 @@ const UserDetails = () => {
     try {
       await notificationsApi.deleteAll(userId);
       await bookingsApi.deleteAll(userId);
+      await usersApi.deletePostByUser(userId);
+      await usersApi.deleteCommentsByUser(userId);
       await DeleteUser(userId);
       Alert.alert("Success", "User and all related data deleted successfully.");
       navigation.goBack();

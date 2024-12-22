@@ -7,13 +7,14 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Ionicons } from "react-native-vector-icons";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { getAllUsers } from "../../api/usersApi"; // Removed DeleteUser as it will be handled in UserDetails.js
 import filter from "lodash.filter";
 import { useNavigation } from "@react-navigation/native";
 import UserProfile from "./Profile";
+import { useFocusEffect } from "@react-navigation/native";
 
 const UserManagement = (props) => {
   const [usersData, setUsersData] = useState([]);
@@ -22,10 +23,12 @@ const UserManagement = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    setIsLoading(true);
-    loadUsers();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoading(true);
+      loadUsers();
+    }, [])
+  );
 
   // Function to handle search
   const handleSearch = (query) => {
@@ -89,6 +92,12 @@ const UserManagement = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("AddUser")}
+        >
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.container}>
         {filteredData.length === 0 ? (
@@ -133,6 +142,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 10,
+    marginBottom: 15,
+    paddingHorizontal: 8,
   },
   input: {
     flex: 1,
@@ -142,6 +153,21 @@ const styles = StyleSheet.create({
     height: 40,
     marginHorizontal: 10,
     paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    padding: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  buttonText: {
+    fontSize: 24,
+    color: "black",
   },
   userCard: {
     flexDirection: "column", 

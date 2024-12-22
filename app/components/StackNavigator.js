@@ -35,6 +35,8 @@ import AdminBooking from '../screens/BookSession/forAdmin/AdminBooking';
 import AdminConfirmed from '../screens/BookSession/forAdmin/AdminConfirmed';
 import AdminPending from '../screens/BookSession/forAdmin/AdminPending';
 import AdminPrev from '../screens/BookSession/forAdmin/AdminPrev';
+import UserDetails from '../screens/AdminUserManagement/UserDetails';
+import AddUser from '../screens/AdminUserManagement/AddUser';
 
 const stack = createStackNavigator();
 
@@ -250,6 +252,11 @@ const StackNavigator = () => {
         }}
       />
       <stack.Screen
+        name='UserDetails'
+        component={UserDetails}
+        options={{ headerShown: true, headerTitle: 'User Details' }}
+      />
+      <stack.Screen
         name='PaymentScreen'
         component={PaymentScreen}
         options={{ headerShown: true, headerTitle: 'Pay Advance' }}
@@ -278,6 +285,11 @@ const StackNavigator = () => {
         name='AdminPending'
         component={AdminPending}
         options={{ headerShown: true, headerTitle: 'AdminPending' }}
+      />
+      <stack.Screen
+        name='AddUser'
+        component={AddUser}
+        options={{ headerShown: true, headerTitle: 'Add New User' }}
       />
     </stack.Navigator>
   );
