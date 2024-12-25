@@ -28,9 +28,7 @@ const DenyBooking=(id)=>
 const confirmBooking=(id)=>
   apiClient.put(`${endpoint1}/confirm/${id}`)//used post instead of put to ensure notifications--Arqam
 
-const endpoint2 = "/deleteBookings";
-
-const deleteAll = (userId) => apiClient.delete(`${endpoint2}/${userId}`);
+const deleteAll = (userId) => apiClient.delete(`${endpoint1}/deleteBookings/${userId}`);
 
 
 export default {

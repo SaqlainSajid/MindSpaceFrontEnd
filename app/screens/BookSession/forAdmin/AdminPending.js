@@ -4,42 +4,47 @@ import ScreenTemplate from "../../../components/ScreenTemplate";
 import bookingsApi from "../../../api/bookingsApi";
 import BookingComponent from "../../../components/BookingComponent";
 import { useFocusEffect } from "@react-navigation/native";
+
 const AdminPending = () => {
-  const [Pending, setPending] = useState([]);
+  const [pending, setPending] = useState([]);
+
   const getPending = async () => {
     try {
       const response = await bookingsApi.getAdminPendingBookings();
       setPending(response.data);
     } catch (error) {
       console.error("Error fetching pending bookings:", error);
-      throw error;
     }
   };
+
   useFocusEffect(
     useCallback(() => {
       getPending();
-    }, [Pending])
+    }, []) // Remove Pending from dependency array to avoid infinite loop
   );
-  const handleBookingUpdate = (updatedBooking) => {
+
+  const handleBookingUpdate = (bookingId) => {
+    // Remove the updated booking from the list
     setPending((prevPending) =>
-      prevPending.filter((booking) => booking._id !== updatedBooking)
+      prevPending.filter((booking) => booking._id !== bookingId)
     );
   };
+
   return (
     <ScreenTemplate>
       <View style={styles.main}>
-        <ScrollView style={{ flex: 1, margin: 10 }}>
-          {Pending?.length > 0 ? (
-            Pending.map((booking, index) => (
+        <ScrollView style={styles.scrollView}>
+          {pending?.length > 0 ? (
+            pending.map((booking) => (
               <BookingComponent
-                key={index}
+                key={booking._id}
                 booking={booking}
                 onBookingUpdate={handleBookingUpdate}
               />
             ))
           ) : (
             <Text style={styles.noBookings}>
-              Pending Bookings will be shown here
+              No pending bookings at the moment
             </Text>
           )}
         </ScrollView>
@@ -48,16 +53,20 @@ const AdminPending = () => {
   );
 };
 
-export default AdminPending;
-
 const styles = StyleSheet.create({
   main: {
+    flex: 1,
+  },
+  scrollView: {
     flex: 1,
     margin: 10,
   },
   noBookings: {
-    alignSelf: "center",
-    fontSize: 25,
-    fontWeight: "500",
+    textAlign: "center",
+    fontSize: 16,
+    color: "#666",
+    marginTop: 20,
   },
 });
+
+export default AdminPending;

@@ -54,7 +54,7 @@ const unlikeComment = (id, commentId, userId) =>
   apiClient.patch(`${endpoint12}/${id}/${commentId}/${userId}`);
 
 // Deletes all comments by a specific user
-const endpoint13 = "/posts/delete-comments-by-user";
+const endpoint13 = "/posts/delete-replies-by-user";
 const deleteCommentsByUser = (userId) =>
   apiClient.delete(`${endpoint13}/${userId}`);
 
@@ -67,6 +67,7 @@ const deleteLikesByUser = (userId) =>
 const endpoint15 = "/posts/delete-posts-by-user";
 const deletePostsByUser = (userId) =>
   apiClient.delete(`${endpoint15}/${userId}`);
+
 
 
 export default {

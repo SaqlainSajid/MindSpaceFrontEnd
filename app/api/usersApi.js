@@ -20,4 +20,16 @@ const createUser = (userData) => {
 
 const DeleteUser = (userId) => apiClient.delete(`${endpoint1}/${userId}`);
 
+
+// Create an object with all functions
+const usersApi = {
+    getUser,
+    getAllUsers,
+    DeleteUser,
+    createUser,
+    uploadProfilePhoto,
+};
+
+// Export both the default object and individual functions
+export default usersApi;
 export { getUser, getAllUsers, DeleteUser, createUser, uploadProfilePhoto };

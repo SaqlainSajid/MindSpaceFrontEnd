@@ -16,6 +16,7 @@ import { getUser, DeleteUser } from "../../api/usersApi";
 import notificationsApi from "../../api/notificationsApi";
 import bookingsApi from "../../api/bookingsApi";
 import usersApi from "../../api/usersApi";
+import postsApi from "../../api/postsApi";
 
 const UserDetails = () => {
   const [user, setUser] = useState(null);
@@ -48,20 +49,64 @@ const UserDetails = () => {
     }
   };
 
-  const handleDeleteUser = async () => {
-    setModalVisible(false); // Close the modal
-    setIsDeleting(true);
+  const deleteUserData = async () => {
+    const results = {
+      notifications: false,
+      bookings: false,
+      posts: false,
+      comments: false
+    };
+
     try {
       await notificationsApi.deleteAll(userId);
+      results.notifications = true;
+    } catch (error) {
+      console.error("Error deleting notifications:", error);
+      throw new Error("Failed to delete notifications");
+    }
+
+    try {
       await bookingsApi.deleteAll(userId);
-      await usersApi.deletePostByUser(userId);
-      await usersApi.deleteCommentsByUser(userId);
+      results.bookings = true;
+    } catch (error) {
+      console.error("Error deleting bookings:", error);
+      throw new Error("Failed to delete bookings");
+    }
+
+    try {
+      await postsApi.deletePostsByUser(userId);
+      results.posts = true;
+    } catch (error) {
+      console.error("Error deleting posts:", error);
+      throw new Error("Failed to delete posts");
+    }
+
+    try {
+      await postsApi.deleteCommentsByUser(userId);
+      results.comments = true;
+    } catch (error) {
+      console.error("Error deleting comments:", error);
+      throw new Error("Failed to delete comments");
+    }
+
+    return results;
+  };
+
+  const handleDeleteUser = async () => {
+    setModalVisible(false);
+    setIsDeleting(true);
+
+    try {
+      // First delete all related data
+      await deleteUserData();
+      
+      // If all deletions succeeded, delete the user
       await DeleteUser(userId);
       Alert.alert("Success", "User and all related data deleted successfully.");
       navigation.goBack();
     } catch (error) {
-      console.error("Error deleting user and related data:", error);
-      Alert.alert("Error", "Failed to delete user. Please try again.");
+      console.error("Error in deletion process:", error);
+      Alert.alert("Error", "Failed to delete user data. Please try again.");
     } finally {
       setIsDeleting(false);
     }

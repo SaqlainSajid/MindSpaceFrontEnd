@@ -48,12 +48,20 @@ const PostScreen = ({ route }) => {
   const nav = useNavigation();
   const [commentLikes, setCommentLikes] = useState({});
 
-
   useEffect(() => {
-    setIsLoading(true);
-    getPost();
-    getUserName();
+    const loadData = async () => {
+      setIsLoading(true);
+      try {
+        await Promise.all([getPost(), getUserName()]);
+      } catch (error) {
+        console.error("Error loading post data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadData();
   }, []);
+
   const getUserName = async () => {
     try {
       const res = await getUser(passingValues.username);
@@ -65,6 +73,17 @@ const PostScreen = ({ route }) => {
       }
     } catch (error) {
       console.error("Error fetching user data:", error.message);
+    }
+  };
+
+  const getPost = async () => {
+    try {
+      const res = await postsApi.getPost(passingValues.postId);
+      setLikes(res.data.likes);
+      setComments(res.data.replies);
+      if (res.data.likedBy.includes(authContext.user._id)) setLiked(true);
+    } catch (error) {
+      console.error("Error fetching post:", error);
     }
   };
 
@@ -85,13 +104,6 @@ const PostScreen = ({ route }) => {
     } catch (error) {
       console.error("Error sharing post:", error.message);
     }
-  };
-
-  const getPost = async () => {
-    const res = await postsApi.getPost(passingValues.postId);
-    setLikes(res.data.likes);
-    setComments(res.data.replies);
-    if (res.data.likedBy.includes(authContext.user._id)) setLiked(true);
   };
 
   const handleDelete = async () => {
