@@ -30,7 +30,7 @@ const AdminConfirmed = () => {
             ))
           ) : (
             <Text style={styles.noBookings}>
-              Please Confirmed the selected bookings
+              There are no Confirmed Bookings at the moment
             </Text>
           )}
         </ScrollView>
@@ -47,8 +47,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   noBookings: {
-    alignSelf: "center",
-    fontSize: 25,
-    fontWeight: "500",
+    textAlign: "center",
+    fontSize: 16,
+    color: "#666",
+    marginTop: 20,
   },
 });

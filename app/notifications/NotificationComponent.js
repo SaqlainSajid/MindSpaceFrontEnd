@@ -5,24 +5,24 @@ import { useNavigation } from '@react-navigation/native';
 const NotificationComponent = (props) => {
   const nav = useNavigation();
   const { notification } = props.notification || {};
-  const navigate = (type) => {
-    if (type === 'chat') {
-      nav.navigate('Chat');
-    }
-    if (type === 'bookingAccepted') {
-      nav.navigate('Bookings');
-    }
-    if (type === 'newPendingBooking') {
-      nav.navigate('AdminBooking');
-    }
-    if (
-      type === 'commentLike' ||
-      type === 'postComment' ||
-      type === 'postLike'
-    ) {
-      nav.navigate('Discussion');
-    }
-  };
+  // const navigate = (type) => {
+  //   if (type === 'chat') {
+  //     nav.navigate('Chat');
+  //   }
+  //   if (type === 'bookingAccepted') {
+  //     nav.navigate('Bookings');
+  //   }
+  //   if (type === 'newPendingBooking') {
+  //     nav.navigate('AdminBooking');
+  //   }
+  //   if (
+  //     type === 'commentLike' ||
+  //     type === 'postComment' ||
+  //     type === 'postLike'
+  //   ) {
+  //     nav.navigate('Discussion');
+  //   }
+  // };
   if (!notification || !notification.data) {
     return (
       <View style={styles.notifContainer}>
@@ -31,7 +31,7 @@ const NotificationComponent = (props) => {
     );
   }
   return (
-    <TouchableOpacity onPress={() => navigate(notification.notifType)}>
+    <TouchableOpacity>
       <View style={styles.notifContainer}>
         <Text>{notification.data.message}</Text>
       </View>

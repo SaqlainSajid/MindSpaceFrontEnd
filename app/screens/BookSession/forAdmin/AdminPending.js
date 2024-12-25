@@ -44,7 +44,7 @@ const AdminPending = () => {
             ))
           ) : (
             <Text style={styles.noBookings}>
-              No pending bookings at the moment
+              There are no pending bookings at the moment
             </Text>
           )}
         </ScrollView>
